@@ -1,28 +1,22 @@
-﻿  compilation object save succeeded; see C:\KamataEngine\DirectXGame\x64\Release\ObjPS.cso
-  compilation object save succeeded; see C:\KamataEngine\DirectXGame\x64\Release\ObjVS.cso
-  compilation object save succeeded; see C:\KamataEngine\DirectXGame\x64\Release\ShapePS.cso
-  compilation object save succeeded; see C:\KamataEngine\DirectXGame\x64\Release\ShapeVS.cso
-  compilation object save succeeded; see C:\KamataEngine\DirectXGame\x64\Release\SpritePS.cso
-  compilation object save succeeded; see C:\KamataEngine\DirectXGame\x64\Release\SpriteVS.cso
-  DebugText.cpp
-  Sprite.cpp
-  DebugCamera.cpp
-  LightGroup.cpp
-  Material.cpp
-  Mesh.cpp
-  Model.cpp
-  ViewProjection.cpp
-  WorldTransform.cpp
-  Audio.cpp
-  AxisIndicator.cpp
-  DirectXCommon.cpp
-  TextureManager.cpp
-  WinApp.cpp
-  Input.cpp
-  main.cpp
-  GameScene.cpp
+﻿  GameScene.cpp
   コード生成しています。
-  Previous IPDB not found, fall back to full compilation.
-  All 2048 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  2 of 2080 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
+DebugText.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+Sprite.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+DebugCamera.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+LightGroup.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+Material.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+Mesh.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+Model.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+ViewProjection.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+WorldTransform.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+Audio.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+AxisIndicator.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+DirectXCommon.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+TextureManager.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+WinApp.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
+Input.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
   DirectXGame.vcxproj -> C:\KamataEngine\DirectXGame\x64\Release\DirectXGame.exe
