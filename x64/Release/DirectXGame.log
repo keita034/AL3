@@ -1,9 +1,8 @@
-﻿  main.cpp
-  GameScene.cpp
+﻿  GameScene.cpp
   コード生成しています。
-  9 of 2052 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  0 of 2052 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    15 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
 DebugText.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
 Sprite.obj : warning LNK4204: 'C:\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
