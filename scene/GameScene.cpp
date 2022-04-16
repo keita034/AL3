@@ -10,6 +10,7 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() { delete model_; }
 
+
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
@@ -50,6 +51,54 @@ void GameScene::Update() {
 			CameraNum = 0;
 		}
 	}
+
+	//カメラ1
+	debugText_->Print("Camera1",50.0f,30.0f);
+
+	debugText_->SetPos(50, 50);
+	debugText_->Printf(
+		"eye:(%f,%f,%f)", viewProjection_[0].eye.x, viewProjection_[0].eye.y, viewProjection_[0].eye.z);
+
+	debugText_->SetPos(50, 70);
+	debugText_->Printf(
+		"target:(%f,%f,%f)", viewProjection_[0].target.x, viewProjection_[0].target.y,
+		viewProjection_[0].target.z);
+
+	debugText_->SetPos(50, 90);
+	debugText_->Printf(
+		"up:(%f,%f,%f)", viewProjection_[0].up.x, viewProjection_[0].up.y, viewProjection_[0].up.z);
+
+	//カメラ2
+	debugText_->Print("Camera2", 50.0f, 130.0f);
+
+	debugText_->SetPos(50, 150);
+	debugText_->Printf(
+		"eye:(%f,%f,%f)", viewProjection_[1].eye.x, viewProjection_[1].eye.y, viewProjection_[1].eye.z);
+
+	debugText_->SetPos(50, 170);
+	debugText_->Printf(
+		"target:(%f,%f,%f)", viewProjection_[1].target.x, viewProjection_[1].target.y,
+		viewProjection_[1].target.z);
+
+	debugText_->SetPos(50, 190);
+	debugText_->Printf(
+		"up:(%f,%f,%f)", viewProjection_[1].up.x, viewProjection_[1].up.y, viewProjection_[1].up.z);
+
+	//カメラ3
+	debugText_->Print("Camera3", 50, 230);
+
+	debugText_->SetPos(50, 250);
+	debugText_->Printf(
+		"eye:(%f,%f,%f)", viewProjection_[2].eye.x, viewProjection_[2].eye.y, viewProjection_[2].eye.z);
+
+	debugText_->SetPos(50, 270);
+	debugText_->Printf(
+		"target:(%f,%f,%f)", viewProjection_[2].target.x, viewProjection_[2].target.y,
+		viewProjection_[2].target.z);
+
+	debugText_->SetPos(50, 290);
+	debugText_->Printf(
+		"up:(%f,%f,%f)", viewProjection_[2].up.x, viewProjection_[2].up.y, viewProjection_[2].up.z);
 }
 
 void GameScene::Draw() {
