@@ -44,19 +44,7 @@ class GameScene {
 
 	// メンバ変数
 
-	//パーツID
-	enum PartId
-	{
-		Root,  //大元
-		Spine, //脊椎
-		Chest, //胸
-		Head,  //頭
-		ArmL,  //左腕
-		ArmR,  //右腕
-		Hip,   //尻
-		LegL,  //左腕
-		LegR,  //右腕
-	};
+
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -68,7 +56,7 @@ class GameScene {
 	// 3dモデル
 	Model* model_ = nullptr;
 	//ワールドトランスフォーム
-	WorldTransform worldTransform_[100];
+	WorldTransform worldTransform_[9][9];
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
