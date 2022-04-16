@@ -45,7 +45,7 @@ void GameScene::Initialize() {
 	viewProjection_.fovAngleY = XMConvertToRadians(45.0f);
 
 	//アスペクト比を設定
-	viewProjection_.aspectRatio = 1.0f;
+	//viewProjection_.aspectRatio = 1.0f;
 
 	//ニアクリップ距離を設定
 	viewProjection_.nearZ = 52.0f;
