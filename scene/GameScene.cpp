@@ -35,70 +35,41 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 
 	//ビュープロジェクション初期化
-	for (size_t i = 0; i < _countof(viewProjection_); i++) {
-
-		viewProjection_[i].eye = {posDist(engine), posDist(engine), posDist(engine)};
-
-		viewProjection_[i].Initialize();
-	}
+		viewProjection_.Initialize();
 }
 
 void GameScene::Update() {
-	if (input_->TriggerKey(DIK_SPACE)) {
-		CameraNum++;
 
-		if (CameraNum >= 3){
-			CameraNum = 0;
-		}
-	}
+	// 度数法を変換
+	float rad = Angle * XM_PI / 180.0f;
+	
+	//円の位置を割り出す
+	float add_x = cos(rad) * 10.0f;
+	float add_z = sin(rad) * 10.0f;
+	
+	//中心座標に位置を加算
+ 	viewProjection_.eye.x = worldTransform_.translation_.x + add_x;
+	viewProjection_.eye.z = worldTransform_.translation_.z + add_z;
 
-	//カメラ1
-	debugText_->Print("Camera1",50.0f,30.0f);
+	//角度加算
+	Angle += 1.0f;
 
+	//行列の再計算
+	viewProjection_.UpdateMatrix();
+
+	//デバッグ表示
 	debugText_->SetPos(50, 50);
 	debugText_->Printf(
-		"eye:(%f,%f,%f)", viewProjection_[0].eye.x, viewProjection_[0].eye.y, viewProjection_[0].eye.z);
+		"eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
 
 	debugText_->SetPos(50, 70);
 	debugText_->Printf(
-		"target:(%f,%f,%f)", viewProjection_[0].target.x, viewProjection_[0].target.y,
-		viewProjection_[0].target.z);
+		"target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y,
+		viewProjection_.target.z);
 
 	debugText_->SetPos(50, 90);
 	debugText_->Printf(
-		"up:(%f,%f,%f)", viewProjection_[0].up.x, viewProjection_[0].up.y, viewProjection_[0].up.z);
-
-	//カメラ2
-	debugText_->Print("Camera2", 50.0f, 130.0f);
-
-	debugText_->SetPos(50, 150);
-	debugText_->Printf(
-		"eye:(%f,%f,%f)", viewProjection_[1].eye.x, viewProjection_[1].eye.y, viewProjection_[1].eye.z);
-
-	debugText_->SetPos(50, 170);
-	debugText_->Printf(
-		"target:(%f,%f,%f)", viewProjection_[1].target.x, viewProjection_[1].target.y,
-		viewProjection_[1].target.z);
-
-	debugText_->SetPos(50, 190);
-	debugText_->Printf(
-		"up:(%f,%f,%f)", viewProjection_[1].up.x, viewProjection_[1].up.y, viewProjection_[1].up.z);
-
-	//カメラ3
-	debugText_->Print("Camera3", 50, 230);
-
-	debugText_->SetPos(50, 250);
-	debugText_->Printf(
-		"eye:(%f,%f,%f)", viewProjection_[2].eye.x, viewProjection_[2].eye.y, viewProjection_[2].eye.z);
-
-	debugText_->SetPos(50, 270);
-	debugText_->Printf(
-		"target:(%f,%f,%f)", viewProjection_[2].target.x, viewProjection_[2].target.y,
-		viewProjection_[2].target.z);
-
-	debugText_->SetPos(50, 290);
-	debugText_->Printf(
-		"up:(%f,%f,%f)", viewProjection_[2].up.x, viewProjection_[2].up.y, viewProjection_[2].up.z);
+		"up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
 }
 
 void GameScene::Draw() {
@@ -128,7 +99,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
-	model_->Draw(worldTransform_, viewProjection_[CameraNum], textureHandle_);
+	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

@@ -58,12 +58,12 @@ class GameScene {
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	//ビュープロジェクション
-	ViewProjection viewProjection_[3];
+	ViewProjection viewProjection_;
 
 	//カメラ上方向の角度
 	float viewAngle = 0.0f;
 
-	int CameraNum = 0;
+	float Angle = 0;
 
 	/// <summary>
 	/// ゲームシーン用
