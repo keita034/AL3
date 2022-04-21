@@ -62,9 +62,10 @@ class GameScene {
 
 	//カメラ上方向の角度
 	float viewAngle = 0.0f;
-
+	//カメラの番号
 	int CameraNum = 0;
-
+	//移動フラグ
+	bool MoveFlag = false;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

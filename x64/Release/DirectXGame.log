@@ -1,4 +1,5 @@
 ﻿  GameScene.cpp
+C:\KamataEngine\DirectXGame\scene\GameScene.cpp(79,50): warning C4305: '+=': 'double' から 'float' へ切り詰めます。
   コード生成しています。
   2 of 2069 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation

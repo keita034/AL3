@@ -47,36 +47,63 @@ void GameScene::Initialize() {
 	viewProjection_.Initialize();
 }
 
-
 void GameScene::Update() {
 
 	//カメラ切り替え
-	if (input_->TriggerKey(DIK_SPACE)) {
-		CameraNum += 1;
+	if (input_->TriggerKey(DIK_SPACE) && !MoveFlag) {
+		MoveFlag = true;
+	}
 
-		if (CameraNum >= 3) {
-			CameraNum = 0;
+ 	if (MoveFlag) {
+		switch (CameraNum) {
+		case 0:
+			if (viewProjection_.target.y < worldTransform_[0].translation_.y) {
+				viewProjection_.target.y += (worldTransform_[0].translation_.y + -worldTransform_[2].translation_.y) / 100;
+			} else {
+				viewProjection_.target.y = worldTransform_[0].translation_.y;
+			}
+
+			if (viewProjection_.target.x > worldTransform_[0].translation_.x) {
+				viewProjection_.target.x -= worldTransform_[2].translation_.x / 100;
+			} else {
+				viewProjection_.target.x = worldTransform_[0].translation_.x;
+			}
+
+			if (viewProjection_.target.x == worldTransform_[0].translation_.x && viewProjection_.target.y == worldTransform_[0].translation_.y) {
+				MoveFlag = false;
+				CameraNum++;
+			}
+			break;
+		case 1:
+			if (viewProjection_.target.y > -2.5f) {
+				viewProjection_.target.y += (-5 + -2.5) / 100;
+			}
+			if (viewProjection_.target.x > -4.330127f) {
+				viewProjection_.target.x += -4.330127f / 100;
+			} else {
+				viewProjection_.target.x = -4.330127f;
+			}
+
+			if (viewProjection_.target.x == -4.330127f && viewProjection_.target.y == -2.5f) {
+				MoveFlag = false;
+				CameraNum++;
+			}
+
+			break;
+		case 2:
+			if (viewProjection_.target.x < 4.330127f) {
+				viewProjection_.target.x += (4.330127f + 4.330127f) / 100;
+			} else {
+				viewProjection_.target.x = 4.330127f;
+			}
+
+			if (viewProjection_.target.x == 4.330127f) {
+				MoveFlag = false;
+				CameraNum = 0;
+			}
+			break;
 		}
 	}
-
-	switch (CameraNum) {
-	case 0:
-		viewProjection_.target = {
-		  worldTransform_[0].translation_.x, worldTransform_[0].translation_.y,
-		  worldTransform_[0].translation_.z};
-		break;
-	case 1:
-		viewProjection_.target = {
-		  worldTransform_[1].translation_.x, worldTransform_[1].translation_.y,
-		  worldTransform_[1].translation_.z};
-		break;
-	case 2:
-		viewProjection_.target = {
-		  worldTransform_[2].translation_.x, worldTransform_[2].translation_.y,
-		  worldTransform_[2].translation_.z};
-		break;
-	}
-
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
 
