@@ -53,13 +53,17 @@ class GameScene {
 	// 3dモデル
 	Model* model_ = nullptr;
 	//ワールドトランスフォーム
-	WorldTransform worldTransform_[9][9];
+	WorldTransform worldTransform_[100];
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
-	//カメラ上方向の角度
-	float viewAngle = 0.0f;
+	//スコープフラグ
+	bool ScopeFlag = false;
 
+	//スコープテクスチャハンドル
+	uint32_t ScopeTextureHandle = 0;
+
+	Sprite* ScopeSprite = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

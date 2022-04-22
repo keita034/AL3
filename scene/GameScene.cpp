@@ -6,9 +6,15 @@
 using namespace DirectX;
 using namespace std;
 
+const int WindowWidth = 1280; // 横幅
+const int WindowHeight = 720; // 縦幅
+
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete model_; }
+GameScene::~GameScene() {
+	delete model_;
+	delete ScopeSprite;
+}
 
 void GameScene::Initialize() {
 
@@ -19,19 +25,39 @@ void GameScene::Initialize() {
 
 	//テクスチャ読み込み
 	textureHandle_ = TextureManager::Load("mario.jpg");
+	ScopeTextureHandle = TextureManager::Load("reticle.png");
+
+	//スプライトの生成
+	ScopeSprite = Sprite::Create(ScopeTextureHandle, {0, 0});
+
+	//スプライトの位置調整
+	XMFLOAT2 ScopeSize = ScopeSprite->GetSize();
+	XMFLOAT2 ScopePosition = {
+	  WindowWidth / 2 - (ScopeSize.x / 2), WindowHeight / 2 - (ScopeSize.y / 2)};
+	ScopeSprite->SetPosition(ScopePosition);
+
+	random_device seedGen;
+
+	mt19937_64 engine(seedGen());
+
+	uniform_real_distribution<float> rotDist(0.0f, XM_2PI);
+
+	uniform_real_distribution<float> posDist(-10.0f, 10.0f);
 
 	for (size_t i = 0; i < _countof(worldTransform_); i++) {
 
-		for (size_t j = 0; j < _countof(worldTransform_); j++) {
-			worldTransform_[i][j].scale_ = {1.0f, 1.0f, 1.0f};
+		//スケーリングを設定
+		worldTransform_[i].scale_ = {1.0f, 1.0f, 1.0f};
+		//回転角を設定
+		worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine), rotDist(engine)};
+		//平行移動を設定
+		worldTransform_[i].translation_ = {posDist(engine), posDist(engine), posDist(engine)};
 
-			//平行移動を設定
-			worldTransform_[i][j].translation_ = {-16.0f + j * 4.0f, -16.0f + i * 4.0f, 0};
-
-			//ワールドトランスフォーム初期化
-			worldTransform_[i][j].Initialize();
-		}
+		//ワールドトランスフォーム初期化
+		worldTransform_[i].Initialize();
 	}
+
+	viewProjection_.fovAngleY = 0.69813168f;
 
 	//ビュープロジェクション初期化
 	viewProjection_.Initialize();
@@ -43,37 +69,41 @@ void GameScene::Update() {
 
 #pragma endregion
 
-	// Fov変更処理
-	//上キーで視野角が広がる
-	if (input_->PushKey(DIK_UP)) {
-		viewProjection_.fovAngleY += 0.01f;
-		viewProjection_.fovAngleY = min(viewProjection_.fovAngleY, XM_PI);
+	//スコープ切り替え
+	if (input_->TriggerKey(DIK_SPACE)) {
+		if (ScopeFlag) {
+			ScopeFlag = false;
+		} else {
+			ScopeFlag = true;
+		}
 	}
-	//下キーで視野角が狭まる
-	if (input_->PushKey(DIK_DOWN)) {
-		viewProjection_.fovAngleY -= 0.01f;
-		viewProjection_.fovAngleY = max(viewProjection_.fovAngleY, 0.01f);
+
+	//ズームインアウト
+	if (ScopeFlag) {
+		viewProjection_.fovAngleY = 0.34906580f;
+	} else {
+		viewProjection_.fovAngleY = 0.69813168f;
 	}
 
 	//視点の移動ベクトル
 	XMFLOAT3 Eyemove = {0, 0, 0};
 
 	//視点の移動速さ
-	const float kEyeSpeed = 0.2f;
+	const float kEyeSpeed = 0.1f;
 
 	//押した方向で移動ベクトルを変更
-	if (input_->PushKey(DIK_W)) {
+	if (input_->PushKey(DIK_UP)) {
 		Eyemove = {0, kEyeSpeed, 0};
 
-	} else if (input_->PushKey(DIK_S)) {
+	} else if (input_->PushKey(DIK_DOWN)) {
 		Eyemove = {0, -kEyeSpeed, 0};
 	}
 
-	if (input_->PushKey(DIK_D)) {
-		Eyemove = {kEyeSpeed, 0, 0};
-
-	} else if (input_->PushKey(DIK_A)) {
+	if (input_->PushKey(DIK_LEFT)) {
 		Eyemove = {-kEyeSpeed, 0, 0};
+
+	} else if (input_->PushKey(DIK_RIGHT)) {
+		Eyemove = {kEyeSpeed, 0, 0};
 	}
 
 	//視点移動（ベクトルの加算）
@@ -133,9 +163,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	for (size_t i = 0; i < _countof(worldTransform_); i++) {
-		for (size_t j = 0; j < _countof(worldTransform_); j++) {
-			model_->Draw(worldTransform_[i][j], viewProjection_, textureHandle_);
-		}
+		model_->Draw(worldTransform_[i], viewProjection_, textureHandle_);
 	}
 
 	// 3Dオブジェクト描画後処理
@@ -149,6 +177,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	if (ScopeFlag) {
+		ScopeSprite->Draw();
+	}
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
