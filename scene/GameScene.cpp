@@ -57,7 +57,7 @@ void GameScene::Initialize() {
 		worldTransform_[i].Initialize();
 	}
 
-	viewProjection_.fovAngleY = 0.69813168f;
+	viewProjection_.fovAngleY = MaxfovAngleY;
 
 	//ビュープロジェクション初期化
 	viewProjection_.Initialize();
@@ -69,27 +69,33 @@ void GameScene::Update() {
 
 #pragma endregion
 
-	//スコープ切り替え
-	if (input_->TriggerKey(DIK_SPACE)) {
-		if (ScopeFlag) {
-			ScopeFlag = false;
-		} else {
-			ScopeFlag = true;
-		}
-	}
+	//視点の移動速さ
+	float kEyeSpeed = 0.5f;
 
-	//ズームインアウト
-	if (ScopeFlag) {
-		viewProjection_.fovAngleY = 0.34906580f;
+	//スコープ切り替え
+	if (input_->PushKey(DIK_SPACE)) {
+		if (viewProjection_.fovAngleY != MinfovAngleY) {
+			viewProjection_.fovAngleY -= 0.05f;
+
+			if (viewProjection_.fovAngleY < MinfovAngleY) {
+				viewProjection_.fovAngleY = MinfovAngleY;
+			}
+		}
+
+		kEyeSpeed = 0.3f;
+
 	} else {
-		viewProjection_.fovAngleY = 0.69813168f;
+		if (viewProjection_.fovAngleY != MaxfovAngleY) {
+			viewProjection_.fovAngleY += 0.05f;
+
+			if (viewProjection_.fovAngleY > MaxfovAngleY) {
+				viewProjection_.fovAngleY = MaxfovAngleY;
+			}
+		}
 	}
 
 	//視点の移動ベクトル
 	XMFLOAT3 Eyemove = {0, 0, 0};
-
-	//視点の移動速さ
-	const float kEyeSpeed = 0.1f;
 
 	//押した方向で移動ベクトルを変更
 	if (input_->PushKey(DIK_UP)) {
@@ -177,7 +183,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	if (ScopeFlag) {
+	if (input_->PushKey(DIK_SPACE)) {
 		ScopeSprite->Draw();
 	}
 

@@ -57,13 +57,14 @@ class GameScene {
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
-	//スコープフラグ
-	bool ScopeFlag = false;
-
 	//スコープテクスチャハンドル
 	uint32_t ScopeTextureHandle = 0;
 
+	//スコープスプライト
 	Sprite* ScopeSprite = nullptr;
+
+	float MaxfovAngleY = 0.69813168f;
+	float MinfovAngleY = 0.34906580f;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
