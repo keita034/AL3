@@ -42,9 +42,6 @@ class GameScene {
 	/// </summary>
 	void Draw();
 
-	// メンバ変数
-
-
   private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -56,15 +53,17 @@ class GameScene {
 	// 3dモデル
 	Model* model_ = nullptr;
 	//ワールドトランスフォーム
-	WorldTransform worldTransform_;
+	WorldTransform worldTransform_[100];
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
-	//カメラ上方向の角度
-	float viewAngle = 0.0f;
+	//スコープフラグ
+	bool ScopeFlag = false;
 
-	float Angle = 0;
+	//スコープテクスチャハンドル
+	uint32_t ScopeTextureHandle = 0;
 
+	Sprite* ScopeSprite = nullptr;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

@@ -6,10 +6,15 @@
 using namespace DirectX;
 using namespace std;
 
+const int WindowWidth = 1280; // 横幅
+const int WindowHeight = 720; // 縦幅
+
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete model_; }
-
+GameScene::~GameScene() {
+	delete model_;
+	delete ScopeSprite;
+}
 
 void GameScene::Initialize() {
 
@@ -17,6 +22,19 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
+
+	//テクスチャ読み込み
+	textureHandle_ = TextureManager::Load("mario.jpg");
+	ScopeTextureHandle = TextureManager::Load("reticle.png");
+
+	//スプライトの生成
+	ScopeSprite = Sprite::Create(ScopeTextureHandle, {0, 0});
+
+	//スプライトの位置調整
+	XMFLOAT2 ScopeSize = ScopeSprite->GetSize();
+	XMFLOAT2 ScopePosition = {
+	  WindowWidth / 2 - (ScopeSize.x / 2), WindowHeight / 2 - (ScopeSize.y / 2)};
+	ScopeSprite->SetPosition(ScopePosition);
 
 	random_device seedGen;
 
@@ -26,50 +44,96 @@ void GameScene::Initialize() {
 
 	uniform_real_distribution<float> posDist(-10.0f, 10.0f);
 
-	model_ = Model::Create();
+	for (size_t i = 0; i < _countof(worldTransform_); i++) {
 
-	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("mario.jpg");
+		//スケーリングを設定
+		worldTransform_[i].scale_ = {1.0f, 1.0f, 1.0f};
+		//回転角を設定
+		worldTransform_[i].rotation_ = {rotDist(engine), rotDist(engine), rotDist(engine)};
+		//平行移動を設定
+		worldTransform_[i].translation_ = {posDist(engine), posDist(engine), posDist(engine)};
 
-	//ワールドトランム初期化
-	worldTransform_.Initialize();
+		//ワールドトランスフォーム初期化
+		worldTransform_[i].Initialize();
+	}
+
+	viewProjection_.fovAngleY = 0.69813168f;
 
 	//ビュープロジェクション初期化
-		viewProjection_.Initialize();
+	viewProjection_.Initialize();
 }
 
 void GameScene::Update() {
 
-	// 度数法を変換
-	float rad = Angle * XM_PI / 180.0f;
-	
-	//円の位置を割り出す
-	float add_x = cos(rad) * 10.0f;
-	float add_z = sin(rad) * 10.0f;
-	
-	//中心座標に位置を加算
- 	viewProjection_.eye.x = worldTransform_.translation_.x + add_x;
-	viewProjection_.eye.z = worldTransform_.translation_.z + add_z;
+#pragma region 連続移動処理
 
-	//角度加算
-	Angle += 1.0f;
+#pragma endregion
+
+	//スコープ切り替え
+	if (input_->TriggerKey(DIK_SPACE)) {
+		if (ScopeFlag) {
+			ScopeFlag = false;
+		} else {
+			ScopeFlag = true;
+		}
+	}
+
+	//ズームインアウト
+	if (ScopeFlag) {
+		viewProjection_.fovAngleY = 0.34906580f;
+	} else {
+		viewProjection_.fovAngleY = 0.69813168f;
+	}
+
+	//視点の移動ベクトル
+	XMFLOAT3 Eyemove = {0, 0, 0};
+
+	//視点の移動速さ
+	const float kEyeSpeed = 0.1f;
+
+	//押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_UP)) {
+		Eyemove = {0, kEyeSpeed, 0};
+
+	} else if (input_->PushKey(DIK_DOWN)) {
+		Eyemove = {0, -kEyeSpeed, 0};
+	}
+
+	if (input_->PushKey(DIK_LEFT)) {
+		Eyemove = {-kEyeSpeed, 0, 0};
+
+	} else if (input_->PushKey(DIK_RIGHT)) {
+		Eyemove = {kEyeSpeed, 0, 0};
+	}
+
+	//視点移動（ベクトルの加算）
+	viewProjection_.target.x += Eyemove.x;
+	viewProjection_.target.y += Eyemove.y;
+	viewProjection_.target.z += Eyemove.z;
 
 	//行列の再計算
 	viewProjection_.UpdateMatrix();
 
-	//デバッグ表示
+	//デバッグ用表示
+	debugText_->SetPos(50, 110);
+	debugText_->Printf("fovAngleY(Degree):%f", XMConvertToDegrees(viewProjection_.fovAngleY));
+
+	//デバッグ用表示
+	debugText_->SetPos(50, 130);
+	debugText_->Printf("nearZ:%f", viewProjection_.nearZ);
+
 	debugText_->SetPos(50, 50);
 	debugText_->Printf(
-		"eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
+	  "eye(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
 
 	debugText_->SetPos(50, 70);
 	debugText_->Printf(
-		"target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y,
-		viewProjection_.target.z);
+	  "target(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y,
+	  viewProjection_.target.z);
 
 	debugText_->SetPos(50, 90);
 	debugText_->Printf(
-		"up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
+	  "up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
 }
 
 void GameScene::Draw() {
@@ -94,12 +158,13 @@ void GameScene::Draw() {
 #pragma region 3Dオブジェクト描画
 	// 3Dオブジェクト描画前処理
 	Model::PreDraw(commandList);
-
+	model_ = Model::Create();
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	for (size_t i = 0; i < _countof(worldTransform_); i++) {
+		model_->Draw(worldTransform_[i], viewProjection_, textureHandle_);
+	}
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -112,6 +177,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	if (ScopeFlag) {
+		ScopeSprite->Draw();
+	}
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
