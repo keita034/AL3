@@ -30,6 +30,9 @@ void GameScene::Initialize() {
 	//スプライトの生成
 	ScopeSprite = Sprite::Create(ScopeTextureHandle, {0, 0});
 
+	ScopeTextureHandle = TextureManager::Load("scope.png");
+	ScopeBackSprite = Sprite::Create(ScopeTextureHandle, {0, 0});
+
 	//スプライトの位置調整
 	XMFLOAT2 ScopeSize = ScopeSprite->GetSize();
 	XMFLOAT2 ScopePosition = {
@@ -57,7 +60,7 @@ void GameScene::Initialize() {
 		worldTransform_[i].Initialize();
 	}
 
-	viewProjection_.fovAngleY = MaxfovAngleY;
+	viewProjection_.fovAngleY = XM_PI / 2;
 
 	//ビュープロジェクション初期化
 	viewProjection_.Initialize();
@@ -73,25 +76,31 @@ void GameScene::Update() {
 	float kEyeSpeed = 0.5f;
 
 	//スコープ切り替え
-	if (input_->PushKey(DIK_SPACE)) {
-		if (viewProjection_.fovAngleY != MinfovAngleY) {
-			viewProjection_.fovAngleY -= 0.05f;
-
-			if (viewProjection_.fovAngleY < MinfovAngleY) {
-				viewProjection_.fovAngleY = MinfovAngleY;
-			}
+	//スコープ切り替え
+	if (input_->TriggerKey(DIK_SPACE)) {
+		if (ScopeFlag) {
+			ScopeFlag = false;
+		} else {
+			ScopeFlag = true;
 		}
+	}
 
-		kEyeSpeed = 0.3f;
+	if (input_->TriggerKey(DIK_W)) {
+		ZoomFlag = true;
+
+	} else if (input_->TriggerKey(DIK_S)) {
+		ZoomFlag = false;
+	}
+
+	if (ScopeFlag) {
+		viewProjection_.fovAngleY = XM_PI / 5.39;
+	} else {
+		viewProjection_.fovAngleY = XM_PI / 2;
+	}
+
+	if (ZoomFlag && ScopeFlag) {
 
 	} else {
-		if (viewProjection_.fovAngleY != MaxfovAngleY) {
-			viewProjection_.fovAngleY += 0.05f;
-
-			if (viewProjection_.fovAngleY > MaxfovAngleY) {
-				viewProjection_.fovAngleY = MaxfovAngleY;
-			}
-		}
 	}
 
 	//視点の移動ベクトル
@@ -183,8 +192,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	if (input_->PushKey(DIK_SPACE)) {
+	if (ScopeFlag) {
 		ScopeSprite->Draw();
+		ScopeBackSprite->Draw();
 	}
 
 	// デバッグテキストの描画

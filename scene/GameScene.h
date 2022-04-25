@@ -62,6 +62,15 @@ class GameScene {
 
 	//スコープスプライト
 	Sprite* ScopeSprite = nullptr;
+	
+	//スコープフラグ
+	bool ScopeFlag = false;
+
+	//ズームフラグ
+	bool ZoomFlag = false;
+
+	//スコープ背景スプライト
+	Sprite* ScopeBackSprite = nullptr;
 
 	float MaxfovAngleY = 0.69813168f;
 	float MinfovAngleY = 0.34906580f;
