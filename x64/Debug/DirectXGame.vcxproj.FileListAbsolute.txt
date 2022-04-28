@@ -1,2 +1,1 @@
-C:\Users\keike\Downloads\KamataEngine202204011\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe
 C:\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe

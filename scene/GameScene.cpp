@@ -1,15 +1,16 @@
 ﻿#include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
-#include <random>
-
-using namespace DirectX;
-using namespace std;
+#include "PrimitiveDrawer.h"
+#include "AxisIndicator.h"
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() { delete model_; }
-
+GameScene::~GameScene()
+{
+	delete debugCamera_;
+	delete model_;
+}
 
 void GameScene::Initialize() {
 
@@ -17,88 +18,24 @@ void GameScene::Initialize() {
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
 	debugText_ = DebugText::GetInstance();
-
-	random_device seedGen;
-
-	mt19937_64 engine(seedGen());
-
-	uniform_real_distribution<float> rotDist(0.0f, XM_2PI);
-
-	uniform_real_distribution<float> posDist(-10.0f, 10.0f);
-
+	
+	textureHandle_ = TextureManager::Load("mario.jpg");
 	model_ = Model::Create();
 
-	//テクスチャ読み込み
-	textureHandle_ = TextureManager::Load("mario.jpg");
-
-	//ワールドトランム初期化
 	worldTransform_.Initialize();
+	viewProjection_.Initialize();
+	
+	AxisIndicator::GetInstance()->SetVisible(true);
+	//デバッグカメラの生成
+	debugCamera_ = new DebugCamera(1200,720);
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 
-	//ビュープロジェクション初期化
-	for (size_t i = 0; i < _countof(viewProjection_); i++) {
-
-		viewProjection_[i].eye = {posDist(engine), posDist(engine), posDist(engine)};
-
-		viewProjection_[i].Initialize();
-	}
 }
 
-void GameScene::Update() {
-	if (input_->TriggerKey(DIK_SPACE)) {
-		CameraNum++;
-
-		if (CameraNum >= 3){
-			CameraNum = 0;
-		}
-	}
-
-	//カメラ1
-	debugText_->Print("Camera1",50.0f,30.0f);
-
-	debugText_->SetPos(50, 50);
-	debugText_->Printf(
-		"eye:(%f,%f,%f)", viewProjection_[0].eye.x, viewProjection_[0].eye.y, viewProjection_[0].eye.z);
-
-	debugText_->SetPos(50, 70);
-	debugText_->Printf(
-		"target:(%f,%f,%f)", viewProjection_[0].target.x, viewProjection_[0].target.y,
-		viewProjection_[0].target.z);
-
-	debugText_->SetPos(50, 90);
-	debugText_->Printf(
-		"up:(%f,%f,%f)", viewProjection_[0].up.x, viewProjection_[0].up.y, viewProjection_[0].up.z);
-
-	//カメラ2
-	debugText_->Print("Camera2", 50.0f, 130.0f);
-
-	debugText_->SetPos(50, 150);
-	debugText_->Printf(
-		"eye:(%f,%f,%f)", viewProjection_[1].eye.x, viewProjection_[1].eye.y, viewProjection_[1].eye.z);
-
-	debugText_->SetPos(50, 170);
-	debugText_->Printf(
-		"target:(%f,%f,%f)", viewProjection_[1].target.x, viewProjection_[1].target.y,
-		viewProjection_[1].target.z);
-
-	debugText_->SetPos(50, 190);
-	debugText_->Printf(
-		"up:(%f,%f,%f)", viewProjection_[1].up.x, viewProjection_[1].up.y, viewProjection_[1].up.z);
-
-	//カメラ3
-	debugText_->Print("Camera3", 50, 230);
-
-	debugText_->SetPos(50, 250);
-	debugText_->Printf(
-		"eye:(%f,%f,%f)", viewProjection_[2].eye.x, viewProjection_[2].eye.y, viewProjection_[2].eye.z);
-
-	debugText_->SetPos(50, 270);
-	debugText_->Printf(
-		"target:(%f,%f,%f)", viewProjection_[2].target.x, viewProjection_[2].target.y,
-		viewProjection_[2].target.z);
-
-	debugText_->SetPos(50, 290);
-	debugText_->Printf(
-		"up:(%f,%f,%f)", viewProjection_[2].up.x, viewProjection_[2].up.y, viewProjection_[2].up.z);
+void GameScene::Update()
+{
+	debugCamera_->Update();
 }
 
 void GameScene::Draw() {
@@ -127,9 +64,8 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-
-	model_->Draw(worldTransform_, viewProjection_[CameraNum], textureHandle_);
-
+	model_->Draw(worldTransform_,debugCamera_->GetViewProjection(), textureHandle_);
+	PrimitiveDrawer::GetInstance()->DrawLine3d(Vector3( 0.0f,0.0f,0.0f), Vector3( 200.0f,200.0f,0.0f ), Vector4( 0xff,0xff,0xff ,0xff));
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -141,7 +77,6 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
 	//
