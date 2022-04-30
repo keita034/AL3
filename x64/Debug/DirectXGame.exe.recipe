@@ -13,6 +13,12 @@
       <FullPath>C:\KamataEngine\DirectXGame\x64\Debug\ObjVS.cso</FullPath>
     </ContentFile>
     <ContentFile>
+      <FullPath>C:\KamataEngine\DirectXGame\x64\Debug\PrimitivePS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
+      <FullPath>C:\KamataEngine\DirectXGame\x64\Debug\PrimitiveVS.cso</FullPath>
+    </ContentFile>
+    <ContentFile>
       <FullPath>C:\KamataEngine\DirectXGame\x64\Debug\ShapePS.cso</FullPath>
     </ContentFile>
     <ContentFile>

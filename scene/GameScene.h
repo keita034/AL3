@@ -9,7 +9,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-#include <DirectXMath.h>
+#include "DebugCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -48,23 +48,20 @@ class GameScene {
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
 
-	//テクスチャハンドル
+	//デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
+
+	;
+	;
+	;
+
 	uint32_t textureHandle_ = 0;
-	// 3dモデル
+
 	Model* model_ = nullptr;
-	//ワールドトランスフォーム
-	WorldTransform worldTransform_[100];
-	//ビュープロジェクション
+	
+	WorldTransform worldTransform_;
 	ViewProjection viewProjection_;
-
-	//スコープテクスチャハンドル
-	uint32_t ScopeTextureHandle = 0;
-
-	//スコープスプライト
-	Sprite* ScopeSprite = nullptr;
-
-	float MaxfovAngleY = 0.69813168f;
-	float MinfovAngleY = 0.34906580f;
+	
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
