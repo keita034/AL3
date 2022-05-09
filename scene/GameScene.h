@@ -51,15 +51,6 @@ class GameScene {
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
-	//グリッド線
-	Vector3 xStartPoint = { -20.0f, 0.0f, 0.0f };
-
-	Vector3 xEndPoint = { 20.0f, 0.0f, 0.0f };
-
-	Vector3 yStartPoint = { 0.0f, 0.0f, -20.0f };
-
-	Vector3 yEndPoint = {0.0f , 0.0f, 20.0f };
-
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
