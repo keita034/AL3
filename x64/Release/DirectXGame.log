@@ -1,0 +1,18 @@
+﻿  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\ObjPS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\ObjVS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\PrimitivePS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\PrimitiveVS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\ShapePS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\ShapeVS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\SpritePS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\SpriteVS.cso
+  DirectXCommon.cpp
+  TextureManager.cpp
+  WinApp.cpp
+  main.cpp
+  GameScene.cpp
+  コード生成しています。
+  Previous IPDB not found, fall back to full compilation.
+  All 2184 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  コード生成が終了しました。
+  DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Release\DirectXGame.exe
