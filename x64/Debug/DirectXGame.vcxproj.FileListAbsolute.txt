@@ -1,1 +1,3 @@
 C:\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe
+C:\新しいフォルダー (2)\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe
+C:\課題用\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe
