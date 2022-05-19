@@ -1,7 +1,9 @@
-﻿  GameScene.cpp
+﻿  Affine.cpp
+  GameScene.cpp
+C:\課題用\KamataEngine\DirectXGame\scene\GameScene.cpp(18,21): warning C4244: 'return': 'double' から 'float' への変換です。データが失われる可能性があります。
   コード生成しています。
-  2 of 2150 functions (<0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
+  3 of 2151 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
 DirectXCommon.obj : warning LNK4204: 'C:\課題用\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
