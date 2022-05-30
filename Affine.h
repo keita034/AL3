@@ -2,7 +2,7 @@
 #include "GameScene.h"
 
 //単位行列
-void IdentityMatrix(Matrix4& matrix);
+Matrix4 IdentityMatrix();
 
 //スケーリング行列生成
 Matrix4 ScalingForm(float scalx, float scaly, float scalz);
@@ -24,6 +24,8 @@ Matrix4 TransferForm(float x, float y, float z);
 
 //ワールド行列を生成
 Matrix4 WorldForm(Matrix4& scale, Matrix4& rotx, Matrix4& roty, Matrix4& rotz, Matrix4& trans);
+
+Matrix4 WorldForm(WorldTransform& worldtransform);
 
 //アフィン変換自分で
 void AffineTransformation(WorldTransform& worldtransform);

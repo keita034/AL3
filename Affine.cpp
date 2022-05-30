@@ -8,11 +8,13 @@ const float PI2 = PI * 2;
 using namespace std;
 
 //単位行列
-void IdentityMatrix(Matrix4& matrix) {
+Matrix4 IdentityMatrix() {
+	Matrix4 matrix;
 	matrix.m[0][0] = 1.0f;
 	matrix.m[1][1] = 1.0f;
 	matrix.m[2][2] = 1.0f;
 	matrix.m[3][3] = 1.0f;
+	return matrix;
 }
 
 #pragma region アフィン変換分解
@@ -44,7 +46,6 @@ Matrix4 RotationXForm(float angle) {
 	matRotX.m[2][2] = cos(angle);
 
 	matRotX.m[0][0] = 1.0f;
-	;
 	matRotX.m[3][3] = 1.0f;
 
 	return matRotX;
@@ -57,10 +58,10 @@ Matrix4 RotationZForm(float angle) {
 
 	// Z軸回転行列の各要素を設定する
 	matRotZ.m[0][0] = cos(angle);
-	matRotZ.m[0][1] = sin(angle);
+	matRotZ.m[0][1] = -sin(angle);
 
-	matRotZ.m[1][1] = -sin(angle);
-	matRotZ.m[1][0] = cos(angle);
+	matRotZ.m[1][0] = sin(angle);
+	matRotZ.m[1][1] = cos(angle);
 
 	matRotZ.m[2][2] = 1.0f;
 	matRotZ.m[3][3] = 1.0f;
@@ -91,7 +92,7 @@ Matrix4 Rotation(float xangle, float yangle, float zangle) {
 	Matrix4 matRot;
 
 	//単位行列を代入
-	IdentityMatrix(matRot);
+	matRot = IdentityMatrix();
 
 	// matWorld_にZ軸回転行列を掛け算
 	matRot *= RotationZForm(zangle);
@@ -100,7 +101,7 @@ Matrix4 Rotation(float xangle, float yangle, float zangle) {
 	matRot *= RotationXForm(xangle);
 
 	// matWorld_にY軸回転行列を掛け算
-	matRot *= RotationXForm(yangle);
+	matRot *= RotationYForm(yangle);
 
 	return matRot;
 }
@@ -110,7 +111,7 @@ Matrix4 TransferForm(float x, float y, float z) {
 	//平行移動行列を宣言
 	Matrix4 matTrans;
 	//単位行列を代入
-	IdentityMatrix(matTrans);
+	matTrans = IdentityMatrix();
 
 	//移動量を行列に設定する
 	matTrans.m[3][0] = x;
@@ -125,22 +126,50 @@ Matrix4 WorldForm(Matrix4& scale, Matrix4& rotx, Matrix4& roty, Matrix4& rotz, M
 	Matrix4 matWorld;
 
 	//単位行列を代入
-	IdentityMatrix(matWorld);
+	matWorld = IdentityMatrix();
 
 	// matWorld_にスケーリング倍率を掛け算
 	matWorld *= scale;
 
 	// matWorld_にZ軸回転行列を掛け算
-		matWorld *= rotz;
+	matWorld *= rotz;
 
 	// matWorld_にX軸回転行列を掛け算
-		matWorld *= rotx;
+	matWorld *= rotx;
 
 	// matWorld_にY軸回転行列を掛け算
-		matWorld *= roty;
+	matWorld *= roty;
 
 	// matWorld_に移動量を掛け算
 	matWorld *= trans;
+
+	return matWorld;
+}
+
+Matrix4 WorldForm(WorldTransform& worldtransform)
+{
+	Matrix4 matWorld;
+
+	//スケーリング行列を宣言・スケーリング倍率を行列に設定する
+	Matrix4 matScale = ScalingForm(worldtransform.scale_.x, worldtransform.scale_.y, worldtransform.scale_.z);
+
+	// 回転行列を宣言・回転行列の各要素を設定する
+	Matrix4 matRot = Rotation(worldtransform.rotation_.x, worldtransform.rotation_.y, worldtransform.rotation_.z);
+
+	//平行移動行列を宣言・移動量を行列に設定する
+	Matrix4 matTrans = TransferForm(worldtransform.translation_.x, worldtransform.translation_.y, worldtransform.translation_.z);
+
+	//単位行列を代入
+	matWorld = IdentityMatrix();
+
+	// matWorld_にスケーリング倍率を掛け算
+	matWorld *= matScale;
+
+	// matWorld_に回転行列を掛け算
+	matWorld *= matRot;
+
+	// matWorld_に移動量を掛け算
+	matWorld *= matTrans;
 
 	return matWorld;
 }
@@ -201,7 +230,7 @@ void AffineTransformation(WorldTransform& worldtransform) {
 	//平行移動行列を宣言
 	Matrix4 matTrans;
 	//単位行列を代入
-	IdentityMatrix(matTrans);
+	matTrans = IdentityMatrix();
 
 	//移動量を行列に設定する
 	matTrans.m[3][0] = worldtransform.translation_.x;
@@ -209,7 +238,7 @@ void AffineTransformation(WorldTransform& worldtransform) {
 	matTrans.m[3][2] = worldtransform.translation_.z;
 
 	//単位行列を代入
-	IdentityMatrix(worldtransform.matWorld_);
+	worldtransform.matWorld_ = IdentityMatrix();
 
 	// matWorld_にスケーリング倍率を掛け算
 	worldtransform.matWorld_ *= matScale;
