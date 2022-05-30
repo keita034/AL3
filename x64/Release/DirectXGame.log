@@ -1,12 +1,20 @@
-﻿  Affine.cpp
+﻿  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\ObjPS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\ObjVS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\PrimitivePS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\PrimitiveVS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\ShapePS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\ShapeVS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\SpritePS.cso
+  compilation object save succeeded; see C:\課題用\KamataEngine\DirectXGame\x64\Release\SpriteVS.cso
+  Affine.cpp
+  DirectXCommon.cpp
+  TextureManager.cpp
+  WinApp.cpp
+  main.cpp
   GameScene.cpp
-C:\課題用\KamataEngine\DirectXGame\scene\GameScene.cpp(18,21): warning C4244: 'return': 'double' から 'float' への変換です。データが失われる可能性があります。
   コード生成しています。
-  3 of 2151 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
+  539 of 565 functions (95.4%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
     0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
-DirectXCommon.obj : warning LNK4204: 'C:\課題用\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
-TextureManager.obj : warning LNK4204: 'C:\課題用\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
-WinApp.obj : warning LNK4204: 'C:\課題用\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
   DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Release\DirectXGame.exe
