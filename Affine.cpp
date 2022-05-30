@@ -87,6 +87,31 @@ Matrix4 RotationYForm(float angle) {
 	return matRotY;
 }
 
+void RotationY(WorldTransform& worldtransform)
+{
+	// Y軸回転行列を宣言
+	Matrix4 matRotY;
+
+	// Y軸回転行列の各要素を設定する
+	matRotY.m[0][0] = cos(worldtransform.rotation_.y);
+	matRotY.m[0][2] = -sin(worldtransform.rotation_.y);
+
+	matRotY.m[2][0] = sin(worldtransform.rotation_.y);
+	matRotY.m[2][2] = cos(worldtransform.rotation_.y);
+
+	matRotY.m[1][1] = 1.0f;
+	matRotY.m[3][3] = 1.0f;
+
+	//単位行列を代入
+	worldtransform.matWorld_ = IdentityMatrix();
+
+	// matWorld_にY軸回転行列を掛け算
+	worldtransform.matWorld_ *= matRotY;
+
+	//行列の転送
+	worldtransform.TransferMatrix();
+}
+
 //回転行列を生成
 Matrix4 Rotation(float xangle, float yangle, float zangle) {
 	Matrix4 matRot;
@@ -119,6 +144,29 @@ Matrix4 TransferForm(float x, float y, float z) {
 	matTrans.m[3][2] = z;
 
 	return matTrans;
+}
+
+void Transfer(WorldTransform& worldtransform)
+{
+	//平行移動行列を宣言
+	Matrix4 matTrans;
+	//単位行列を代入
+	matTrans = IdentityMatrix();
+
+	//移動量を行列に設定する
+	matTrans.m[3][0] = worldtransform.translation_.x;
+	matTrans.m[3][1] = worldtransform.translation_.y;
+	matTrans.m[3][2] = worldtransform.translation_.z;
+
+	//単位行列を代入
+	worldtransform.matWorld_ = IdentityMatrix();
+
+	// matWorld_にY軸回転行列を掛け算
+	worldtransform.matWorld_ *= matTrans;
+
+	//行列の転送
+	worldtransform.TransferMatrix();
+
 }
 
 //ワールド行列を生成

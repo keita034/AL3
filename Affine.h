@@ -16,11 +16,15 @@ Matrix4 RotationZForm(float angle);
 // Y軸回転行列を生成
 Matrix4 RotationYForm(float angle);
 
+void RotationY(WorldTransform& worldtransform);
+
 //回転行列を生成
 Matrix4 Rotation(float xangle, float yangle, float zangle);
 
 //平行移動行列を生成
 Matrix4 TransferForm(float x, float y, float z);
+
+void Transfer(WorldTransform& worldtransform);
 
 //ワールド行列を生成
 Matrix4 WorldForm(Matrix4& scale, Matrix4& rotx, Matrix4& roty, Matrix4& rotz, Matrix4& trans);

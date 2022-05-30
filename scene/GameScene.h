@@ -65,6 +65,8 @@ class GameScene {
 	//自キャラ
 	Player* player_ = nullptr;
 
+	//デバッグカメラ有効
+	bool isDebugCameraActive_ = false;
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary

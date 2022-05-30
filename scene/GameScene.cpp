@@ -62,12 +62,32 @@ void GameScene::Initialize() {
 	player_ = new Player();
 
 	//自キャラの初期化
-	player_->Initialize(model_,textureHandle_);
+	player_->Initialize(model_, textureHandle_);
 }
 
 void GameScene::Update() {
-	//デバッグカメラの更新
-	debugCamera_->Update();
+	//デバッグ時のみ有効
+#ifdef _DEBUG
+	if (input_->TriggerKey(DIK_B)) {
+		if (isDebugCameraActive_) {
+			isDebugCameraActive_ = false;
+		} else {
+			isDebugCameraActive_ = true;
+		}
+	}
+#endif // !_DEBUG
+	if (isDebugCameraActive_) {
+		//デバッグカメラの更新
+		debugCamera_->Update();
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
+	}
+	else
+	{
+		viewProjection_.UpdateMatrix();
+		viewProjection_.TransferMatrix();
+	}
 
 	//自キャラの更新
 	player_->Update();
