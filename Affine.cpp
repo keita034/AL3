@@ -191,23 +191,18 @@ void AffineTransformation(WorldTransform& worldtransform)
 	// Z²‰ñ“]s—ñ‚ğéŒ¾
 	Matrix4 matRotZ;
 	// Z²‰ñ“]s—ñ‚ÌŠe—v‘f‚ğİ’è‚·‚é
-	if (worldtransform.rotation_.z != 0)
-	{
 		matRotZ.m[0][0] = cos(worldtransform.rotation_.z);
-		matRotZ.m[0][1] = sin(worldtransform.rotation_.z);
+		matRotZ.m[0][1] = -sin(worldtransform.rotation_.z);
 
-		matRotZ.m[1][0] = -sin(worldtransform.rotation_.z);
+		matRotZ.m[1][0] = sin(worldtransform.rotation_.z);
 		matRotZ.m[1][1] = cos(worldtransform.rotation_.z);
 
 		matRotZ.m[2][2] = 1.0f;
 		matRotZ.m[3][3] = 1.0f;
-	}
 
 	// X²‰ñ“]s—ñ‚ğéŒ¾
 	Matrix4 matRotX;
 	// X²‰ñ“]s—ñ‚ÌŠe—v‘f‚ğİ’è‚·‚é
-	if (worldtransform.rotation_.x != 0)
-	{
 		matRotX.m[1][1] = cos(worldtransform.rotation_.x);
 		matRotX.m[1][2] = sin(worldtransform.rotation_.x);
 
@@ -216,14 +211,11 @@ void AffineTransformation(WorldTransform& worldtransform)
 
 		matRotX.m[0][0] = 1.0f;
 		matRotX.m[3][3] = 1.0f;
-	}
 
 	// Y²‰ñ“]s—ñ‚ğéŒ¾
 	Matrix4 matRotY;
 
 	// Y²‰ñ“]s—ñ‚ÌŠe—v‘f‚ğİ’è‚·‚é
-	if (worldtransform.rotation_.y != 0)
-	{
 		matRotY.m[0][0] = cos(worldtransform.rotation_.y);
 		matRotY.m[0][2] = -sin(worldtransform.rotation_.y);
 
@@ -232,7 +224,6 @@ void AffineTransformation(WorldTransform& worldtransform)
 
 		matRotY.m[1][1] = 1.0f;
 		matRotY.m[3][3] = 1.0f;
-	}
 
 	//•½sˆÚ“®s—ñ‚ğéŒ¾
 	Matrix4 matTrans;
@@ -251,20 +242,14 @@ void AffineTransformation(WorldTransform& worldtransform)
 	worldtransform.matWorld_ *= matScale;
 
 	// matWorld_‚ÉZ²‰ñ“]s—ñ‚ğŠ|‚¯Z
-	if (worldtransform.rotation_.z != 0.0f)
-	{
 		worldtransform.matWorld_ *= matRotZ;
-	}
+
 	//  matWorld_‚ÉX²‰ñ“]s—ñ‚ğŠ|‚¯Z
-	if (worldtransform.rotation_.x != 0.0f)
-	{
 		worldtransform.matWorld_ *= matRotX;
-	}
+
 	// matWorld_‚ÉY²‰ñ“]s—ñ‚ğŠ|‚¯Z
-	if (worldtransform.rotation_.y != 0.0f)
-	{
+
 		worldtransform.matWorld_ *= matRotY;
-	}
 
 	// matWorld_‚ÉˆÚ“®—Ê‚ğŠ|‚¯Z
 	worldtransform.matWorld_ *= matTrans;

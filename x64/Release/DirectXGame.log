@@ -1,9 +1,27 @@
 ﻿  GameScene.cpp
   コード生成しています。
-  5 of 2152 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    1 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+  2 of 563 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
+KamataEngineLib.lib(MathUtility.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(MathUtility.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Matrix4.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Matrix4.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(WorldTransform.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(WorldTransform.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(PrimitiveDrawer.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(PrimitiveDrawer.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(DebugText.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(DebugText.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Input.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Input.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Audio.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Audio.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Sprite.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Sprite.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(AxisIndicator.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(AxisIndicator.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Model.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Model.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Vector3.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector3.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(DebugCamera.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(DebugCamera.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(ViewProjection.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(ViewProjection.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Vector2.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector2.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Vector4.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector4.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Material.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Material.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Mesh.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Mesh.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(LightGroup.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(LightGroup.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 DirectXCommon.obj : warning LNK4204: 'C:\課題用\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
 TextureManager.obj : warning LNK4204: 'C:\課題用\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
 WinApp.obj : warning LNK4204: 'C:\課題用\KamataEngine\DirectXGame\x64\Release\vc143.pdb' に参照するモジュールのデバッグ情報がありません。デバッグ情報を無視してオブジェクトをリンクします。
