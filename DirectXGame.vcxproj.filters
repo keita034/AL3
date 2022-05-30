@@ -49,6 +49,15 @@
     <Filter Include="ヘッダー ファイル\math">
       <UniqueIdentifier>{647f4977-924a-4954-923f-5619e5afc9a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="オリジナル">
+      <UniqueIdentifier>{38c78f00-0260-4b94-a307-a2d039fe988e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="オリジナル\ヘッダー">
+      <UniqueIdentifier>{a26933a0-5491-4241-ac47-da08eaee0f73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="オリジナル\ソース">
+      <UniqueIdentifier>{cfbd3185-8df4-4f95-9606-599b78be3d31}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -66,11 +75,14 @@
     <ClCompile Include="scene\GameScene.cpp">
       <Filter>ソース ファイル\scene</Filter>
     </ClCompile>
-    <ClCompile Include="Affine.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="3d\WorldTransform.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>オリジナル\ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="Affine.cpp">
+      <Filter>オリジナル\ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>オリジナル\ソース</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +168,10 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Affine.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>オリジナル\ヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

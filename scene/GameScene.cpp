@@ -6,6 +6,8 @@
 #include <cassert>
 #include <random>
 
+#include "Player.h"
+
 //円周率
 const float PI = 3.1415926535f;
 
@@ -28,6 +30,7 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete debugCamera_;
 	delete model_;
+	delete player_;
 }
 
 void GameScene::Initialize() {
@@ -55,119 +58,19 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1200, 720);
 
-	//キャラクターの大元
-	worldTransforms_[PartId::kRoot].Initialize();
-	//脊椎
-	worldTransforms_[PartId::kSpine].translation_ = {0, 4.5f, 0};
-	worldTransforms_[PartId::kSpine].parent_ = &worldTransforms_[PartId::kRoot];
-	worldTransforms_[PartId::kSpine].Initialize();
+	//自キャラの生成
+	player_ = new Player();
 
-	//上半身
-	//胸
-	worldTransforms_[PartId::kChest].translation_ = {0, 1.3f, 0};
-	worldTransforms_[PartId::kChest].parent_ = &worldTransforms_[PartId::kSpine];
-	worldTransforms_[PartId::kChest].Initialize();
-
-	//頭
-	worldTransforms_[PartId::kHead].translation_ = {0, 3.0f, 0};
-	worldTransforms_[PartId::kHead].parent_ = &worldTransforms_[PartId::kChest];
-	worldTransforms_[PartId::kHead].Initialize();
-
-	//左腕
-	worldTransforms_[PartId::kArmL].translation_ = {3.0f, 0, 0};
-	worldTransforms_[PartId::kArmL].parent_ = &worldTransforms_[PartId::kChest];
-	worldTransforms_[PartId::kArmL].Initialize();
-
-	//右腕
-	worldTransforms_[PartId::kArmR].translation_ = {-3.0f, 0, 0};
-	worldTransforms_[PartId::kArmR].parent_ = &worldTransforms_[PartId::kChest];
-	worldTransforms_[PartId::kArmR].Initialize();
-
-	//下半身
-	// 尻
-	worldTransforms_[PartId::kHip].translation_ = {0, -2.0, 0};
-	worldTransforms_[PartId::kHip].parent_ = &worldTransforms_[PartId::kSpine];
-	worldTransforms_[PartId::kHip].Initialize();
-
-	//左足
-	worldTransforms_[PartId::kLegL].translation_ = {3.0f, -3.0, 0};
-	worldTransforms_[PartId::kLegL].parent_ = &worldTransforms_[PartId::kHip];
-	worldTransforms_[PartId::kLegL].Initialize();
-
-	//右足
-	worldTransforms_[PartId::kLegR].translation_ = {-3.0f, -3.0, 0};
-	worldTransforms_[PartId::kLegR].parent_ = &worldTransforms_[PartId::kHip];
-	worldTransforms_[PartId::kLegR].Initialize();
+	//自キャラの初期化
+	player_->Initialize(model_,textureHandle_);
 }
 
 void GameScene::Update() {
 	//デバッグカメラの更新
 	debugCamera_->Update();
 
-	//キャラクター移動処理
-	{
-		//キャラクター移動処理
-		Vector3 move = {0, 0, 0};
-		//キャラクター移動ベクトル
-		const float kCharacterSpeed = 0.2f;
-
-		//押した方向で移動ベクトルを変更
-		if (input_->PushKey(DIK_LEFT)) {
-			move = {-kCharacterSpeed, 0, 0};
-		} else if (input_->PushKey(DIK_RIGHT)) {
-			move = {kCharacterSpeed, 0, 0};
-		}
-
-		worldTransforms_[PartId::kRoot].translation_ += move;
-
-		AffineTransformation(worldTransforms_[PartId::kRoot]);
-
-		debugText_->Printf(
-		  "Root:(%f,%f,%f)", worldTransforms_[PartId::kRoot].translation_.x,
-		  worldTransforms_[PartId::kRoot].translation_.y, worldTransforms_[0].translation_.z);
-	}
-
-	//上半身回転処理
-	{
-		//上半身の回転の速さ
-		const float kChestaRotSpeed = 0.05f;
-
-		//押した方向で移動ベクトルを変更
-		if (input_->PushKey(DIK_U))
-		{
-			worldTransforms_[PartId::kChest].rotation_.y -= kChestaRotSpeed;
-		}
-		else if (input_->PushKey(DIK_I))
-		{
-			worldTransforms_[PartId::kChest].rotation_.y += kChestaRotSpeed;
-		}
-	}
-
-	//下半身回転処理
-	{
-		//下半身の回転の速さ
-		const float kHipRotSpeed = 0.05f;
-
-		//押した方向で移動ベクトルを変更
-		if (input_->PushKey(DIK_J))
-		{
-			worldTransforms_[PartId::kHip].rotation_.y -= kHipRotSpeed;
-		}
-		else if (input_->PushKey(DIK_K))
-		{
-			worldTransforms_[PartId::kHip].rotation_.y += kHipRotSpeed;
-		}
-
-	}
-
-	//子の更新
-	{
-		for (int i = 1; i < PartId::kNumPartId; i++) {
-			worldTransforms_[i].ParenChildUpdate();
-		}
-	}
-
-
+	//自キャラの更新
+	player_->Update();
 }
 
 void GameScene::Draw() {
@@ -196,15 +99,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-	for (int i = 0; i < PartId::kNumPartId; i++)
-	{
-		if (i<2)
-		{
-			continue;
-		}
 
-		model_->Draw(worldTransforms_[i], viewProjection_, textureHandle_);
-	}
+	//自キャラの表示
+	player_->Draw(viewProjection_);
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
