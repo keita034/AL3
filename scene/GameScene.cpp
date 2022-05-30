@@ -63,7 +63,7 @@ void GameScene::Initialize() {
 	viewProjection_.nearZ = 52.0f;
 
 	//ファークリップ距離を設定
-	viewProjection_.farZ = 53.0f;
+	//viewProjection_.farZ = 53.0f;
 
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();

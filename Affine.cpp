@@ -8,8 +8,7 @@ const float PI2 = PI * 2;
 using namespace std;
 
 //単位行列
-void IdentityMatrix(Matrix4& matrix)
-{
+void IdentityMatrix(Matrix4& matrix) {
 	matrix.m[0][0] = 1.0f;
 	matrix.m[1][1] = 1.0f;
 	matrix.m[2][2] = 1.0f;
@@ -19,8 +18,7 @@ void IdentityMatrix(Matrix4& matrix)
 #pragma region アフィン変換分解
 
 //スケーリング行列生成
-Matrix4 ScalingForm(float scalx, float scaly, float scalz)
-{
+Matrix4 ScalingForm(float scalx, float scaly, float scalz) {
 	//スケーリング行列を宣言
 	Matrix4 matScale;
 
@@ -34,8 +32,7 @@ Matrix4 ScalingForm(float scalx, float scaly, float scalz)
 }
 
 // X軸回転行列を生成
-Matrix4 RotationXForm(float angle)
-{
+Matrix4 RotationXForm(float angle) {
 	// X軸回転行列を宣言
 	Matrix4 matRotX;
 
@@ -54,8 +51,7 @@ Matrix4 RotationXForm(float angle)
 }
 
 // Z軸回転行列を生成
-Matrix4 RotationZForm(float angle)
-{
+Matrix4 RotationZForm(float angle) {
 	// Z軸回転行列を宣言
 	Matrix4 matRotZ;
 
@@ -73,8 +69,7 @@ Matrix4 RotationZForm(float angle)
 }
 
 // Y軸回転行列を生成
-Matrix4 RotationYForm(float angle)
-{
+Matrix4 RotationYForm(float angle) {
 	// Y軸回転行列を宣言
 	Matrix4 matRotY;
 
@@ -92,37 +87,26 @@ Matrix4 RotationYForm(float angle)
 }
 
 //回転行列を生成
-Matrix4 Rotation(float xangle, float yangle, float zangle)
-{
+Matrix4 Rotation(float xangle, float yangle, float zangle) {
 	Matrix4 matRot;
 
 	//単位行列を代入
 	IdentityMatrix(matRot);
 
 	// matWorld_にZ軸回転行列を掛け算
-	if (zangle != 0)
-	{
-		matRot *= RotationZForm(zangle);
-	}
+	matRot *= RotationZForm(zangle);
 
 	// matWorld_にX軸回転行列を掛け算
-	if (xangle != 0)
-	{
-		matRot *= RotationXForm(xangle);
-	}
+	matRot *= RotationXForm(xangle);
 
 	// matWorld_にY軸回転行列を掛け算
-	if (yangle != 0)
-	{
-		matRot *= RotationXForm(yangle);
-	}
+	matRot *= RotationXForm(yangle);
 
 	return matRot;
 }
 
 //平行移動行列を生成
-Matrix4 TransferForm(float x, float y, float z)
-{
+Matrix4 TransferForm(float x, float y, float z) {
 	//平行移動行列を宣言
 	Matrix4 matTrans;
 	//単位行列を代入
@@ -137,8 +121,7 @@ Matrix4 TransferForm(float x, float y, float z)
 }
 
 //ワールド行列を生成
-Matrix4 WorldForm(Matrix4& scale, Matrix4& rotx, Matrix4& roty, Matrix4& rotz, Matrix4& trans)
-{
+Matrix4 WorldForm(Matrix4& scale, Matrix4& rotx, Matrix4& roty, Matrix4& rotz, Matrix4& trans) {
 	Matrix4 matWorld;
 
 	//単位行列を代入
@@ -148,22 +131,13 @@ Matrix4 WorldForm(Matrix4& scale, Matrix4& rotx, Matrix4& roty, Matrix4& rotz, M
 	matWorld *= scale;
 
 	// matWorld_にZ軸回転行列を掛け算
-	if (rotz.m[0][0] != 0)
-	{
 		matWorld *= rotz;
-	}
 
 	// matWorld_にX軸回転行列を掛け算
-	if (rotx.m[2][2] != 0)
-	{
 		matWorld *= rotx;
-	}
 
 	// matWorld_にY軸回転行列を掛け算
-	if (roty.m[0][0] != 0)
-	{
 		matWorld *= roty;
-	}
 
 	// matWorld_に移動量を掛け算
 	matWorld *= trans;
@@ -176,8 +150,7 @@ Matrix4 WorldForm(Matrix4& scale, Matrix4& rotx, Matrix4& roty, Matrix4& rotz, M
 #pragma region アフィン変換
 
 //アフィン変換自分で
-void AffineTransformation(WorldTransform& worldtransform)
-{
+void AffineTransformation(WorldTransform& worldtransform) {
 
 	//スケーリング行列を宣言
 	Matrix4 matScale;
@@ -191,48 +164,39 @@ void AffineTransformation(WorldTransform& worldtransform)
 	// Z軸回転行列を宣言
 	Matrix4 matRotZ;
 	// Z軸回転行列の各要素を設定する
-	if (worldtransform.rotation_.z != 0)
-	{
-		matRotZ.m[0][0] = cos(worldtransform.rotation_.z);
-		matRotZ.m[0][1] = sin(worldtransform.rotation_.z);
+	matRotZ.m[0][0] = cos(worldtransform.rotation_.z);
+	matRotZ.m[0][1] = -sin(worldtransform.rotation_.z);
 
-		matRotZ.m[1][0] = -sin(worldtransform.rotation_.z);
-		matRotZ.m[1][1] = cos(worldtransform.rotation_.z);
+	matRotZ.m[1][0] = sin(worldtransform.rotation_.z);
+	matRotZ.m[1][1] = cos(worldtransform.rotation_.z);
 
-		matRotZ.m[2][2] = 1.0f;
-		matRotZ.m[3][3] = 1.0f;
-	}
+	matRotZ.m[2][2] = 1.0f;
+	matRotZ.m[3][3] = 1.0f;
 
 	// X軸回転行列を宣言
 	Matrix4 matRotX;
 	// X軸回転行列の各要素を設定する
-	if (worldtransform.rotation_.x != 0)
-	{
-		matRotX.m[1][1] = cos(worldtransform.rotation_.x);
-		matRotX.m[1][2] = sin(worldtransform.rotation_.x);
+	matRotX.m[1][1] = cos(worldtransform.rotation_.x);
+	matRotX.m[1][2] = sin(worldtransform.rotation_.x);
 
-		matRotX.m[2][1] = -sin(worldtransform.rotation_.x);
-		matRotX.m[2][2] = cos(worldtransform.rotation_.x);
+	matRotX.m[2][1] = -sin(worldtransform.rotation_.x);
+	matRotX.m[2][2] = cos(worldtransform.rotation_.x);
 
-		matRotX.m[0][0] = 1.0f;
-		matRotX.m[3][3] = 1.0f;
-	}
+	matRotX.m[0][0] = 1.0f;
+	matRotX.m[3][3] = 1.0f;
 
 	// Y軸回転行列を宣言
 	Matrix4 matRotY;
 
 	// Y軸回転行列の各要素を設定する
-	if (worldtransform.rotation_.y != 0)
-	{
-		matRotY.m[0][0] = cos(worldtransform.rotation_.y);
-		matRotY.m[0][2] = -sin(worldtransform.rotation_.y);
+	matRotY.m[0][0] = cos(worldtransform.rotation_.y);
+	matRotY.m[0][2] = -sin(worldtransform.rotation_.y);
 
-		matRotY.m[2][0] = sin(worldtransform.rotation_.y);
-		matRotY.m[2][2] = cos(worldtransform.rotation_.y);
+	matRotY.m[2][0] = sin(worldtransform.rotation_.y);
+	matRotY.m[2][2] = cos(worldtransform.rotation_.y);
 
-		matRotY.m[1][1] = 1.0f;
-		matRotY.m[3][3] = 1.0f;
-	}
+	matRotY.m[1][1] = 1.0f;
+	matRotY.m[3][3] = 1.0f;
 
 	//平行移動行列を宣言
 	Matrix4 matTrans;
@@ -251,20 +215,13 @@ void AffineTransformation(WorldTransform& worldtransform)
 	worldtransform.matWorld_ *= matScale;
 
 	// matWorld_にZ軸回転行列を掛け算
-	if (worldtransform.rotation_.z != 0.0f)
-	{
-		worldtransform.matWorld_ *= matRotZ;
-	}
-	//  matWorld_にX軸回転行列を掛け算
-	if (worldtransform.rotation_.x != 0.0f)
-	{
-		worldtransform.matWorld_ *= matRotX;
-	}
+	worldtransform.matWorld_ *= matRotZ;
+
+	// matWorld_にX軸回転行列を掛け算
+	worldtransform.matWorld_ *= matRotX;
+
 	// matWorld_にY軸回転行列を掛け算
-	if (worldtransform.rotation_.y != 0.0f)
-	{
-		worldtransform.matWorld_ *= matRotY;
-	}
+	worldtransform.matWorld_ *= matRotY;
 
 	// matWorld_に移動量を掛け算
 	worldtransform.matWorld_ *= matTrans;
@@ -274,36 +231,32 @@ void AffineTransformation(WorldTransform& worldtransform)
 }
 
 //アフィン変換関数
-void AffineTransformationFunction(WorldTransform& worldtransform)
-{
+void AffineTransformationFunction(WorldTransform& worldtransform) {
 
 	//スケーリング行列を宣言
 	Matrix4 matScale;
 
 	//スケーリング倍率を行列に設定する
 	matScale = MathUtility::Matrix4Scaling(
-		worldtransform.scale_.x, worldtransform.scale_.y, worldtransform.scale_.z);
+	  worldtransform.scale_.x, worldtransform.scale_.y, worldtransform.scale_.z);
 
 	// Z軸回転行列を宣言
 	Matrix4 matRotZ;
 	// Z軸回転行列の各要素を設定する
-	if (worldtransform.rotation_.z != 0)
-	{
+	if (worldtransform.rotation_.z != 0) {
 		matRotZ = MathUtility::Matrix4RotationZ(worldtransform.rotation_.z);
 	}
 
 	// X軸回転行列を宣言
 	Matrix4 matRotX;
 	// X軸回転行列の各要素を設定する
-	if (worldtransform.rotation_.x != 0)
-	{
+	if (worldtransform.rotation_.x != 0) {
 		matRotX = MathUtility::Matrix4RotationX(worldtransform.rotation_.x);
 	}
 	// Y軸回転行列を宣言
 	Matrix4 matRotY;
 	// Y軸回転行列の各要素を設定する
-	if (worldtransform.rotation_.y != 0)
-	{
+	if (worldtransform.rotation_.y != 0) {
 		matRotY = MathUtility::Matrix4RotationY(worldtransform.rotation_.y);
 	}
 
@@ -312,7 +265,7 @@ void AffineTransformationFunction(WorldTransform& worldtransform)
 
 	//移動量を行列に設定する
 	matTrans = MathUtility::Matrix4Translation(
-		worldtransform.translation_.x, worldtransform.translation_.y, worldtransform.translation_.z);
+	  worldtransform.translation_.x, worldtransform.translation_.y, worldtransform.translation_.z);
 
 	//単位行列を代入
 	worldtransform.matWorld_ = MathUtility::Matrix4Identity();
@@ -321,18 +274,15 @@ void AffineTransformationFunction(WorldTransform& worldtransform)
 	worldtransform.matWorld_ *= matScale;
 
 	// matWorld_にZ軸回転行列を掛け算
-	if (worldtransform.rotation_.z != 0.0f)
-	{
+	if (worldtransform.rotation_.z != 0.0f) {
 		worldtransform.matWorld_ *= matRotZ;
 	}
 	// matWorld_にX軸回転行列を掛け算
-	if (worldtransform.rotation_.x != 0.0f)
-	{
+	if (worldtransform.rotation_.x != 0.0f) {
 		worldtransform.matWorld_ *= matRotX;
 	}
 	// matWorld_にY軸回転行列を掛け算
-	if (worldtransform.rotation_.y != 0.0f)
-	{
+	if (worldtransform.rotation_.y != 0.0f) {
 		worldtransform.matWorld_ *= matRotY;
 	}
 	// matWorld_に移動量を掛け算
