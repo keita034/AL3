@@ -2,6 +2,8 @@
 
 #include "Affine.h"
 #include "ViewProjection.h"
+
+#include<DirectXMath.h>
 #include <cassert>
 
 /// <summary>
@@ -78,12 +80,16 @@ void Player::Rotate() {
 
 void Player::Attack() {
 	if (input_->TriggerKey(DIK_SPACE)) {
-		// ta弾を生成し、初期化
-		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, worldTransform_.translation_);
+
+		//自キャラの座標をコピー
+		Vector3 position = worldTransform_.translation_;
+
+		// 弾を生成し、初期化
+		std::unique_ptr< PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+		newBullet->Initialize(model_, position);
 
 		//弾を登録する
-		bullet_ = newBullet;
+		bullets_.push_back(std::move(newBullet));
 	}
 }
 
@@ -123,8 +129,8 @@ void Player::Update() {
 	Attack();
 
 	//弾更新
-	if (bullet_) {
-		bullet_->Update();
+	for(std::unique_ptr<PlayerBullet>& bullet : bullets_) {
+		bullet->Update();
 	}
 
 	//デバッグ用表示
@@ -146,8 +152,8 @@ void Player::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, texturehandle_);
 
 	//弾描画
- 	if (bullet_)
+	for (std::unique_ptr<PlayerBullet>& bullet : bullets_)
 	{
-		bullet_->Draw(viewProjection);
+		bullet->Draw(viewProjection);
 	}
 }

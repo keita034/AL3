@@ -1,4 +1,7 @@
 #pragma once
+#include<memory>
+#include<list>
+
 #include"Model.h"
 #include"WorldTransform.h"
 #include"Input.h"
@@ -51,7 +54,7 @@ private:
 	DebugText* debugText_ = nullptr;
 
 	//’e
-	PlayerBullet* bullet_ = nullptr;
+	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 
 	/// <summary>
 	/// ˆÚ“®
