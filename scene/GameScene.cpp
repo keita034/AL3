@@ -30,7 +30,6 @@ GameScene::GameScene() {}
 GameScene::~GameScene() {
 	delete debugCamera_;
 	delete model_;
-	delete player_;
 }
 
 void GameScene::Initialize() {
@@ -42,6 +41,7 @@ void GameScene::Initialize() {
 
 	//ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("mario.jpg");
+	enemyTextureHandle_ = TextureManager::Load("enemy.jpg");
 
 	// 3Dモデル生成
 	model_ = Model::Create();
@@ -59,10 +59,14 @@ void GameScene::Initialize() {
 	debugCamera_ = new DebugCamera(1200, 720);
 
 	//自キャラの生成
-	player_ = new Player();
-
+	player_ = std::make_unique<Player>();
 	//自キャラの初期化
 	player_->Initialize(model_, textureHandle_);
+
+	//敵キャラの生成
+	enemy_ = std::make_unique<Enemy>();
+	//敵キャラの初期化
+	enemy_->Initialize(model_, enemyTextureHandle_, Vector3(0, 2.0f, 40.0f));
 }
 
 void GameScene::Update() {
@@ -82,15 +86,18 @@ void GameScene::Update() {
 		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		viewProjection_.TransferMatrix();
-	}
-	else
-	{
+	} else {
 		viewProjection_.UpdateMatrix();
 		viewProjection_.TransferMatrix();
 	}
 
 	//自キャラの更新
 	player_->Update();
+
+	//敵キャラの更新
+	if (enemy_) {
+		enemy_->Update();
+	}
 }
 
 void GameScene::Draw() {
@@ -123,6 +130,10 @@ void GameScene::Draw() {
 	//自キャラの表示
 	player_->Draw(viewProjection_);
 
+	//敵キャラの表示
+	if (enemy_) {
+		enemy_->Draw(viewProjection_);
+	}
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion

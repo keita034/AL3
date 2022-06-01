@@ -1,7 +1,9 @@
-﻿  Player.cpp
+﻿  Enemy.cpp
+  PlayerBullet.cpp
+  GameScene.cpp
   コード生成しています。
-  3 of 634 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  7 of 694 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Release\DirectXGame.exe

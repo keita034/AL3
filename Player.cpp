@@ -15,8 +15,7 @@ void Player::Move() {
 		//キャラクター移動ベクトル
 		Vector3 move = {0, 0, 0};
 
-		//const float kCharacterSpeed = 0.6f;
-		const float kCharacterSpeed = 0.2f;
+		const float kCharacterSpeed = 0.5f;
 
 		//押した方向で移動ベクトルを変更
 		if (input_->PushKey(DIK_LEFT)) {
@@ -32,8 +31,7 @@ void Player::Move() {
 		//キャラクター移動ベクトル
 		Vector3 move = {0, 0, 0};
 
-		// const float kCharacterSpeed = 0.6f;
-		const float kCharacterSpeed = 0.2f;
+		const float kCharacterSpeed = 0.5f;
 
 		//押した方向で移動ベクトルを変更
 		if (input_->PushKey(DIK_UP)) {
@@ -66,8 +64,7 @@ void Player::Rotate() {
 	//回転処理
 	{
 		//回転の速さ
-		//const float kChestaRotSpeed = 0.05f;
-		const float kChestaRotSpeed = 0.03f;
+		const float kChestaRotSpeed = 0.07f;
 
 		//押した方向で移動ベクトルを変更
 		if (input_->PushKey(DIK_F)) {
@@ -84,9 +81,16 @@ void Player::Attack() {
 		//自キャラの座標をコピー
 		Vector3 position = worldTransform_.translation_;
 
+		//弾の速度
+		const float kBulletSpeed = 1.0f;
+		Vector3 velocity(0,0,kBulletSpeed);
+
+		//速度ベクトルを自機の向きに合わせて回転させる
+		velocity = VecMatMul(velocity,worldTransform_.matWorld_);
+
 		// 弾を生成し、初期化
 		std::unique_ptr< PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
-		newBullet->Initialize(model_, position);
+		newBullet->Initialize(model_, position, velocity);
 
 		//弾を登録する
 		bullets_.push_back(std::move(newBullet));
@@ -115,6 +119,12 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 }
 
 void Player::Update() {
+
+	//デスフラグの立った弾を削除
+	bullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet)
+		{
+			return bullet->IsDead();
+		});
 
 	//移動
 	Move();

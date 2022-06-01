@@ -36,3 +36,5 @@ void AffineTransformation(WorldTransform& worldtransform);
 
 //ƒAƒtƒBƒ“•ÏŠ·ŠÖ”
 void AffineTransformationFunction(WorldTransform& worldtransform);
+
+Vector3 VecMatMul(Vector3& vec,Matrix4& mat);

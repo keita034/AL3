@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include<memory>
 
 #include "Audio.h"
 #include "DebugCamera.h"
@@ -12,6 +13,7 @@
 #include "WorldTransform.h"
 
 #include "Player.h"
+#include"Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -57,13 +59,18 @@ class GameScene {
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
+	uint32_t enemyTextureHandle_ = 0;
+
 	// 3Dモデル
 	Model* model_ = nullptr;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
 	//自キャラ
-	Player* player_ = nullptr;
+	std::unique_ptr<Player> player_;
+
+	//敵キャラ
+	std::unique_ptr<Enemy> enemy_;
 
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
