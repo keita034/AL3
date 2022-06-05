@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include"Affine.h"
+#include "Affine.h"
 #include <cassert>
 
 /// <summary>
@@ -27,15 +27,30 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& posi
 
 void Enemy::Update() {
 
-	worldTransform_.translation_ += velocity_;
+	//移動処理
+	switch (phase_) {
+	case Phase::Approach: //接近フェーズ
+		ApproachVelocity();
+		break;
+	case Phase::Leave: //離脱フェーズ
+		LeaveVelocity();
+		break;
+	}
 	//ワールド行列計算
 	AffineTransformation(worldTransform_);
 
 	//デバッグ用表示
 	debugText_->SetPos(0, 60);
 	debugText_->Printf(
-		"Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y,
-		worldTransform_.translation_.z);
+	  "Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y,
+	  worldTransform_.translation_.z);
+
+	debugText_->SetPos(0, 80);
+	if (phase_ == Phase::Approach) {
+		debugText_->Printf("Phase:Approach");
+	} else {
+		debugText_->Printf("Phase:Leave");
+	}
 }
 
 /// <summary>
@@ -44,4 +59,20 @@ void Enemy::Update() {
 /// /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 void Enemy::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, texturehandle_);
+}
+
+// 接近フェーズ移動処理
+void Enemy::ApproachVelocity() {
+	//移動(ベクトルを加算)
+	worldTransform_.translation_ += approachVelocity_;
+	//既定の位置に到着したら離脱
+	if (worldTransform_.translation_.z < 0.0f) {
+		phase_ = Phase::Leave;
+	}
+}
+
+//離脱フェーズ移動処理
+void Enemy::LeaveVelocity() {
+	//移動(ベクトルを加算)
+	worldTransform_.translation_ += leaveVelocity_;
 }
