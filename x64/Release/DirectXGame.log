@@ -1,9 +1,13 @@
-﻿  Enemy.cpp
+﻿  WorldTransform.cpp
+  Affine.cpp
+  Enemy.cpp
+  Player.cpp
   PlayerBullet.cpp
+  main.cpp
   GameScene.cpp
   コード生成しています。
-  7 of 694 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+  3 of 696 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Release\DirectXGame.exe
