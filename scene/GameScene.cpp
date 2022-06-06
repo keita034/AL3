@@ -120,7 +120,7 @@ void GameScene::Update() {
 
 		worldTransforms_[PartId::kRoot].translation_ += move;
 
-		AffineTransformation(worldTransforms_[PartId::kRoot]);
+		worldTransforms_[PartId::kRoot].AffineTransformation();
 
 		debugText_->Printf(
 		  "Root:(%f,%f,%f)", worldTransforms_[PartId::kRoot].translation_.x,
