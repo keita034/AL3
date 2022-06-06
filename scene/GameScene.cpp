@@ -155,8 +155,8 @@ void AffineTransformation(WorldTransform& worldtransform) {
 		matRotZ.m[0][0] = cos(worldtransform.rotation_.z);
 		matRotZ.m[0][1] = sin(worldtransform.rotation_.z);
 
-		matRotZ.m[1][1] = -sin(worldtransform.rotation_.z);
-		matRotZ.m[1][0] = cos(worldtransform.rotation_.z);
+		matRotZ.m[1][0] = -sin(worldtransform.rotation_.z);
+		matRotZ.m[1][1] = cos(worldtransform.rotation_.z);
 
 		matRotZ.m[2][2] = 1.0f;
 		matRotZ.m[3][3] = 1.0f;
