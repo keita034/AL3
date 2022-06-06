@@ -40,8 +40,8 @@ Matrix4 RotationZForm(float angle) {
 	matRotZ.m[0][0] = cos(angle);
 	matRotZ.m[0][1] = sin(angle);
 
-	matRotZ.m[1][1] = -sin(angle);
-	matRotZ.m[1][0] = cos(angle);
+	matRotZ.m[1][0] = -sin(angle);
+	matRotZ.m[1][1] = cos(angle);
 
 	matRotZ.m[2][2] = 1.0f;
 	matRotZ.m[3][3] = 1.0f;
