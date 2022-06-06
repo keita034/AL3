@@ -75,17 +75,17 @@
     <ClCompile Include="scene\GameScene.cpp">
       <Filter>ソース ファイル\scene</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>オリジナル\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
-      <Filter>オリジナル\ソース</Filter>
-    </ClCompile>
     <ClCompile Include="3d\WorldTransform.cpp">
       <Filter>ヘッダー ファイル\3d</Filter>
     </ClCompile>
     <ClCompile Include="math\Matrix4.cpp">
       <Filter>ヘッダー ファイル\math</Filter>
+    </ClCompile>
+    <ClCompile Include="original\Player.cpp">
+      <Filter>オリジナル\ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="original\PlayerBullet.cpp">
+      <Filter>オリジナル\ソース</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,10 +170,10 @@
     <ClInclude Include="3d\PrimitiveDrawer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="original\Player.h">
       <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBullet.h">
+    <ClInclude Include="original\PlayerBullet.h">
       <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
   </ItemGroup>
