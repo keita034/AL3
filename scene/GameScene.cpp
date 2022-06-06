@@ -1,5 +1,4 @@
 ﻿#include "GameScene.h"
-#include "Affine.h"
 #include "AxisIndicator.h"
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
