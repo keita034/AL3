@@ -1,6 +1,6 @@
 #include "Player.h"
 
-#include "Affine.h"
+
 #include "ViewProjection.h"
 #include <cassert>
 
@@ -117,7 +117,7 @@ void Player::Update() {
 	Rotate();
 
 	//ワールド行列計算
-	AffineTransformation(worldTransform_);
+	worldTransform_.AffineTransformation();
 
 	//攻撃
 	Attack();

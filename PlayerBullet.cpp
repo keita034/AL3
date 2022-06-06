@@ -5,8 +5,6 @@
 #include "ViewProjection.h"
 #include"TextureManager.h"
 
-#include "Affine.h"
-
 /// <summary>
 /// 初期化
 /// </summary>
@@ -34,7 +32,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3 position) {
 /// </summary>
 void PlayerBullet::Update() {
 	//ワールドトランスフォームの更新
-	AffineTransformation(worldTransform_);
+	worldTransform_.AffineTransformation();
 }
 
 /// <summary>
