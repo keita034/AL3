@@ -2,7 +2,6 @@
 #include "AxisIndicator.h"
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
-#include "Affine.h"
 #include <cassert>
 #include <random>
 
@@ -72,7 +71,7 @@ void GameScene::Initialize() {
 		//平行移動を設定
 		worldTransform.translation_ = {dist(engine), dist(engine), dist(engine)};
 
-		AffineTransformation(worldTransform);
+		worldTransform.AffineTransformation();
 	}
 }
 
