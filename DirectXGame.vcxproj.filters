@@ -75,20 +75,20 @@
     <ClCompile Include="scene\GameScene.cpp">
       <Filter>ソース ファイル\scene</Filter>
     </ClCompile>
+    <ClCompile Include="original\PlayerBullet.cpp">
+      <Filter>オリジナル\ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="original\Player.cpp">
+      <Filter>オリジナル\ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="original\Enemy.cpp">
+      <Filter>オリジナル\ソース</Filter>
+    </ClCompile>
     <ClCompile Include="3d\WorldTransform.cpp">
-      <Filter>オリジナル\ソース</Filter>
+      <Filter>ヘッダー ファイル\3d</Filter>
     </ClCompile>
-    <ClCompile Include="Affine.cpp">
-      <Filter>オリジナル\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>オリジナル\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerBullet.cpp">
-      <Filter>オリジナル\ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>オリジナル\ソース</Filter>
+    <ClCompile Include="math\Matrix4.cpp">
+      <Filter>ヘッダー ファイル\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,16 +173,13 @@
     <ClInclude Include="3d\PrimitiveDrawer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Affine.h">
+    <ClInclude Include="original\PlayerBullet.h">
       <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="original\Enemy.h">
       <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerBullet.h">
-      <Filter>オリジナル\ヘッダー</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="original\Player.h">
       <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
   </ItemGroup>
