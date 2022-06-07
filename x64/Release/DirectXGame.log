@@ -1,7 +1,15 @@
-﻿  Player.cpp
+﻿  WorldTransform.cpp
+  DirectXCommon.cpp
+  TextureManager.cpp
+  WinApp.cpp
+  main.cpp
+  MATRIX4.CPP
+  Player.cpp
+  PlayerBullet.cpp
+  GameScene.cpp
   コード生成しています。
-  3 of 634 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  5 of 641 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Release\DirectXGame.exe

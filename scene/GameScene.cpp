@@ -1,12 +1,9 @@
 ﻿#include "GameScene.h"
-#include "Affine.h"
 #include "AxisIndicator.h"
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
 #include <cassert>
 #include <random>
-
-#include "Player.h"
 
 //円周率
 const float PI = 3.1415926535f;
