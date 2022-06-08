@@ -90,6 +90,9 @@
     <ClCompile Include="original\PlayerBullet.cpp">
       <Filter>オリジナル\ソース</Filter>
     </ClCompile>
+    <ClCompile Include="original\EnemyBullet.cpp">
+      <Filter>オリジナル\ソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3d\ViewProjection.h">
@@ -180,6 +183,9 @@
       <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
     <ClInclude Include="original\PlayerBullet.h">
+      <Filter>オリジナル\ヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
       <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
   </ItemGroup>

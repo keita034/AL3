@@ -2,7 +2,7 @@
 
 #include "ViewProjection.h"
 
-#include<DirectXMath.h>
+#include <DirectXMath.h>
 #include <cassert>
 
 /// <summary>
@@ -82,13 +82,13 @@ void Player::Attack() {
 
 		//弾の速度
 		const float kBulletSpeed = 1.0f;
-		Vector3 velocity(0,0,kBulletSpeed);
+		Vector3 velocity(0, 0, kBulletSpeed);
 
 		//速度ベクトルを自機の向きに合わせて回転させる
 		velocity = worldTransform_.VecMatMul(velocity);
 
 		// 弾を生成し、初期化
-		std::unique_ptr< PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
+		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
 		newBullet->Initialize(model_, position, velocity);
 
 		//弾を登録する
@@ -120,10 +120,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 void Player::Update() {
 
 	//デスフラグの立った弾を削除
-	bullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet)
-		{
-			return bullet->IsDead();
-		});
+	bullets_.remove_if([](std::unique_ptr<PlayerBullet>& bullet) { return bullet->IsDead(); });
 
 	//移動
 	Move();
@@ -138,7 +135,7 @@ void Player::Update() {
 	Attack();
 
 	//弾更新
-	for(std::unique_ptr<PlayerBullet>& bullet : bullets_) {
+	for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 		bullet->Update();
 	}
 
@@ -149,8 +146,7 @@ void Player::Update() {
 	  worldTransform_.translation_.z);
 
 	debugText_->SetPos(0, 30);
-	debugText_->Printf(
-		"Rot:%f", worldTransform_.rotation_.y);
+	debugText_->Printf("Rot:%f", worldTransform_.rotation_.y);
 }
 
 /// <summary>
@@ -161,8 +157,7 @@ void Player::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, texturehandle_);
 
 	//弾描画
-	for (std::unique_ptr<PlayerBullet>& bullet : bullets_)
-	{
+	for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}
 }

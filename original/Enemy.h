@@ -4,6 +4,8 @@
 #include "ViewProjection.h"
 #include "input.h"
 
+#include "EnemyBullet.h"
+
 //行動フェーズ
 enum class Phase {
 	Approach, //接近する
@@ -33,6 +35,19 @@ class Enemy {
 	/// </summary>
 	/// /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(ViewProjection& viewProjection);
+
+	/// <summary>
+	/// 弾発射
+	/// </summary>
+	void Fire();
+
+	/// <summary>
+	/// 接近フェーズ初期化
+	/// </summary>
+	void approachPhaseInt();
+
+	//発射間隔
+	static const int kFireInterval = 60;
 
   private:
 	/// <summary>
@@ -66,4 +81,10 @@ class Enemy {
 
 	//フェーズ
 	Phase phase_ = Phase::Approach;
+
+	//弾
+	std::list<std::unique_ptr<EnemyBullet>> bullets_;
+
+	//発射タイマー
+	int32_t fileTimer_;
 };
