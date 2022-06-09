@@ -1,11 +1,7 @@
 #include "Enemy.h"
 #include <cassert>
 
-/// <summary>
-/// 初期化
-/// </summary>
-/// <param name="model">モデル</param>
-/// <param name="textureHandle">テクスチャハンドル</param>
+// 初期化
 void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& position) {
 	// NUULポインタ」チェック
 	assert(model);
@@ -27,9 +23,7 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& posi
 	approachPhaseInt();
 }
 
-/// <summary>
-/// 更新処理
-/// </summary>
+// 更新処理
 void Enemy::Update() {
 
 	//デスフラグの立った弾を削除
@@ -66,10 +60,7 @@ void Enemy::Update() {
 	}
 }
 
-/// <summary>
-/// 描画
-/// </summary>
-/// /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
+// 描画
 void Enemy::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, texturehandle_);
 
@@ -79,33 +70,49 @@ void Enemy::Draw(ViewProjection& viewProjection) {
 	}
 }
 
-/// <summary>
-/// 弾発射
-/// </summary>
+// 弾発射
 void Enemy::Fire() {
-	//自キャラの座標をコピー
-	Vector3 position = worldTransform_.translation_;
+
+	assert(player_);
 
 	//弾の速度
 	const float kBulletSpeed = 1.0f;
-	Vector3 velocity(0, 0, -kBulletSpeed);
 
-	//速度ベクトルを自機の向きに合わせて回転させる
-	velocity = worldTransform_.VecMatMul(velocity);
+	//プレイヤーのワールド座標を取得
+	Vector3 playerPos = player_->GetWorldPosition();
+	//敵キャラのワールド座標を取得
+	Vector3 enemyPos = GetWorldPosition();
+	//敵キャラ->自キャラの差分ベクトルを求める
+	Vector3 velocity = playerPos - enemyPos;
+	//ベクトルの正規化
+	velocity.normalize();
+	//ベクトルの長さを、早さに合わせる
+	velocity *= kBulletSpeed;
 
 	// 弾を生成し、初期化
 	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
-	newBullet->Initialize(model_, position, velocity);
+	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
 	//弾を登録する
 	bullets_.push_back(std::move(newBullet));
 }
 
 //接近フェーズ初期化
-void Enemy::approachPhaseInt()
-{
+void Enemy::approachPhaseInt() {
 	//発射タイマーを初期化
 	fileTimer_ = kFireInterval;
+}
+
+// ワールド座標を所得
+Vector3 Enemy::GetWorldPosition() {
+	//ワールド座標を入れる変数
+	Vector3 worldPos;
+	//ワールド行列の平行移動成分を取得(ワールド座標)
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+
+	return worldPos;
 }
 
 // 接近フェーズ移動処理
@@ -114,8 +121,7 @@ void Enemy::ApproachVelocity() {
 	//発射タイマーカウントダウン
 	fileTimer_--;
 	//指定時間に達した
-	if (fileTimer_==0)
-	{
+	if (fileTimer_ == 0) {
 		//弾の発射
 		Fire();
 		//発射タイマーを初期化

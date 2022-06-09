@@ -1,21 +1,19 @@
 #pragma once
-#include<memory>
-#include<list>
+#include <list>
+#include <memory>
 
-#include"Model.h"
-#include"WorldTransform.h"
-#include"Input.h"
-#include"DebugText.h"
+#include "DebugText.h"
+#include "Input.h"
+#include "Model.h"
+#include "WorldTransform.h"
 
-#include"PlayerBullet.h"
+#include "PlayerBullet.h"
 
 /// <summary>
 /// 自キャラ
 /// </summary>
-class Player
-{
-public:
-
+class Player {
+  public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -34,10 +32,15 @@ public:
 	/// /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(ViewProjection& viewProjection);
 
-	Player() = default;
-	~Player()= default;
+	/// <summary>
+	/// ワールド座標を所得
+	/// </summary>
+	Vector3 GetWorldPosition();
 
-private:
+	Player() = default;
+	~Player() = default;
+
+  private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 
@@ -71,4 +74,3 @@ private:
 	/// </summary>
 	void Attack();
 };
-

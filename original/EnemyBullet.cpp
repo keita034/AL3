@@ -5,8 +5,7 @@
 /// </summary>
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標 </param>
-void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity)
-{
+void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
 
 	// NULLポインタチェック
 	assert(model);
@@ -22,27 +21,23 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 	worldTransform_.translation_ = position;
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
-
 }
 
 // 更新
-void EnemyBullet::Update()
-{
+void EnemyBullet::Update() {
 	//座標を移動させる(1フレーム分の移動を差し込む)
 	worldTransform_.translation_ += velocity_;
 
 	//ワールドトランスフォームの更新
 	worldTransform_.AffineTransformation();
 
-	if (--deathTimer_ <= 0)
-	{
+	if (--deathTimer_ <= 0) {
 		isDead_ = true;
 	}
 }
 
 // 描画
-void EnemyBullet::Draw(const ViewProjection& viewProjection)
-{
+void EnemyBullet::Draw(const ViewProjection& viewProjection) {
 	//モデルの描画
 	model_->Draw(worldTransform_, viewProjection, texturehandle_);
 }

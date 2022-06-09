@@ -5,9 +5,7 @@
 #include <DirectXMath.h>
 #include <cassert>
 
-/// <summary>
-/// 移動
-/// </summary>
+// 移動
 void Player::Move() {
 	//キャラクター移動処理
 	{
@@ -55,9 +53,7 @@ void Player::Move() {
 	}
 }
 
-/// <summary>
-/// 旋回
-/// </summary>
+// 旋回
 void Player::Rotate() {
 
 	//回転処理
@@ -74,6 +70,7 @@ void Player::Rotate() {
 	}
 }
 
+//攻撃
 void Player::Attack() {
 	if (input_->TriggerKey(DIK_SPACE)) {
 
@@ -96,11 +93,7 @@ void Player::Attack() {
 	}
 }
 
-/// <summary>
-/// 初期化
-/// </summary>
-/// <param name="model">モデル</param>
-/// <param name="textureHandle">テクスチャハンドル</param>
+// 初期化
 void Player::Initialize(Model* model, uint32_t textureHandle) {
 	// NUULポインタ」チェック
 	assert(model);
@@ -117,6 +110,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 	worldTransform_.Initialize();
 }
 
+//更新処理
 void Player::Update() {
 
 	//デスフラグの立った弾を削除
@@ -149,10 +143,7 @@ void Player::Update() {
 	debugText_->Printf("Rot:%f", worldTransform_.rotation_.y);
 }
 
-/// <summary>
-/// 描画
-/// </summary>
-/// /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
+// 描画
 void Player::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, texturehandle_);
 
@@ -160,4 +151,16 @@ void Player::Draw(ViewProjection& viewProjection) {
 	for (std::unique_ptr<PlayerBullet>& bullet : bullets_) {
 		bullet->Draw(viewProjection);
 	}
+}
+
+//ワールド座標を取得
+Vector3 Player::GetWorldPosition() {
+	//ワールド座標を入れる変数
+	Vector3 worldPos;
+	//ワールド行列の平行移動成分を取得(ワールド座標)
+	worldPos.x = worldTransform_.matWorld_.m[3][0];
+	worldPos.y = worldTransform_.matWorld_.m[3][1];
+	worldPos.z = worldTransform_.matWorld_.m[3][2];
+
+	return worldPos;
 }

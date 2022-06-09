@@ -100,6 +100,7 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="math\Matrix4.cpp" />
+    <ClCompile Include="math\Vector3.cpp" />
     <ClCompile Include="original\Enemy.cpp" />
     <ClCompile Include="original\EnemyBullet.cpp" />
     <ClCompile Include="original\Player.cpp" />

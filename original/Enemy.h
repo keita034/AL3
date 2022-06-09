@@ -1,10 +1,14 @@
 #pragma once
 #include "DebugText.h"
 #include "Model.h"
+#include "Vector3.h"
 #include "ViewProjection.h"
 #include "input.h"
 
 #include "EnemyBullet.h"
+#include "Player.h"
+
+class Player;
 
 //行動フェーズ
 enum class Phase {
@@ -46,6 +50,17 @@ class Enemy {
 	/// </summary>
 	void approachPhaseInt();
 
+	/// <summary>
+	/// プレイヤーのアドレスをセット
+	/// </summary>
+	/// <param name="player"></param>
+	void SetPlayer(Player* player) { player_ = player; }
+
+	/// <summary>
+	/// ワールド座標を所得
+	/// </summary>
+	Vector3 GetWorldPosition();
+
 	//発射間隔
 	static const int kFireInterval = 60;
 
@@ -86,5 +101,8 @@ class Enemy {
 	std::list<std::unique_ptr<EnemyBullet>> bullets_;
 
 	//発射タイマー
-	int32_t fileTimer_;
+	int32_t fileTimer_ = 0;
+
+	//自キャラ
+	Player* player_ = nullptr;
 };

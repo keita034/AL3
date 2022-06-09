@@ -2,16 +2,15 @@
 
 #include <cassert>
 
+#include "TextureManager.h"
 #include "ViewProjection.h"
-#include"TextureManager.h"
 
 /// <summary>
 /// 初期化
 /// </summary>
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標 </param>
-void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity)
-{
+void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
 
 	// NULLポインタチェック
 	assert(model);
@@ -27,7 +26,6 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	worldTransform_.translation_ = position;
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
-
 }
 
 /// <summary>
@@ -41,12 +39,9 @@ void PlayerBullet::Update() {
 	//ワールドトランスフォームの更新
 	worldTransform_.AffineTransformation();
 
-	if (--deathTimer_ <= 0)
-	{
+	if (--deathTimer_ <= 0) {
 		isDead_ = true;
 	}
-
-
 }
 
 /// <summary>

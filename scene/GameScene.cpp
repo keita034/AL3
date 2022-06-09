@@ -66,6 +66,8 @@ void GameScene::Initialize() {
 	enemy_ = std::make_unique<Enemy>();
 	//敵キャラの初期化
 	enemy_->Initialize(model_, enemyTextureHandle_, Vector3(2.0f, 2.0f, 40.0f));
+	//敵キャラに自キャラのアドレスを渡す
+	enemy_->SetPlayer(player_.get());
 }
 
 void GameScene::Update() {
