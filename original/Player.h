@@ -1,12 +1,15 @@
 #pragma once
+#include <cassert>
 #include <list>
 #include <memory>
 
 #include "DebugText.h"
 #include "Input.h"
 #include "Model.h"
+#include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "MyMath.h"
 #include "PlayerBullet.h"
 
 /// <summary>

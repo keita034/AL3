@@ -39,7 +39,7 @@ void Enemy::Update() {
 		break;
 	}
 	//ワールド行列計算
-	worldTransform_.AffineTransformation();
+	MyMath::AffineTransformation(worldTransform_);
 
 	//弾更新
 	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
@@ -83,9 +83,9 @@ void Enemy::Fire() {
 	//敵キャラのワールド座標を取得
 	Vector3 enemyPos = GetWorldPosition();
 	//敵キャラ->自キャラの差分ベクトルを求める
-	Vector3 velocity = playerPos - enemyPos;
+	Vector3 velocity = MyMath::Vector3Sub(playerPos, enemyPos);
 	//ベクトルの正規化
-	velocity.normalize();
+	velocity = MyMath::normalize(velocity);
 	//ベクトルの長さを、早さに合わせる
 	velocity *= kBulletSpeed;
 

@@ -29,7 +29,7 @@ void EnemyBullet::Update() {
 	worldTransform_.translation_ += velocity_;
 
 	//ワールドトランスフォームの更新
-	worldTransform_.AffineTransformation();
+	MyMath::AffineTransformation(worldTransform_);
 
 	if (--deathTimer_ <= 0) {
 		isDead_ = true;

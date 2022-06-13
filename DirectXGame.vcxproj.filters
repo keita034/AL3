@@ -75,12 +75,6 @@
     <ClCompile Include="scene\GameScene.cpp">
       <Filter>ソース ファイル\scene</Filter>
     </ClCompile>
-    <ClCompile Include="math\Matrix4.cpp">
-      <Filter>ヘッダー ファイル\math</Filter>
-    </ClCompile>
-    <ClCompile Include="3d\WorldTransform.cpp">
-      <Filter>ヘッダー ファイル\3d</Filter>
-    </ClCompile>
     <ClCompile Include="original\Enemy.cpp">
       <Filter>オリジナル\ソース</Filter>
     </ClCompile>
@@ -93,8 +87,8 @@
     <ClCompile Include="original\EnemyBullet.cpp">
       <Filter>オリジナル\ソース</Filter>
     </ClCompile>
-    <ClCompile Include="math\Vector3.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="original\MyMath.cpp">
+      <Filter>ソース ファイル\math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -188,8 +182,11 @@
     <ClInclude Include="original\PlayerBullet.h">
       <Filter>オリジナル\ヘッダー</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBullet.h">
+    <ClInclude Include="original\EnemyBullet.h">
       <Filter>オリジナル\ヘッダー</Filter>
+    </ClInclude>
+    <ClInclude Include="original\MyMath.h">
+      <Filter>ヘッダー ファイル\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

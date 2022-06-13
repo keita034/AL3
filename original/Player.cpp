@@ -1,10 +1,5 @@
 #include "Player.h"
 
-#include "ViewProjection.h"
-
-#include <DirectXMath.h>
-#include <cassert>
-
 // 移動
 void Player::Move() {
 	//キャラクター移動処理
@@ -82,7 +77,7 @@ void Player::Attack() {
 		Vector3 velocity(0, 0, kBulletSpeed);
 
 		//速度ベクトルを自機の向きに合わせて回転させる
-		velocity = worldTransform_.VecMatMul(velocity);
+		velocity = MyMath::VecMatMul(velocity, worldTransform_.matWorld_);
 
 		// 弾を生成し、初期化
 		std::unique_ptr<PlayerBullet> newBullet = std::make_unique<PlayerBullet>();
@@ -123,7 +118,7 @@ void Player::Update() {
 	Rotate();
 
 	//ワールド行列計算
-	worldTransform_.AffineTransformation();
+	MyMath::AffineTransformation(worldTransform_);
 
 	//攻撃
 	Attack();

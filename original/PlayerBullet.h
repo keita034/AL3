@@ -1,7 +1,13 @@
 #pragma once
+#include <cassert>
+
 #include "Model.h"
-#include"Vector3.h"
-#include"WorldTransform.h"
+#include "TextureManager.h"
+#include "Vector3.h"
+#include "ViewProjection.h"
+#include "WorldTransform.h"
+
+#include "MyMath.h"
 
 /// <summary>
 ///　自キャラの弾
@@ -14,7 +20,7 @@ class PlayerBullet {
 	/// <param name="model">モデル</param>
 	/// <param name="position">初期座標 </param>
 	/// /// <param name="velocity">速度 </param>
-	void Initialize(Model* model, const Vector3& position,const Vector3& velocity);
+	void Initialize(Model* model, const Vector3& position, const Vector3& velocity);
 
 	/// <summary>
 	/// 更新
@@ -30,7 +36,7 @@ class PlayerBullet {
 	///デスフラグゲッター
 	bool IsDead() const;
 
-private:
+  private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 
@@ -50,10 +56,6 @@ private:
 	int32_t deathTimer_ = kLifeTime;
 	//デスフラグ
 	bool isDead_ = false;
-
 };
 
-inline bool PlayerBullet::IsDead() const
-{
-	return isDead_;
-}
+inline bool PlayerBullet::IsDead() const { return isDead_; }

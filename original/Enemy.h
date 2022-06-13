@@ -6,6 +6,7 @@
 #include "input.h"
 
 #include "EnemyBullet.h"
+#include "MyMath.h"
 #include "Player.h"
 
 class Player;

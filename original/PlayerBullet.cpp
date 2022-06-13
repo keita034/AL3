@@ -1,10 +1,5 @@
 #include "PlayerBullet.h"
 
-#include <cassert>
-
-#include "TextureManager.h"
-#include "ViewProjection.h"
-
 /// <summary>
 /// 初期化
 /// </summary>
@@ -37,7 +32,7 @@ void PlayerBullet::Update() {
 	worldTransform_.translation_ += velocity_;
 
 	//ワールドトランスフォームの更新
-	worldTransform_.AffineTransformation();
+	MyMath::AffineTransformation(worldTransform_);
 
 	if (--deathTimer_ <= 0) {
 		isDead_ = true;

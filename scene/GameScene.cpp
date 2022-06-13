@@ -2,27 +2,11 @@
 #include "AxisIndicator.h"
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
+
 #include <cassert>
 #include <random>
 
 #include "Player.h"
-
-//円周率
-const float PI = 3.1415926535f;
-
-const float PI2 = PI * 2;
-
-using namespace std;
-
-float ChangeRadi(const float& angle) {
-	float radian = angle * PI / 180;
-	return radian;
-}
-
-float ChangeDira(const float& angle) {
-	float radian = angle * 180 / PI;
-	return radian;
-}
 
 GameScene::GameScene() {}
 

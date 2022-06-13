@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include<memory>
+#include <memory>
 
 #include "Audio.h"
 #include "DebugCamera.h"
@@ -12,8 +12,8 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "Enemy.h"
 #include "Player.h"
-#include"Enemy.h"
 
 /// <summary>
 /// ゲームシーン
@@ -47,7 +47,7 @@ class GameScene {
 	void Draw();
 
   private:
-	  // メンバ変数
+	// メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;

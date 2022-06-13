@@ -1,11 +1,12 @@
 #pragma once
+#include "DebugText.h"
 #include "Model.h"
+#include "MyMath.h"
 #include "Vector3.h"
 #include "ViewProjection.h"
-#include"WorldTransform.h"
-#include"DebugText.h"
+#include "WorldTransform.h"
 
-#include<cassert>
+#include <cassert>
 
 /// <summary>
 /// 敵の弾
@@ -13,7 +14,6 @@
 class EnemyBullet {
 
   public:
-
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -36,32 +36,28 @@ class EnemyBullet {
 	bool IsDead() const;
 
   private:
+	//ワールド変換データ
+	WorldTransform worldTransform_;
 
-	  //ワールド変換データ
-	  WorldTransform worldTransform_;
+	//モデル
+	Model* model_ = nullptr;
 
-	  //モデル
-	  Model* model_ = nullptr;
+	//テクスチャハンドル
+	uint32_t texturehandle_ = 0u;
 
-	  //テクスチャハンドル
-	  uint32_t texturehandle_ = 0u;
+	//デバッグ用表示
+	DebugText* debugText_ = nullptr;
 
-	  //デバッグ用表示
-	  DebugText* debugText_ = nullptr;
+	//速度
+	Vector3 velocity_;
 
-	  //速度
-	  Vector3 velocity_;
+	//寿命<frm>
+	static const int32_t kLifeTime = 60 * 5;
 
-	  //寿命<frm>
-	  static const int32_t kLifeTime = 60 * 5;
-
-	  //デスタイマー
-	  int32_t deathTimer_ = kLifeTime;
-	  //デスフラグ
-	  bool isDead_ = false;
+	//デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+	//デスフラグ
+	bool isDead_ = false;
 };
 
-inline bool EnemyBullet::IsDead() const
-{
-	return isDead_;
-}
+inline bool EnemyBullet::IsDead() const { return isDead_; }

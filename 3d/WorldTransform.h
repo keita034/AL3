@@ -48,34 +48,4 @@ struct WorldTransform
 	/// 行列を転送する
 	/// </summary>
 	void TransferMatrix();
-
-	//スケーリング行列生成
-	Matrix4 ScalingForm();
-
-	// X軸回転行列を生成
-	Matrix4 RotationXForm();
-
-	// Y軸回転行列を生成
-	Matrix4 RotationYForm();
-
-	// Z軸回転行列を生成
-	Matrix4 RotationZForm();
-
-	// 回転行列を生成
-	Matrix4 RotationForm();
-
-	//平行移動行列を生成
-	Matrix4 TransferForm();
-
-	//ワールド行列を生成
-	Matrix4 WorldForm();
-
-	//アフィン変換
-	void AffineTransformation();
-
-	//親子関係更新
-	void ParenChildUpdate();
-
-	//ベクトルと行列の掛け算
-	Vector3 VecMatMul(Vector3& vec);
 };
