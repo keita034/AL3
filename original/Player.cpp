@@ -1,5 +1,7 @@
 #include "Player.h"
 
+float Player::GetRadius() { return radius_; }
+
 // 移動
 void Player::Move() {
 	//キャラクター移動処理
@@ -159,3 +161,5 @@ Vector3 Player::GetWorldPosition() {
 
 	return worldPos;
 }
+
+void Player::OnCollision() {}

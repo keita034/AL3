@@ -62,6 +62,17 @@ class Enemy {
 	/// </summary>
 	Vector3 GetWorldPosition();
 
+	//衝突を検知したら呼び出されるコールバック関数
+	void OnCollision();
+
+	//弾リストを取得
+	const std::list<std::unique_ptr<EnemyBullet>>& GetBullet() { return bullets_; }
+
+	/// <summary>
+	/// 半径を所得
+	/// </summary>
+	float GetRadius();
+
 	//発射間隔
 	static const int kFireInterval = 60;
 
@@ -106,4 +117,7 @@ class Enemy {
 
 	//自キャラ
 	Player* player_ = nullptr;
+
+	//半径
+	const float radius_ = 1.0f;
 };

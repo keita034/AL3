@@ -1,9 +1,4 @@
-﻿  main.cpp
-  Enemy.cpp
-  EnemyBullet.cpp
-  MyMath.cpp
-  Player.cpp
-  PlayerBullet.cpp
+﻿  EnemyBullet.cpp
   GameScene.cpp
   コードを生成中...
   DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe

@@ -74,8 +74,13 @@ class GameScene {
 
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary
-	///
+
+	/// <summary>
+	/// 衝突判定と応答
+	/// </summary
+	void CheckAllCollisions();
 };

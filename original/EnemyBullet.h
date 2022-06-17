@@ -35,6 +35,19 @@ class EnemyBullet {
 	///デスフラグゲッター
 	bool IsDead() const;
 
+	//衝突を検出したら呼び出されるコールバック関数
+	void OnCollision();
+
+	/// <summary>
+	/// ワールド座標を所得
+	/// </summary>
+	Vector3 GetWorldPosition();
+
+	/// <summary>
+	/// 半径を所得
+	/// </summary>
+	float GetRadius();
+
   private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -58,6 +71,8 @@ class EnemyBullet {
 	int32_t deathTimer_ = kLifeTime;
 	//デスフラグ
 	bool isDead_ = false;
+
+	const float radius_ = 1.0f;
 };
 
 inline bool EnemyBullet::IsDead() const { return isDead_; }

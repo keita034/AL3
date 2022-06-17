@@ -40,6 +40,17 @@ class Player {
 	/// </summary>
 	Vector3 GetWorldPosition();
 
+	//衝突を検出したら呼び出されるコールバック関数
+	void OnCollision();
+
+	//弾リストを取得
+	const std::list<std::unique_ptr<PlayerBullet>>& GetBullet() { return bullets_; }
+
+	/// <summary>
+	/// 半径を所得
+	/// </summary>
+	float GetRadius();
+
 	Player() = default;
 	~Player() = default;
 
@@ -61,6 +72,9 @@ class Player {
 
 	//弾
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
+
+	//半径
+	const float radius_ = 1.0f;
 
 	/// <summary>
 	/// 移動

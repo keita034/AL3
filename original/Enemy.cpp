@@ -85,7 +85,7 @@ void Enemy::Fire() {
 	//敵キャラ->自キャラの差分ベクトルを求める
 	Vector3 velocity = MyMath::Vector3Sub(playerPos, enemyPos);
 	//ベクトルの正規化
-	velocity = MyMath::normalize(velocity);
+	velocity = MyMath::Vector3Normalize(velocity);
 	//ベクトルの長さを、早さに合わせる
 	velocity *= kBulletSpeed;
 
@@ -114,6 +114,10 @@ Vector3 Enemy::GetWorldPosition() {
 
 	return worldPos;
 }
+
+void Enemy::OnCollision() {}
+
+float Enemy::GetRadius() { return radius_; }
 
 // 接近フェーズ移動処理
 void Enemy::ApproachVelocity() {

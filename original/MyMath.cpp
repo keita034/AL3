@@ -211,8 +211,8 @@ const Vector3 Vector3Sub(const Vector3& v1, const Vector3& v2) {
 	return temp -= v2;
 }
 
-Vector3& normalize(Vector3& vec) {
-	float len = length(vec);
+Vector3& Vector3Normalize(Vector3& vec) {
+	float len = Vector3Length(vec);
 
 	if (len != 0) {
 		return vec /= len;
@@ -221,5 +221,5 @@ Vector3& normalize(Vector3& vec) {
 	return vec;
 }
 
-float length(Vector3& vec) { return std::sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z); }
+float Vector3Length(Vector3 vec) { return std::sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z); }
 } // namespace MyMath

@@ -136,13 +136,13 @@ void ParenChildUpdate(WorldTransform& worldTransform);
 /// 正規化する
 /// </summary>
 /// <returns>正規化されたベクトル</returns>
-Vector3& normalize(Vector3& vec);
+Vector3& Vector3Normalize(Vector3& vec);
 
  /// <summary>
  /// ノルムを求める
  /// </summary>
  /// <returns>ベクトルの長さ</returns>
- float length(Vector3& vec);
+ float Vector3Length(Vector3 vec);
 
  /// <summary>
  /// 単項演算子
