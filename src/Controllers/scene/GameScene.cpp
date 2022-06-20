@@ -23,8 +23,8 @@ void GameScene::Initialize() {
 	debugText_ = DebugText::GetInstance();
 
 	//ファイル名を指定してテクスチャを読み込む
-	textureHandle_ = TextureManager::Load("mario.jpg");
-	enemyTextureHandle_ = TextureManager::Load("enemy.jpg");
+	textureHandle_ = TextureManager::Load("images/mario.jpg");
+	enemyTextureHandle_ = TextureManager::Load("images/enemy.jpg");
 
 	// 3Dモデル生成
 	model_ = Model::Create();

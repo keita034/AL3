@@ -15,7 +15,7 @@ void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vecto
 	velocity_ = velocity;
 
 	//テクスチャ読み込み
-	texturehandle_ = TextureManager::Load("black.png");
+	texturehandle_ = TextureManager::Load("images/black.png");
 
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;

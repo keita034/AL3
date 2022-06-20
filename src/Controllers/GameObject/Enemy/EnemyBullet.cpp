@@ -15,7 +15,7 @@ void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector
 	velocity_ = velocity;
 
 	//テクスチャ読み込み
-	texturehandle_ = TextureManager::Load("red.png");
+	texturehandle_ = TextureManager::Load("images/red.png");
 
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
