@@ -76,6 +76,15 @@
     <Filter Include="src\scene\ソースファイル">
       <UniqueIdentifier>{38f3021b-7be1-4aca-b253-b5d2d0a420ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\skydome">
+      <UniqueIdentifier>{f64ca8cd-28b1-48c0-95d3-0abc6371760e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\skydome\ヘッダーファイル">
+      <UniqueIdentifier>{2293171e-894f-4a65-8f10-512cbba29f43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\skydome\ソースファイル">
+      <UniqueIdentifier>{71f42c2c-cc0d-40bc-9455-b93b80a3d94f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\KamataEngine\base\DirectXCommon.cpp">
@@ -105,6 +114,12 @@
     </ClCompile>
     <ClCompile Include="src\Controllers\scene\GameScene.cpp">
       <Filter>src\scene\ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="skydome.cpp">
+      <Filter>KamtaEngine\ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Controllers\Skydom\Skydome.cpp">
+      <Filter>src\skydome\ソースファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +201,6 @@
     <ClInclude Include="src\Models\GameObject\Player\Player.h">
       <Filter>src\Player\ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Models\scene\GameScene.h">
-      <Filter>src\Player\ヘッダーファイル</Filter>
-    </ClInclude>
     <ClInclude Include="lib\KamataEngine\2d\DebugText.h">
       <Filter>KamtaEngine\ヘッダー ファイル\2d</Filter>
     </ClInclude>
@@ -201,8 +213,17 @@
     <ClInclude Include="src\Models\GameObject\Enemy\EnemyBullet.h">
       <Filter>src\Enemy\ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Models\GameObject\Player\PlayerBullet.h">
+    <ClInclude Include="skydome.h">
+      <Filter>KamtaEngine\ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\skydom\Skydome.h">
+      <Filter>src\skydome\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\scene\GameScene.h">
       <Filter>src\scene\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\GameObject\Player\PlayerBullet.h">
+      <Filter>src\Player\ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

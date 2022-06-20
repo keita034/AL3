@@ -14,6 +14,7 @@
 
 #include "Enemy.h"
 #include "Player.h"
+#include "Skydome.h"
 
 /// <summary>
 /// ゲームシーン
@@ -74,6 +75,8 @@ class GameScene {
 
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
+
+	std::unique_ptr<Skydome> modelSkydome_;
 
 	/// <summary>
 	/// ゲームシーン用
