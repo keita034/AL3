@@ -76,6 +76,7 @@ class GameScene {
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
 
+	//天球
 	std::unique_ptr<Skydome> modelSkydome_;
 
 	/// <summary>

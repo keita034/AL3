@@ -52,8 +52,10 @@ void GameScene::Initialize() {
 	enemy_->Initialize(model_, enemyTextureHandle_, Vector3(2.0f, 2.0f, 200.0f));
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_.get());
-
+	
+	//天球の生成
 	modelSkydome_ = std::make_unique<Skydome>();
+	//天球の初期化
 	modelSkydome_->Initialize();
 }
 
@@ -117,6 +119,7 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+	//天球の表示
 	modelSkydome_->Draw(viewProjection_);
 
 	//自キャラの表示
