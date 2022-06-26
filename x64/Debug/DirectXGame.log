@@ -1,1 +1,13 @@
-﻿  DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe
+﻿  DirectXCommon.cpp
+  TextureManager.cpp
+  WinApp.cpp
+  MyMath.cpp
+  Enemy.cpp
+  EnemyBullet.cpp
+  Player.cpp
+  PlayerBullet.cpp
+  Skydome.cpp
+  GameScene.cpp
+  main.cpp
+  コードを生成中...
+  DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe
