@@ -39,8 +39,8 @@ void Player::Move() {
 
 	//移動制限
 	{
-		const float kMoveLimitX = 35.0f;
-		const float kMoveLimitY = 19.0f;
+		const float kMoveLimitX = 20.0f;
+		const float kMoveLimitY = 10.0f;
 
 		worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
 		worldTransform_.translation_.x = min(worldTransform_.translation_.x, kMoveLimitX);
@@ -72,7 +72,7 @@ void Player::Attack() {
 	if (input_->TriggerKey(DIK_SPACE)) {
 
 		//自キャラの座標をコピー
-		Vector3 position = worldTransform_.translation_;
+		Vector3 position = GetWorldPosition();
 
 		//弾の速度
 		const float kBulletSpeed = 1.0f;
@@ -91,19 +91,22 @@ void Player::Attack() {
 }
 
 // 初期化
-void Player::Initialize(Model* model, uint32_t textureHandle) {
+void Player::Initialize(Model* model, uint32_t textureHandle, WorldTransform* parent, const Vector3& position) {
 	// NUULポインタ」チェック
 	assert(model);
+	assert(parent);
 
 	//引数として受け取ったデータをメンバ変数に記録する
 	model_ = model;
 	texturehandle_ = textureHandle;
+	worldTransform_.parent_ = parent;
 
 	//シングルインスタンスを取得する
 	input_ = Input::GetInstance();
 	debugText_ = DebugText::GetInstance();
-
+	
 	//ワールド変換の初期化
+	worldTransform_.translation_ = position;
 	worldTransform_.Initialize();
 }
 
@@ -120,6 +123,7 @@ void Player::Update() {
 	Rotate();
 
 	//ワールド行列計算
+	//MyMath::ParenChildUpdate(worldTransform_);
 	MyMath::AffineTransformation(worldTransform_);
 
 	//攻撃

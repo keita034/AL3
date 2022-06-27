@@ -41,10 +41,20 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1200, 720);
 
+	//天球の生成
+	modelSkydome_ = std::make_unique<Skydome>();
+	//天球の初期化
+	modelSkydome_->Initialize();
+
+	//レールカメラの生成
+	railCamera_ = std::make_unique<RailCamera>();
+	//レールカメラの初期化
+	railCamera_->Initialize(Vector3(0.0f, 0.0f, -50.0f), Vector3(0.0f, 0.0f, 0.0f));
+
 	//自キャラの生成
 	player_ = std::make_unique<Player>();
 	//自キャラの初期化
-	player_->Initialize(model_, textureHandle_);
+	player_->Initialize(model_, textureHandle_,railCamera_->GetWorldTransformPtr(), Vector3(0.0f, 0.0f, 30.0f));
 
 	//敵キャラの生成
 	enemy_ = std::make_unique<Enemy>();
@@ -52,11 +62,6 @@ void GameScene::Initialize() {
 	enemy_->Initialize(model_, enemyTextureHandle_, Vector3(2.0f, 2.0f, 200.0f));
 	//敵キャラに自キャラのアドレスを渡す
 	enemy_->SetPlayer(player_.get());
-	
-	//天球の生成
-	modelSkydome_ = std::make_unique<Skydome>();
-	//天球の初期化
-	modelSkydome_->Initialize();
 }
 
 void GameScene::Update() {
@@ -83,6 +88,12 @@ void GameScene::Update() {
 
 	//自キャラの更新
 	player_->Update();
+
+	//レールカメラの更新
+	Vector3 move(0.0f, 0.0f, -0.00f);
+	Vector3 rot(0.0f, 0.02f,0.0f);
+	railCamera_->Update(move, rot);
+	viewProjection_ = railCamera_->GetViewProjection();
 
 	//敵キャラの更新
 	if (enemy_) {

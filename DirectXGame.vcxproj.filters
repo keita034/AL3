@@ -85,6 +85,15 @@
     <Filter Include="src\skydome\ソースファイル">
       <UniqueIdentifier>{71f42c2c-cc0d-40bc-9455-b93b80a3d94f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\RailCamera">
+      <UniqueIdentifier>{e1de848f-a942-4d5e-927d-e2992720d670}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\RailCamera\ソースファイル">
+      <UniqueIdentifier>{cf2f2cdb-4135-45ac-8b3c-13a6bc36c730}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\RailCamera\ヘッダーファイル">
+      <UniqueIdentifier>{1a13ed27-83a1-4ae5-a155-738028d40a7b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\KamataEngine\base\DirectXCommon.cpp">
@@ -115,11 +124,11 @@
     <ClCompile Include="src\Controllers\scene\GameScene.cpp">
       <Filter>src\scene\ソースファイル</Filter>
     </ClCompile>
-    <ClCompile Include="skydome.cpp">
-      <Filter>KamtaEngine\ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="src\Controllers\Skydom\Skydome.cpp">
       <Filter>src\skydome\ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Controllers\RailCamera\RailCamera.cpp">
+      <Filter>src\RailCamera\ソースファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +222,6 @@
     <ClInclude Include="src\Models\GameObject\Enemy\EnemyBullet.h">
       <Filter>src\Enemy\ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="skydome.h">
-      <Filter>KamtaEngine\ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="src\Models\skydom\Skydome.h">
       <Filter>src\skydome\ヘッダーファイル</Filter>
     </ClInclude>
@@ -224,6 +230,9 @@
     </ClInclude>
     <ClInclude Include="src\Models\GameObject\Player\PlayerBullet.h">
       <Filter>src\Player\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\RailCamera\RailCamera.h">
+      <Filter>src\RailCamera\ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

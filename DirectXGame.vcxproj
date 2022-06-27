@@ -59,7 +59,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\Models\Skydom;$(ProjectDir)src\Controllers\Skydom;$(ProjectDir)src\Models\GameObject\Enemy;$(ProjectDir)src\Models\GameObject\Player;$(ProjectDir)src\Models\scene;$(ProjectDir)src\Controllers\GameObject\Player;$(ProjectDir)src\Controllers\scene;$(ProjectDir)src\Controllers\GameObject\Enemy;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)lib\KamataEngine\2d;$(ProjectDir)lib\KamataEngine\lib\DirectXTex\include;$(ProjectDir)lib\KamataEngine\3d;$(ProjectDir)lib\KamataEngine\audio;$(ProjectDir)lib\KamataEngine\base;$(ProjectDir)lib\KamataEngine\input;$(ProjectDir)lib\KamataEngine\math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\Models\RailCamera;$(ProjectDir)src\Controllers\RailCamera;$(ProjectDir)src\Models\Skydom;$(ProjectDir)src\Controllers\Skydom;$(ProjectDir)src\Models\scene;$(ProjectDir)src\Controllers\scene;$(ProjectDir)src\Controllers\GameObject\Player;$(ProjectDir)src\Models\GameObject\Player;$(ProjectDir)src\Controllers\GameObject\Enemy;$(ProjectDir)src\Models\GameObject\Enemy;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)lib\KamataEngine\2d;$(ProjectDir)lib\KamataEngine\lib\DirectXTex\include;$(ProjectDir)lib\KamataEngine\3d;$(ProjectDir)lib\KamataEngine\audio;$(ProjectDir)lib\KamataEngine\base;$(ProjectDir)lib\KamataEngine\input;$(ProjectDir)lib\KamataEngine\math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -78,7 +78,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\Models\Skydom;$(ProjectDir)src\Controllers\Skydom;$(ProjectDir)src\Models\GameObject\Enemy;$(ProjectDir)src\Models\GameObject\Player;$(ProjectDir)src\Models\scene;$(ProjectDir)src\Controllers\GameObject\Player;$(ProjectDir)src\Controllers\scene;$(ProjectDir)src\Controllers\GameObject\Enemy;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)lib\KamataEngine\2d;$(ProjectDir)lib\KamataEngine\lib\DirectXTex\include;$(ProjectDir)lib\KamataEngine\3d;$(ProjectDir)lib\KamataEngine\audio;$(ProjectDir)lib\KamataEngine\base;$(ProjectDir)lib\KamataEngine\input;$(ProjectDir)lib\KamataEngine\math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\Models\RailCamera;$(ProjectDir)src\Controllers\RailCamera;$(ProjectDir)src\Models\Skydom;$(ProjectDir)src\Controllers\Skydom;$(ProjectDir)src\Models\scene;$(ProjectDir)src\Controllers\scene;$(ProjectDir)src\Controllers\GameObject\Player;$(ProjectDir)src\Models\GameObject\Player;$(ProjectDir)src\Controllers\GameObject\Enemy;$(ProjectDir)src\Models\GameObject\Enemy;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)lib\KamataEngine\2d;$(ProjectDir)lib\KamataEngine\lib\DirectXTex\include;$(ProjectDir)lib\KamataEngine\3d;$(ProjectDir)lib\KamataEngine\audio;$(ProjectDir)lib\KamataEngine\base;$(ProjectDir)lib\KamataEngine\input;$(ProjectDir)lib\KamataEngine\math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <Optimization>MinSpace</Optimization>
     </ClCompile>
@@ -102,6 +102,7 @@
     <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyBullet.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Player\Player.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Player\PlayerBullet.cpp" />
+    <ClCompile Include="src\Controllers\RailCamera\RailCamera.cpp" />
     <ClCompile Include="src\Controllers\scene\GameScene.cpp" />
     <ClCompile Include="src\Controllers\Skydom\Skydome.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -134,11 +135,11 @@
     <ClInclude Include="lib\KamataEngine\math\Vector2.h" />
     <ClInclude Include="lib\KamataEngine\math\Vector3.h" />
     <ClInclude Include="lib\KamataEngine\math\Vector4.h" />
-    <ClInclude Include="skydome.h" />
     <ClInclude Include="src\Models\GameObject\Enemy\Enemy.h" />
     <ClInclude Include="src\Models\GameObject\Enemy\EnemyBullet.h" />
     <ClInclude Include="src\Models\GameObject\Player\Player.h" />
     <ClInclude Include="src\Models\GameObject\Player\PlayerBullet.h" />
+    <ClInclude Include="src\Models\RailCamera\RailCamera.h" />
     <ClInclude Include="src\Models\scene\GameScene.h" />
     <ClInclude Include="src\Models\skydom\Skydome.h" />
   </ItemGroup>

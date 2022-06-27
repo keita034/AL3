@@ -15,6 +15,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Skydome.h"
+#include "RailCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -78,6 +79,9 @@ class GameScene {
 
 	//天球
 	std::unique_ptr<Skydome> modelSkydome_;
+
+	//レールカメラ
+	std::unique_ptr<RailCamera> railCamera_;
 
 	/// <summary>
 	/// ゲームシーン用

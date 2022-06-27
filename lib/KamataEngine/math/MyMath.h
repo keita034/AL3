@@ -159,4 +159,10 @@ namespace MyMath
 	/// <returns></returns>
 	Vector3 VecMatMul(Vector3& vec, Matrix4& mat);
 
+	/// <summary>
+	/// ƒ[ƒ‹ƒhÀ•W‚ğæ“¾
+	/// </summary>
+	/// <param name="worldTransform_"></param>
+	/// <returns></returns>
+	Vector3 GetWorldPosition(WorldTransform& worldTransform_);
 } // namespace MyMath
