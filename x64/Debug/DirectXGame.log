@@ -1,7 +1,8 @@
-﻿  main.cpp
+﻿  DirectXCommon.cpp
+  TextureManager.cpp
+  main.cpp
   Enemy.cpp
   EnemyBullet.cpp
-  MyMath.cpp
   Player.cpp
   PlayerBullet.cpp
   GameScene.cpp
