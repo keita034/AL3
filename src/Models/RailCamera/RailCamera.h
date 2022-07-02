@@ -1,14 +1,14 @@
 #pragma once
+#include "DebugText.h"
+#include "MathUtility.h"
+#include "MyMath.h"
+#include "ViewProjection.h"
 #include "WorldTransform.h"
-#include"ViewProjection.h"
-#include"MyMath.h"
-#include"MathUtility.h"
 /// <summary>
 /// レールカメラ
 /// </summary>
-class RailCamera
-{
-public:
+class RailCamera {
+  public:
 	RailCamera();
 	~RailCamera();
 
@@ -32,10 +32,11 @@ public:
 	/// </summary>
 	WorldTransform* GetWorldTransformPtr();
 
-private:
+  private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
+	//デバッグ用表示
+	DebugText* debugText_ = nullptr;
 };
-

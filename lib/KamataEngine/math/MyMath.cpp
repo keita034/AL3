@@ -116,7 +116,7 @@ namespace MyMath
 		// matWorld_‚ÉZ²‰ñ“]s—ñ‚ğŠ|‚¯Z
 		matRot *= RotationZForm(rotaion.z);
 		// matWorld_‚ÉX²‰ñ“]s—ñ‚ğŠ|‚¯Z
-		matRot *= RotationXForm(rotaion.y);
+		matRot *= RotationXForm(rotaion.x);
 		// matWorld_‚ÉY²‰ñ“]s—ñ‚ğŠ|‚¯Z
 		matRot *= RotationYForm(rotaion.y);
 	}
@@ -128,7 +128,7 @@ namespace MyMath
 		// matWorld_‚ÉZ²‰ñ“]s—ñ‚ğŠ|‚¯Z
 		matRot *= RotationZForm(rotaion.z);
 		// matWorld_‚ÉX²‰ñ“]s—ñ‚ğŠ|‚¯Z
-		matRot *= RotationXForm(rotaion.y);
+		matRot *= RotationXForm(rotaion.x);
 		// matWorld_‚ÉY²‰ñ“]s—ñ‚ğŠ|‚¯Z
 		matRot *= RotationYForm(rotaion.y);
 

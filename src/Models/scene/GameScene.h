@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include <memory>
+#include<sstream>
 
 #include "Audio.h"
 #include "DebugCamera.h"
@@ -12,10 +13,11 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
-#include "Enemy.h"
 #include "Player.h"
-#include "Skydome.h"
 #include "RailCamera.h"
+#include "Skydome.h"
+#include"EnemyBullet.h"
+#include <Enemy.h>
 
 /// <summary>
 /// ゲームシーン
@@ -48,6 +50,23 @@ class GameScene {
 	/// </summary>
 	void Draw();
 
+	/// <summary>
+	/// 敵弾を追加する
+	/// </summary>
+	/// <param name="enemyBullet">敵弾</param>
+	void AddEnemyBullet(std::unique_ptr<EnemyBullet>& enemyBullet);
+
+	/// <summary>
+	/// 敵発生データの読み込み
+	/// </summary>
+	void LoadEnemyPopData(const char* filepath);
+
+	/// <summary>
+	/// 敵発生コマンドの更新
+	/// </summary>
+	void UpdateEnemyPopCommands();
+
+
   private:
 	// メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -70,9 +89,12 @@ class GameScene {
 
 	//自キャラ
 	std::unique_ptr<Player> player_;
-
+	
 	//敵キャラ
-	std::unique_ptr<Enemy> enemy_;
+	std::list<std::unique_ptr<Enemy>> enemys_;
+
+	//弾
+	std::list<std::unique_ptr<EnemyBullet>> enemyBullets_;
 
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
@@ -82,6 +104,15 @@ class GameScene {
 
 	//レールカメラ
 	std::unique_ptr<RailCamera> railCamera_;
+	
+	//敵発生コマンド
+	std::stringstream enemyPopCommands;
+
+	//待機中フラグ
+	bool isStand_ = false;
+
+	//待機タイマー
+	int StandTime_ = 0;
 
 	/// <summary>
 	/// ゲームシーン用

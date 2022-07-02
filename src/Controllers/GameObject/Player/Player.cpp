@@ -91,7 +91,8 @@ void Player::Attack() {
 }
 
 // 初期化
-void Player::Initialize(Model* model, uint32_t textureHandle, WorldTransform* parent, const Vector3& position) {
+void Player::Initialize(
+  Model* model, uint32_t textureHandle, WorldTransform* parent, const Vector3& position) {
 	// NUULポインタ」チェック
 	assert(model);
 	assert(parent);
@@ -104,7 +105,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle, WorldTransform* pa
 	//シングルインスタンスを取得する
 	input_ = Input::GetInstance();
 	debugText_ = DebugText::GetInstance();
-	
+
 	//ワールド変換の初期化
 	worldTransform_.translation_ = position;
 	worldTransform_.Initialize();
@@ -123,8 +124,7 @@ void Player::Update() {
 	Rotate();
 
 	//ワールド行列計算
-	//MyMath::ParenChildUpdate(worldTransform_);
-	MyMath::AffineTransformation(worldTransform_);
+	MyMath::ParenChildUpdate(worldTransform_);
 
 	//攻撃
 	Attack();

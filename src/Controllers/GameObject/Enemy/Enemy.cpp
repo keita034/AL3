@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "GameScene.h"
 #include <cassert>
 
 // 初期化
@@ -26,9 +27,6 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& posi
 // 更新処理
 void Enemy::Update() {
 
-	//デスフラグの立った弾を削除
-	bullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) { return bullet->IsDead(); });
-
 	//移動処理
 	switch (phase_) {
 	case Phase::Approach: //接近フェーズ
@@ -40,34 +38,11 @@ void Enemy::Update() {
 	}
 	//ワールド行列計算
 	MyMath::AffineTransformation(worldTransform_);
-
-	//弾更新
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-		bullet->Update();
-	}
-
-	//デバッグ用表示
-	debugText_->SetPos(0, 60);
-	debugText_->Printf(
-	  "Root:(%f,%f,%f)", worldTransform_.translation_.x, worldTransform_.translation_.y,
-	  worldTransform_.translation_.z);
-
-	debugText_->SetPos(0, 80);
-	if (phase_ == Phase::Approach) {
-		debugText_->Printf("Phase:Approach");
-	} else {
-		debugText_->Printf("Phase:Leave");
-	}
 }
 
 // 描画
 void Enemy::Draw(ViewProjection& viewProjection) {
 	model_->Draw(worldTransform_, viewProjection, texturehandle_);
-
-	//弾描画
-	for (std::unique_ptr<EnemyBullet>& bullet : bullets_) {
-		bullet->Draw(viewProjection);
-	}
 }
 
 // 弾発射
@@ -94,7 +69,7 @@ void Enemy::Fire() {
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
 	//弾を登録する
-	bullets_.push_back(std::move(newBullet));
+	gameScene_->AddEnemyBullet(newBullet);
 }
 
 //接近フェーズ初期化
@@ -115,7 +90,7 @@ Vector3 Enemy::GetWorldPosition() {
 	return worldPos;
 }
 
-void Enemy::OnCollision() {}
+void Enemy::OnCollision() { isDead_ = true; }
 
 float Enemy::GetRadius() { return radius_; }
 

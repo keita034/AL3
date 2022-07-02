@@ -10,6 +10,8 @@
 #include "Player.h"
 
 class Player;
+// GameSceneの前方宣言
+class GameScene;
 
 //行動フェーズ
 enum class Phase {
@@ -54,7 +56,7 @@ class Enemy {
 	/// <summary>
 	/// プレイヤーのアドレスをセット
 	/// </summary>
-	/// <param name="player"></param>
+	/// <param name="player">プレイヤーのアドレス</param>
 	void SetPlayer(Player* player) { player_ = player; }
 
 	/// <summary>
@@ -65,13 +67,19 @@ class Enemy {
 	//衝突を検知したら呼び出されるコールバック関数
 	void OnCollision();
 
-	//弾リストを取得
-	const std::list<std::unique_ptr<EnemyBullet>>& GetBullet() { return bullets_; }
-
 	/// <summary>
 	/// 半径を所得
 	/// </summary>
 	float GetRadius();
+
+	/// <summary>
+	/// ゲームシーンのアドレスをセット
+	/// </summary>
+	/// <param name="gameScene">ゲームシーンのアドレス</param>
+	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; };
+
+	///デスフラグゲッター
+	bool IsDead() const;
 
 	//発射間隔
 	static const int kFireInterval = 60;
@@ -109,9 +117,6 @@ class Enemy {
 	//フェーズ
 	Phase phase_ = Phase::Approach;
 
-	//弾
-	std::list<std::unique_ptr<EnemyBullet>> bullets_;
-
 	//発射タイマー
 	int32_t fileTimer_ = 0;
 
@@ -120,4 +125,12 @@ class Enemy {
 
 	//半径
 	const float radius_ = 1.0f;
+
+	//ゲームシーン
+	GameScene* gameScene_ = nullptr;
+
+	//デスフラグ
+	bool isDead_ = false;
+
 };
+inline bool Enemy::IsDead() const { return isDead_; }

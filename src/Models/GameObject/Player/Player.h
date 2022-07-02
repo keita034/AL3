@@ -22,7 +22,8 @@ class Player {
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(Model* model, uint32_t textureHandle, WorldTransform* parent_, const Vector3& position);
+	void Initialize(
+	  Model* model, uint32_t textureHandle, WorldTransform* parent_, const Vector3& position);
 
 	/// <summary>
 	/// 更新
