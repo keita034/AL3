@@ -90,8 +90,8 @@ void GameScene::Update() {
 	player_->Update();
 
 	//レールカメラの更新
-	Vector3 move(0.0f, 0.0f, -0.00f);
-	Vector3 rot(0.0f, 0.02f,0.0f);
+	Vector3 move(0.0f, 0.0f, -0.1f);
+	Vector3 rot(0.0f, 0.00f,0.0f);
 	railCamera_->Update(move, rot);
 	viewProjection_ = railCamera_->GetViewProjection();
 

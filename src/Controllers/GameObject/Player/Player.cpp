@@ -123,8 +123,7 @@ void Player::Update() {
 	Rotate();
 
 	//ワールド行列計算
-	//MyMath::ParenChildUpdate(worldTransform_);
-	MyMath::AffineTransformation(worldTransform_);
+	MyMath::ParenChildUpdate(worldTransform_);
 
 	//攻撃
 	Attack();
