@@ -26,7 +26,8 @@ void GameScene::Initialize() {
 	//ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("images/mario.jpg");
 	enemyTextureHandle_ = TextureManager::Load("images/enemy.jpg");
-
+	//レティクルのテクスチャ
+	TextureManager::Load("images/reticle.png");
 	// 3Dモデル生成
 	model_ = Model::Create();
 
@@ -65,7 +66,7 @@ void GameScene::Update() {
 
 	//レールカメラの更新
 	Vector3 move(0.0f, 0.0f, -0.00f);
-	Vector3 rot(0.0f, 0.000f, 0.0f);
+	Vector3 rot(0.0f, 0.0001f, 0.0f);
 	railCamera_->Update(move, rot);
 	viewProjection_ = railCamera_->GetViewProjection();
 
@@ -91,7 +92,7 @@ void GameScene::Update() {
 	}
 
 	//自キャラの更新
-	player_->Update();
+	player_->Update(viewProjection_);
 
 	//敵発生コマンド
 	UpdateEnemyPopCommands();
@@ -169,9 +170,12 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	
+	player_->DrawUI();
+
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
-	//
+
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
