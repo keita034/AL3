@@ -95,6 +95,8 @@ class Enemy {
 	/// </summary>
 	void LeaveVelocity();
 
+	static void(Enemy::* phaseFuncTable[])();
+
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 

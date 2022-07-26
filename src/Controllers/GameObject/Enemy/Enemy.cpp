@@ -2,6 +2,8 @@
 #include "GameScene.h"
 #include <cassert>
 
+void (Enemy::*Enemy::phaseFuncTable[])() = {&Enemy::ApproachVelocity, &Enemy::LeaveVelocity};
+
 // 初期化
 void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& position) {
 	// NUULポインタ」チェック
@@ -28,14 +30,7 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& posi
 void Enemy::Update() {
 
 	//移動処理
-	switch (phase_) {
-	case Phase::Approach: //接近フェーズ
-		ApproachVelocity();
-		break;
-	case Phase::Leave: //離脱フェーズ
-		LeaveVelocity();
-		break;
-	}
+	(this->*phaseFuncTable[static_cast<size_t>(phase_)])();
 	//ワールド行列計算
 	MyMath::AffineTransformation(worldTransform_);
 }
