@@ -1,2 +1,6 @@
-﻿  GameScene.cpp
+﻿  Player.cpp
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(204,68): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(204,46): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(205,67): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(205,45): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
   DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe
