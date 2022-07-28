@@ -8,6 +8,8 @@
 
 #include <cassert>
 
+class Player;
+
 /// <summary>
 /// 敵の弾
 /// </summary>
@@ -48,6 +50,8 @@ class EnemyBullet {
 	/// </summary>
 	float GetRadius();
 
+	void SetPlayer(std::shared_ptr<Player> player) { player_ = player; }
+
   private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -73,6 +77,8 @@ class EnemyBullet {
 	bool isDead_ = false;
 
 	const float radius_ = 1.0f;
+
+	std::shared_ptr<Player> player_;
 };
 
 inline bool EnemyBullet::IsDead() const { return isDead_; }

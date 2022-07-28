@@ -1,4 +1,5 @@
 #include "EnemyBullet.h"
+#include"Player.h"
 
 /// <summary>
 /// 初期化
@@ -31,8 +32,23 @@ void EnemyBullet::Initialize(std::shared_ptr<Model> model, const Vector3& positi
 
 // 更新
 void EnemyBullet::Update() {
+	//敵弾から自キャラへのベクトルを計算
+	Vector3 toPlayer =
+		MyMath::Vector3Sub(player_->GetWorldPosition(), MyMath::GetWorldPosition(worldTransform_));
+
+	//ベクトルを正規化する
+	MyMath::Vector3Normalize(toPlayer);
+	MyMath::Vector3Normalize(velocity_);
+	//球面線形補間により、今の速度と自キャラへのベクトルを内挿し、新たな速度とする
+	velocity_ = MyMath::Vector3Mul(MyMath::Slerp(velocity_, toPlayer, 0.01f), 1.0f);
+
 	//座標を移動させる(1フレーム分の移動を差し込む)
 	worldTransform_.translation_ += velocity_;
+
+	worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
+	Vector3 temp = velocity_;
+	temp.y = 0.0f;
+	worldTransform_.rotation_.x = std::atan2(-velocity_.y, MyMath::Vector3Length(temp));
 
 	//ワールドトランスフォームの更新
 	MyMath::AffineTransformation(worldTransform_);

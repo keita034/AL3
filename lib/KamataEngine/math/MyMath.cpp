@@ -310,6 +310,31 @@ namespace MyMath
 		return worldPos;
 	}
 
+	Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t)
+	{
+		Vector3 temp;
+		temp.x = v1.x + (v2.x - v1.x) * t;
+		temp.y = v1.y + (v2.y - v1.y) * t;
+		temp.z = v1.z + (v2.z - v1.z) * t;
+
+		return temp;
+	}
+
+	Vector3 Slerp(Vector3& v1, Vector3& v2, float t)
+	{
+		float omega = std::acosf(MyMath::Vector3Dot(
+			MyMath::Vector3Normalize(v1),
+			MyMath::Vector3Normalize(v2)
+		));
+
+		float sinOmega = std::sinf(omega);
+
+		Vector3 termOne = v1 * (std::sinf(omega * (1.0f - t)) / sinOmega);
+		Vector3 termTwo = v2 * (std::sinf(omega * (t)) / sinOmega);
+
+		return termOne + termTwo;
+	}
+
 } // namespace MyMath
 
 Matrix4 operator*(const Matrix4& m1, const Matrix4& m2)

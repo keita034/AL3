@@ -335,7 +335,6 @@ void GameScene::UpdateEnemyPopCommands() {
 			std::unique_ptr<Enemy>newEnemy = std::make_unique<Enemy>();
 			//敵キャラの初期化
 			newEnemy->Initialize(model_, enemyTextureHandle_, Vector3(x, y, z));
-
 			//敵キャラにアドレスを渡す
 			newEnemy->SetPlayer(player_);
 			newEnemy->SetGameScene(this);

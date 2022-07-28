@@ -181,6 +181,17 @@ namespace MyMath
 	/// <param name="worldTransform_"></param>
 	/// <returns></returns>
 	Vector3 GetWorldPosition(WorldTransform& worldTransform_);
+
+	/// <summary>
+	/// ê¸å`ï‚ä‘
+	/// </summary>
+	Vector3 Lerp(const Vector3& v1, const Vector3& v2, float t);
+
+	/// <summary>
+	/// ã»ñ ê¸å`ï‚ä‘
+	/// </summary>
+	Vector3 Slerp(Vector3& v1, Vector3& v2, float t);
+
 } // namespace MyMath
 
 Matrix4 operator*(const Matrix4& m1, const Matrix4& m2);

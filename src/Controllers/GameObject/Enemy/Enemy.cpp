@@ -70,7 +70,7 @@ void Enemy::Fire() {
 	// ’e‚ğ¶¬‚µA‰Šú‰»
 	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
 	newBullet->Initialize(model_,worldTransform_.translation_, velocity);
-
+	newBullet->SetPlayer(player_);
 	//’e‚ğ“o˜^‚·‚é
 	gameScene_->AddEnemyBullet(newBullet);
 }
