@@ -5,13 +5,10 @@
 /// </summary>
 /// <param name="model">モデル</param>
 /// <param name="position">初期座標 </param>
-void EnemyBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
-
-	// NULLポインタチェック
-	assert(model);
+void EnemyBullet::Initialize(const Vector3& position, const Vector3& velocity) {
 
 	//引数として受け取ったデータをメンバ変数に記録する
-	model_ = model;
+	model_.reset(Model::Create());
 	velocity_ = velocity;
 
 	//テクスチャ読み込み

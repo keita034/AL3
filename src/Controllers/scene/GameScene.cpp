@@ -30,7 +30,6 @@ void GameScene::Initialize() {
 	TextureManager::Load("images/reticle.png");
 	// 3Dモデル生成
 	model_ = Model::Create();
-
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
@@ -336,7 +335,7 @@ void GameScene::UpdateEnemyPopCommands() {
 			//敵キャラの生成
 			std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
 			//敵キャラの初期化
-			newEnemy->Initialize(model_, enemyTextureHandle_, Vector3(x, y, z));
+			newEnemy->Initialize(enemyTextureHandle_, Vector3(x, y, z));
 
 			//敵キャラにアドレスを渡す
 			newEnemy->SetPlayer(player_.get());

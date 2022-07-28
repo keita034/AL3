@@ -108,6 +108,7 @@
     <ClCompile Include="src\Controllers\scene\GameScene.cpp" />
     <ClCompile Include="src\Controllers\Skydom\Skydome.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="TimedCall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\KamataEngine\2d\DebugText.h" />
@@ -147,6 +148,7 @@
     <ClInclude Include="src\Models\RailCamera\RailCamera.h" />
     <ClInclude Include="src\Models\scene\GameScene.h" />
     <ClInclude Include="src\Models\skydom\Skydome.h" />
+    <ClInclude Include="TimedCall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Obj.hlsli" />

@@ -84,6 +84,7 @@ class GameScene {
 
 	// 3Dモデル
 	Model* model_ = nullptr;
+
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 

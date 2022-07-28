@@ -136,6 +136,9 @@
     <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyStateLeave.cpp">
       <Filter>src\Enemy\ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="TimedCall.cpp">
+      <Filter>KamtaEngine\ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\KamataEngine\3d\AxisIndicator.h">
@@ -248,6 +251,9 @@
     </ClInclude>
     <ClInclude Include="src\Models\GameObject\Enemy\BaseEnemyState.h">
       <Filter>src\Enemy\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="TimedCall.h">
+      <Filter>KamtaEngine\ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

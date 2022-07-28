@@ -9,6 +9,7 @@
 #include "EnemyBullet.h"
 #include "MyMath.h"
 #include "Player.h"
+#include"TimedCall.h"
 
 class Player;
 // GameSceneの前方宣言
@@ -26,12 +27,15 @@ enum class Phase {
 /// </summary>
 class Enemy {
   public:
+
+	  ~Enemy();
+
 	/// <summary>
 	/// 初期化
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(Model* model, uint32_t textureHandle, const Vector3& position);
+	void Initialize(uint32_t textureHandle, const Vector3& position);
 
 	/// <summary>
 	/// 更新
@@ -99,6 +103,11 @@ class Enemy {
 
 	Vector3 GetLeaveVelocity();
 
+	/// <summary>
+	/// 弾を発射し、タイマーをリセットするコールバック関数
+	/// </summary>
+	void FireReset();
+
   private:
 	/// <summary>
 	/// 接近フェーズ移動処理
@@ -116,7 +125,7 @@ class Enemy {
 	WorldTransform worldTransform_;
 
 	//モデル
-	Model* model_ = nullptr;
+	std::unique_ptr<Model> model_;
 
 	//テクスチャハンドル
 	uint32_t texturehandle_ = 0u;
@@ -150,6 +159,10 @@ class Enemy {
 	bool isDead_ = false;
 
 	std::unique_ptr<BaseEnemyState> state_;
+
+	//時限発動のリスト
+	std::list<std::unique_ptr<TimedCall>> timedCalls_;
+
 };
 
 inline bool Enemy::IsDead() const { return isDead_; }

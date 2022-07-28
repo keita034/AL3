@@ -5,14 +5,18 @@
 
 void (Enemy::*Enemy::phaseFuncTable[])() = {&Enemy::ApproachVelocity, &Enemy::LeaveVelocity};
 
+Enemy::~Enemy()
+{
+}
+
 // 初期化
-void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& position) {
+void Enemy::Initialize(uint32_t textureHandle, const Vector3& position) {
 	// NUULポインタ」チェック
-	assert(model);
 
 	//引数として受け取ったデータをメンバ変数に記録する
-	model_ = model;
 	texturehandle_ = textureHandle;
+
+	model_.reset(Model::Create());
 
 	//シングルインスタンスを取得する
 	input_ = Input::GetInstance();
@@ -35,6 +39,20 @@ void Enemy::Update() {
 	//移動処理
 	//(this->*phaseFuncTable[static_cast<size_t>(phase_)])();
 	// //移動処理
+	//state_->Update(this);
+
+		//デスフラグの立った弾を削除
+	timedCalls_.remove_if([](std::unique_ptr<TimedCall>& call)
+		{
+			return call->IsFinished();
+		});
+
+	for (const std::unique_ptr<TimedCall>& call : timedCalls_)
+	{
+		call->Update();
+	}
+
+	//移動処理
 	state_->Update(this);
 
 	//ワールド行列計算
@@ -67,7 +85,7 @@ void Enemy::Fire() {
 
 	// 弾を生成し、初期化
 	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
-	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+	newBullet->Initialize(worldTransform_.translation_, velocity);
 
 	//弾を登録する
 	gameScene_->AddEnemyBullet(newBullet);
@@ -77,6 +95,8 @@ void Enemy::Fire() {
 void Enemy::approachPhaseInt() {
 	//発射タイマーを初期化
 	fileTimer_ = kFireInterval;
+
+	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), 60));
 }
 
 // ワールド座標を所得
@@ -120,4 +140,12 @@ void Enemy::ApproachVelocity() {
 void Enemy::LeaveVelocity() {
 	//移動(ベクトルを加算)
 	worldTransform_.translation_ += leaveVelocity_;
+}
+
+
+void Enemy::FireReset()
+{
+	Fire();
+	//発射タイムをリセットする
+	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), 60));
 }
