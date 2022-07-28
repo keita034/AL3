@@ -13,7 +13,6 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete debugCamera_;
-	delete model_;
 }
 
 void GameScene::Initialize() {
@@ -29,7 +28,7 @@ void GameScene::Initialize() {
 	//レティクルのテクスチャ
 	TextureManager::Load("images/reticle.png");
 	// 3Dモデル生成
-	model_ = Model::Create();
+	model_.reset(Model::Create());
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();
 
@@ -53,7 +52,7 @@ void GameScene::Initialize() {
 	railCamera_->Initialize(Vector3(0.0f, 0.0f, -50.0f), Vector3(0.0f, 0.0f, 0.0f));
 
 	//自キャラの生成
-	player_ = std::make_unique<Player>();
+	player_ = std::make_shared<Player>();
 	//自キャラの初期化
 	player_->Initialize(
 	  model_, textureHandle_, railCamera_->GetWorldTransformPtr(), Vector3(0.0f, 0.0f, 30.0f));
@@ -333,12 +332,12 @@ void GameScene::UpdateEnemyPopCommands() {
 			float z = static_cast<float>(std::atof(word.c_str()));
 
 			//敵キャラの生成
-			std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
+			std::unique_ptr<Enemy>newEnemy = std::make_unique<Enemy>();
 			//敵キャラの初期化
-			newEnemy->Initialize(enemyTextureHandle_, Vector3(x, y, z));
+			newEnemy->Initialize(model_, enemyTextureHandle_, Vector3(x, y, z));
 
 			//敵キャラにアドレスを渡す
-			newEnemy->SetPlayer(player_.get());
+			newEnemy->SetPlayer(player_);
 			newEnemy->SetGameScene(this);
 
 			//リストに登録する

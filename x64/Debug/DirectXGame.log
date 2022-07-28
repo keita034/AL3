@@ -1,4 +1,4 @@
-﻿  Enemy.cpp
+﻿  GameScene.cpp
   main.cpp
   コードを生成中...
 KamataEngineLib.lib(Vector3.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector3.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。

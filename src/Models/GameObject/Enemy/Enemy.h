@@ -35,7 +35,7 @@ class Enemy {
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(uint32_t textureHandle, const Vector3& position);
+	void Initialize(std::shared_ptr<Model> model,uint32_t textureHandle, const Vector3& position);
 
 	/// <summary>
 	/// 更新
@@ -62,7 +62,7 @@ class Enemy {
 	/// プレイヤーのアドレスをセット
 	/// </summary>
 	/// <param name="player">プレイヤーのアドレス</param>
-	void SetPlayer(Player* player) { player_ = player; }
+	void SetPlayer(std::shared_ptr<Player> player) { player_ = player; }
 
 	/// <summary>
 	/// ワールド座標を所得
@@ -109,15 +109,6 @@ class Enemy {
 	void FireReset();
 
   private:
-	/// <summary>
-	/// 接近フェーズ移動処理
-	/// </summary>
-	void ApproachVelocity();
-
-	/// <summary>
-	/// 離脱フェーズ移動処理
-	/// </summary>
-	void LeaveVelocity();
 
 	static void (Enemy::*phaseFuncTable[])();
 
@@ -125,7 +116,7 @@ class Enemy {
 	WorldTransform worldTransform_;
 
 	//モデル
-	std::unique_ptr<Model> model_;
+	std::shared_ptr<Model> model_;
 
 	//テクスチャハンドル
 	uint32_t texturehandle_ = 0u;
@@ -140,14 +131,11 @@ class Enemy {
 	Vector3 approachVelocity_ = {0, 0, -0.3f};
 	Vector3 leaveVelocity_ = {-0.1f, 0.1f, -0.1f};
 
-	//フェーズ
-	Phase phase_ = Phase::Approach;
-
 	//発射タイマー
 	int32_t fileTimer_ = 0;
 
 	//自キャラ
-	Player* player_ = nullptr;
+	std::shared_ptr<Player> player_;
 
 	//半径
 	const float radius_ = 1.0f;

@@ -19,7 +19,7 @@ class EnemyBullet {
 	/// </summary>
 	/// <param name = "model">モデル</param>
 	/// <param name = "position">初期座標</param>
-	void Initialize(const Vector3& position, const Vector3& velocity);
+	void Initialize(std::shared_ptr<Model> model, const Vector3& position, const Vector3& velocity);
 
 	/// <summary>
 	/// 更新
@@ -53,7 +53,7 @@ class EnemyBullet {
 	WorldTransform worldTransform_;
 
 	//モデル
-	std::unique_ptr<Model> model_;
+	std::shared_ptr<Model> model_;
 
 	//テクスチャハンドル
 	uint32_t texturehandle_ = 0u;

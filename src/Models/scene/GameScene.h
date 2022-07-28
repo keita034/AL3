@@ -83,13 +83,13 @@ class GameScene {
 	uint32_t enemyTextureHandle_ = 0;
 
 	// 3Dモデル
-	Model* model_ = nullptr;
+	std::shared_ptr<Model> model_;
 
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
 	//自キャラ
-	std::unique_ptr<Player> player_;
+	std::shared_ptr<Player> player_;
 	
 	//敵キャラ
 	std::list<std::unique_ptr<Enemy>> enemys_;
