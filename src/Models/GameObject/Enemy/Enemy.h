@@ -9,7 +9,7 @@
 #include "EnemyBullet.h"
 #include "MyMath.h"
 #include "Player.h"
-#include"TimedCall.h"
+#include "TimedCall.h"
 
 class Player;
 // GameSceneの前方宣言
@@ -27,15 +27,14 @@ enum class Phase {
 /// </summary>
 class Enemy {
   public:
-
-	  ~Enemy();
+	~Enemy();
 
 	/// <summary>
 	/// 初期化
 	/// </summary>
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
-	void Initialize(std::shared_ptr<Model> model,uint32_t textureHandle, const Vector3& position);
+	void Initialize(std::shared_ptr<Model> model, uint32_t textureHandle, const Vector3& position);
 
 	/// <summary>
 	/// 更新
@@ -91,10 +90,6 @@ class Enemy {
 
 	void ChangeState(BaseEnemyState* baseEnemyState);
 
-	int32_t GetFileTimer();
-
-	void SetFileTimer(int32_t time);
-
 	WorldTransform GetWorldTransform();
 
 	void MoveTranslation(Vector3& move);
@@ -103,14 +98,14 @@ class Enemy {
 
 	Vector3 GetLeaveVelocity();
 
+	std::list<std::unique_ptr<TimedCall>>& GetTimedCalls();
+
 	/// <summary>
 	/// 弾を発射し、タイマーをリセットするコールバック関数
 	/// </summary>
 	void FireReset();
 
   private:
-
-	static void (Enemy::*phaseFuncTable[])();
 
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -131,9 +126,6 @@ class Enemy {
 	Vector3 approachVelocity_ = {0, 0, -0.3f};
 	Vector3 leaveVelocity_ = {-0.1f, 0.1f, -0.1f};
 
-	//発射タイマー
-	int32_t fileTimer_ = 0;
-
 	//自キャラ
 	std::shared_ptr<Player> player_;
 
@@ -150,16 +142,11 @@ class Enemy {
 
 	//時限発動のリスト
 	std::list<std::unique_ptr<TimedCall>> timedCalls_;
-
 };
 
 inline bool Enemy::IsDead() const { return isDead_; }
 
 inline void Enemy::ChangeState(BaseEnemyState* baseEnemyState) { state_.reset(baseEnemyState); }
-
-inline int32_t Enemy::GetFileTimer() { return fileTimer_; }
-
-inline void Enemy::SetFileTimer(int32_t time) { fileTimer_ = time; }
 
 inline WorldTransform Enemy::GetWorldTransform() { return worldTransform_; }
 
@@ -168,3 +155,5 @@ inline void Enemy::MoveTranslation(Vector3& move) { worldTransform_.translation_
 inline Vector3 Enemy::GetApproachVelocity() { return approachVelocity_; }
 
 inline Vector3 Enemy::GetLeaveVelocity() { return leaveVelocity_; }
+
+inline std::list<std::unique_ptr<TimedCall>>& Enemy::GetTimedCalls() { return timedCalls_; }

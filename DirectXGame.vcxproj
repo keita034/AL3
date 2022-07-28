@@ -81,7 +81,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\Models\RailCamera;$(ProjectDir)src\Controllers\RailCamera;$(ProjectDir)src\Models\Skydom;$(ProjectDir)src\Controllers\Skydom;$(ProjectDir)src\Models\scene;$(ProjectDir)src\Controllers\scene;$(ProjectDir)src\Controllers\GameObject\Player;$(ProjectDir)src\Models\GameObject\Player;$(ProjectDir)src\Controllers\GameObject\Enemy;$(ProjectDir)src\Models\GameObject\Enemy;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)lib\KamataEngine\2d;$(ProjectDir)lib\KamataEngine\lib\DirectXTex\include;$(ProjectDir)lib\KamataEngine\3d;$(ProjectDir)lib\KamataEngine\audio;$(ProjectDir)lib\KamataEngine\base;$(ProjectDir)lib\KamataEngine\input;$(ProjectDir)lib\KamataEngine\math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\Controllers\TimedCall;$(ProjectDir)src\Models\TimedCall;$(ProjectDir)src\Models\RailCamera;$(ProjectDir)src\Controllers\RailCamera;$(ProjectDir)src\Models\Skydom;$(ProjectDir)src\Controllers\Skydom;$(ProjectDir)src\Models\scene;$(ProjectDir)src\Controllers\scene;$(ProjectDir)src\Controllers\GameObject\Player;$(ProjectDir)src\Models\GameObject\Player;$(ProjectDir)src\Controllers\GameObject\Enemy;$(ProjectDir)src\Models\GameObject\Enemy;$(ProjectDir)src;$(ProjectDir);$(ProjectDir)lib\KamataEngine\2d;$(ProjectDir)lib\KamataEngine\lib\DirectXTex\include;$(ProjectDir)lib\KamataEngine\3d;$(ProjectDir)lib\KamataEngine\audio;$(ProjectDir)lib\KamataEngine\base;$(ProjectDir)lib\KamataEngine\input;$(ProjectDir)lib\KamataEngine\math;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <Optimization>MinSpace</Optimization>
     </ClCompile>
@@ -110,8 +110,8 @@
     <ClCompile Include="src\Controllers\RailCamera\RailCamera.cpp" />
     <ClCompile Include="src\Controllers\scene\GameScene.cpp" />
     <ClCompile Include="src\Controllers\Skydom\Skydome.cpp" />
+    <ClCompile Include="src\Controllers\TimedCall\TimedCall.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="TimedCall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\KamataEngine\2d\DebugText.h" />
@@ -151,7 +151,7 @@
     <ClInclude Include="src\Models\RailCamera\RailCamera.h" />
     <ClInclude Include="src\Models\scene\GameScene.h" />
     <ClInclude Include="src\Models\skydom\Skydome.h" />
-    <ClInclude Include="TimedCall.h" />
+    <ClInclude Include="src\Models\TimedCall\TimedCall.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shaders\Obj.hlsli" />

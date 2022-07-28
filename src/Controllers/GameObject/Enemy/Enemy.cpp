@@ -36,10 +36,6 @@ void Enemy::Update() {
 	//削除
 	timedCalls_.remove_if([](std::unique_ptr<TimedCall>& call) { return call->IsFinished(); });
 
-	for (const std::unique_ptr<TimedCall>& call : timedCalls_) {
-		call->Update();
-	}
-
 	//移動処理
 	state_->Update(this);
 
@@ -81,10 +77,8 @@ void Enemy::Fire() {
 
 //接近フェーズ初期化
 void Enemy::approachPhaseInt() {
-	//発射タイマーを初期化
-	fileTimer_ = kFireInterval;
 
-	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), 60));
+	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), kFireInterval));
 }
 
 // ワールド座標を所得
@@ -106,5 +100,5 @@ float Enemy::GetRadius() { return radius_; }
 void Enemy::FireReset() {
 	Fire();
 	//発射タイムをリセットする
-	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), 60));
+	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), kFireInterval));
 }

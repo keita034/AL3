@@ -4,15 +4,10 @@
 
 void EnemyStateApproach::Update(Enemy* pEnemy)
 {
-	//発射タイマーカウントダウン
-	pEnemy->SetFileTimer(pEnemy->GetFileTimer() - 1);
 	//指定時間に達した
-	if (pEnemy->GetFileTimer() == 0)
+	for (const std::unique_ptr<TimedCall>& call : pEnemy->GetTimedCalls())
 	{
-		//弾の発射
-		pEnemy->Fire();
-		//発射タイマーを初期化
-		pEnemy->SetFileTimer(pEnemy->kFireInterval);
+		call->Update();
 	}
 
 	Vector3 move = pEnemy->GetApproachVelocity();
