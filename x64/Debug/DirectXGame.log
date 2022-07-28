@@ -1,6 +1,8 @@
-﻿  GameScene.cpp
+﻿  Enemy.cpp
+  GameScene.cpp
   main.cpp
   コードを生成中...
+  LINK : 前回のインクリメンタル リンクで C:\課題用\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe が見つからなかったか、ビルドされませんでした。フル リンクを行います。
 KamataEngineLib.lib(Vector3.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector3.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 KamataEngineLib.lib(Matrix4.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Matrix4.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 KamataEngineLib.lib(WorldTransform.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(WorldTransform.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
