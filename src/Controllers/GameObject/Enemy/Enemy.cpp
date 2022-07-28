@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "GameScene.h"
 #include <cassert>
+#include"EnemyStateApproach.h"
 
 void (Enemy::*Enemy::phaseFuncTable[])() = {&Enemy::ApproachVelocity, &Enemy::LeaveVelocity};
 
@@ -22,6 +23,8 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& posi
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
 
+	state_ = std::make_unique<EnemyStateApproach>();
+
 	//接近フェーズ初期化
 	approachPhaseInt();
 }
@@ -30,7 +33,10 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& posi
 void Enemy::Update() {
 
 	//移動処理
-	(this->*phaseFuncTable[static_cast<size_t>(phase_)])();
+	//(this->*phaseFuncTable[static_cast<size_t>(phase_)])();
+	// //移動処理
+	state_->Update(this);
+
 	//ワールド行列計算
 	MyMath::AffineTransformation(worldTransform_);
 }

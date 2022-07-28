@@ -100,6 +100,8 @@
     <ClCompile Include="lib\KamataEngine\math\MyMath.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyBullet.cpp" />
+    <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyStateApproach.cpp" />
+    <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyStateLeave.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Player\Player.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Player\PlayerBullet.cpp" />
     <ClCompile Include="src\Controllers\RailCamera\RailCamera.cpp" />
@@ -135,8 +137,11 @@
     <ClInclude Include="lib\KamataEngine\math\Vector2.h" />
     <ClInclude Include="lib\KamataEngine\math\Vector3.h" />
     <ClInclude Include="lib\KamataEngine\math\Vector4.h" />
+    <ClInclude Include="src\Models\GameObject\Enemy\BaseEnemyState.h" />
     <ClInclude Include="src\Models\GameObject\Enemy\Enemy.h" />
     <ClInclude Include="src\Models\GameObject\Enemy\EnemyBullet.h" />
+    <ClInclude Include="src\Models\GameObject\Enemy\EnemyStateApproach.h" />
+    <ClInclude Include="src\Models\GameObject\Enemy\EnemyStateLeave.h" />
     <ClInclude Include="src\Models\GameObject\Player\Player.h" />
     <ClInclude Include="src\Models\GameObject\Player\PlayerBullet.h" />
     <ClInclude Include="src\Models\RailCamera\RailCamera.h" />

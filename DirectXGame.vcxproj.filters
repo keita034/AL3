@@ -130,6 +130,12 @@
     <ClCompile Include="src\Controllers\RailCamera\RailCamera.cpp">
       <Filter>src\RailCamera\ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyStateApproach.cpp">
+      <Filter>src\Enemy\ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyStateLeave.cpp">
+      <Filter>src\Enemy\ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\KamataEngine\3d\AxisIndicator.h">
@@ -233,6 +239,15 @@
     </ClInclude>
     <ClInclude Include="src\Models\RailCamera\RailCamera.h">
       <Filter>src\RailCamera\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\GameObject\Enemy\EnemyStateLeave.h">
+      <Filter>src\Enemy\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\GameObject\Enemy\EnemyStateApproach.h">
+      <Filter>src\Enemy\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\GameObject\Enemy\BaseEnemyState.h">
+      <Filter>src\Enemy\ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

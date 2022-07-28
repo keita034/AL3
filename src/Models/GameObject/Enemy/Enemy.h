@@ -5,6 +5,7 @@
 #include "ViewProjection.h"
 #include "input.h"
 
+#include "BaseEnemyState.h"
 #include "EnemyBullet.h"
 #include "MyMath.h"
 #include "Player.h"
@@ -84,6 +85,20 @@ class Enemy {
 	//発射間隔
 	static const int kFireInterval = 60;
 
+	void ChangeState(BaseEnemyState* baseEnemyState);
+
+	int32_t GetFileTimer();
+
+	void SetFileTimer(int32_t time);
+
+	WorldTransform GetWorldTransform();
+
+	void MoveTranslation(Vector3& move);
+
+	Vector3 GetApproachVelocity();
+
+	Vector3 GetLeaveVelocity();
+
   private:
 	/// <summary>
 	/// 接近フェーズ移動処理
@@ -95,7 +110,7 @@ class Enemy {
 	/// </summary>
 	void LeaveVelocity();
 
-	static void(Enemy::* phaseFuncTable[])();
+	static void (Enemy::*phaseFuncTable[])();
 
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -134,5 +149,21 @@ class Enemy {
 	//デスフラグ
 	bool isDead_ = false;
 
+	std::unique_ptr<BaseEnemyState> state_;
 };
+
 inline bool Enemy::IsDead() const { return isDead_; }
+
+inline void Enemy::ChangeState(BaseEnemyState* baseEnemyState) { state_.reset(baseEnemyState); }
+
+inline int32_t Enemy::GetFileTimer() { return fileTimer_; }
+
+inline void Enemy::SetFileTimer(int32_t time) { fileTimer_ = time; }
+
+inline WorldTransform Enemy::GetWorldTransform() { return worldTransform_; }
+
+inline void Enemy::MoveTranslation(Vector3& move) { worldTransform_.translation_ += move; }
+
+inline Vector3 Enemy::GetApproachVelocity() { return approachVelocity_; }
+
+inline Vector3 Enemy::GetLeaveVelocity() { return leaveVelocity_; }
