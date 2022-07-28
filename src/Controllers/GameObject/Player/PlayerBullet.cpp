@@ -19,7 +19,6 @@ void PlayerBullet::Initialize(std::shared_ptr<Model> model, const Vector3& posit
 
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
-	//ワールド変換の初期化
 	worldTransform_.Initialize();
 }
 

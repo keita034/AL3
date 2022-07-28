@@ -16,6 +16,15 @@ void EnemyBullet::Initialize(std::shared_ptr<Model> model, const Vector3& positi
 
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
+	//Z方向に伸びた形状
+	worldTransform_.scale_.x = 0.5f;
+	worldTransform_.scale_.y = 0.5f;
+	worldTransform_.scale_.z = 3.0f;
+	//ワールド変換の初期化
+	worldTransform_.rotation_.y = std::atan2(velocity.x, velocity.z);
+	Vector3 temp = velocity;
+	temp.y = 0.0f;
+	worldTransform_.rotation_.x = std::atan2(-velocity.y, MyMath::Vector3Length(temp));
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
 }
