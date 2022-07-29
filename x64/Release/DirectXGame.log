@@ -1,4 +1,4 @@
-﻿  MyMath.cpp
+﻿  Collider.cpp
   Enemy.cpp
   EnemyBullet.cpp
   EnemyStateApproach.cpp
@@ -9,14 +9,12 @@ C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.c
 C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(205,67): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
 C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(205,45): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
   PlayerBullet.cpp
-  RailCamera.cpp
-  Skydome.cpp
   GameScene.cpp
   main.cpp
   コード生成しています。
-  39 of 1499 functions ( 2.6%) were compiled, the rest were copied from previous compilation.
-    2 functions were new in current compilation
-    17 functions had inline decision re-evaluated but remain unchanged
+  124 of 1502 functions ( 8.3%) were compiled, the rest were copied from previous compilation.
+    15 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
 KamataEngineLib.lib(Vector4.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector4.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
 KamataEngineLib.lib(Vector3.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector3.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Release\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。

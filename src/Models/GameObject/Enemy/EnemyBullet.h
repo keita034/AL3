@@ -8,12 +8,14 @@
 
 #include <cassert>
 
+#include "Collider.h"
+
 class Player;
 
 /// <summary>
 /// 敵の弾
 /// </summary>
-class EnemyBullet {
+class EnemyBullet : public Collider {
 
   public:
 	/// <summary>
@@ -37,20 +39,20 @@ class EnemyBullet {
 	///デスフラグゲッター
 	bool IsDead() const;
 
-	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
-
-	/// <summary>
-	/// ワールド座標を所得
-	/// </summary>
-	Vector3 GetWorldPosition();
-
 	/// <summary>
 	/// 半径を所得
 	/// </summary>
 	float GetRadius();
 
 	void SetPlayer(std::shared_ptr<Player> player) { player_ = player; }
+
+	//衝突時に呼ばれる関数
+	void OnCollision() override;
+
+	/// <summary>
+	/// ワールド座標を所得
+	/// </summary>
+	Vector3 GetWorldPosition() override;
 
   private:
 	//ワールド変換データ

@@ -11,9 +11,7 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {
-	delete debugCamera_;
-}
+GameScene::~GameScene() { delete debugCamera_; }
 
 void GameScene::Initialize() {
 
@@ -168,7 +166,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	
+
 	player_->DrawUI();
 
 	// デバッグテキストの描画
@@ -181,37 +179,16 @@ void GameScene::Draw() {
 }
 
 void GameScene::CheckAllCollisions() {
-	//判定対象AとBの座標
-	Vector3 posA, posB;
 
 	//自弾リストの取得
 	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullet();
 
 #pragma region 自キャラと敵弾の当たり判定
 
-	//自キャラの座標
-	posA = player_->GetWorldPosition();
-
 	//自キャラと敵弾全ての当たり判定
 	for (const std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
-		//敵弾の座標
-		posB = bullet->GetWorldPosition();
-
-		//座標AとBの距離を求める
-		float distance = MyMath::Vector3Length(MyMath::Vector3Sub(posA, posB));
-
-		//自キャラと敵弾の半径
-		float radius = player_->GetRadius() + bullet->GetRadius();
-
-		//自キャラと敵弾の交差判定
-		if (distance <= radius) {
-			//自キャラの衝突時コールバックを呼び出す
-			player_->OnCollision();
-			//敵弾の衝突時コールバックを呼び出す
-			bullet->OnCollision();
-		}
+		CheckCollisionPair(player_.get(), bullet.get());
 	}
-
 #pragma endregion
 
 #pragma region 自弾と敵キャラの当たり判定
@@ -219,24 +196,7 @@ void GameScene::CheckAllCollisions() {
 	//敵キャラと自弾全ての当たり判定
 	for (const std::unique_ptr<Enemy>& enemy : enemys_) {
 		for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
-			//自弾の座標
-			posB = bullet->GetWorldPosition();
-			//敵のキャラの座標
-			posA = enemy->GetWorldPosition();
-
-			//座標AとBの距離を求める
-			float distance = MyMath::Vector3Length(MyMath::Vector3Sub(posA, posB));
-
-			//敵キャラと自弾の半径
-			float radius = enemy->GetRadius() + bullet->GetRadius();
-
-			//敵キャラと自弾の交差判定
-			if (distance <= radius) {
-				//敵キャラの衝突時コールバックを呼び出す
-				enemy->OnCollision();
-				//自弾の衝突時コールバックを呼び出す
-				bullet->OnCollision();
-			}
+			CheckCollisionPair(enemy.get(), bullet.get());
 		}
 	}
 #pragma endregion
@@ -247,25 +207,30 @@ void GameScene::CheckAllCollisions() {
 	for (const std::unique_ptr<PlayerBullet>& bulletA : playerBullets) {
 		for (const std::unique_ptr<EnemyBullet>& bulletB : enemyBullets_) {
 
-			//自弾の座標
-			posB = bulletA->GetWorldPosition();
-			//敵弾の座標
-			posA = bulletB->GetWorldPosition();
-
-			//座標AとBの距離を求める
-			float distance = MyMath::Vector3Length(MyMath::Vector3Sub(posA, posB));
-
-			//自弾と敵弾の半径
-			float radius = bulletB->GetRadius() + bulletA->GetRadius();
-
-			//自弾と敵弾の交差判定
-			if (distance <= radius) {
-				bulletB->OnCollision();
-				bulletA->OnCollision();
-			}
+			CheckCollisionPair(bulletA.get(), bulletB.get());
 		}
 	}
 #pragma endregion
+}
+
+void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
+	//判定対象AとBの座標
+	Vector3 posA = colliderA->GetWorldPosition();
+	Vector3 posB = colliderB->GetWorldPosition();
+
+	//座標AとBの距離を求める
+	float distance = MyMath::Vector3Length(MyMath::Vector3Sub(posA, posB));
+
+	//自弾と敵弾の半径
+	float radius = colliderA->GetRadius() + colliderB->GetRadius();
+
+	//球と球の交差判定
+	if (distance <= radius) {
+		//コライダーAの衝突時コールバックを呼び出す
+		colliderA->OnCollision();
+		//コライダーBの衝突時コールバックを呼び出す
+		colliderB->OnCollision();
+	}
 }
 
 void GameScene::AddEnemyBullet(std::unique_ptr<EnemyBullet>& enemyBullet) {
@@ -332,7 +297,7 @@ void GameScene::UpdateEnemyPopCommands() {
 			float z = static_cast<float>(std::atof(word.c_str()));
 
 			//敵キャラの生成
-			std::unique_ptr<Enemy>newEnemy = std::make_unique<Enemy>();
+			std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
 			//敵キャラの初期化
 			newEnemy->Initialize(model_, enemyTextureHandle_, Vector3(x, y, z));
 			//敵キャラにアドレスを渡す

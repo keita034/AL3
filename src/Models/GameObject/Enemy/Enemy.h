@@ -6,9 +6,9 @@
 #include "input.h"
 
 #include "BaseEnemyState.h"
+#include "Collider.h"
 #include "EnemyBullet.h"
 #include "MyMath.h"
-#include "Player.h"
 #include "TimedCall.h"
 
 class Player;
@@ -25,7 +25,7 @@ enum class Phase {
 /// <summary>
 ///敵
 /// </summary>
-class Enemy {
+class Enemy : public Collider {
   public:
 	~Enemy();
 
@@ -64,14 +64,6 @@ class Enemy {
 	void SetPlayer(std::shared_ptr<Player> player) { player_ = player; }
 
 	/// <summary>
-	/// ワールド座標を所得
-	/// </summary>
-	Vector3 GetWorldPosition();
-
-	//衝突を検知したら呼び出されるコールバック関数
-	void OnCollision();
-
-	/// <summary>
 	/// 半径を所得
 	/// </summary>
 	float GetRadius();
@@ -105,8 +97,15 @@ class Enemy {
 	/// </summary>
 	void FireReset();
 
-  private:
+	//衝突時に呼ばれる関数
+	void OnCollision() override;
 
+	/// <summary>
+	/// ワールド座標を所得
+	/// </summary>
+	Vector3 GetWorldPosition() override;
+
+  private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
 

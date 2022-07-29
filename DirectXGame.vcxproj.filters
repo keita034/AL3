@@ -103,6 +103,15 @@
     <Filter Include="src\TimedCall\ヘッダーファイル">
       <UniqueIdentifier>{25434f80-210a-456e-922c-1dc36655567f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Collider">
+      <UniqueIdentifier>{ebaaa00f-d049-4410-af21-da1bd0358285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Collider\ヘッダーファイル">
+      <UniqueIdentifier>{c92001d6-46b5-4ad0-bed3-d7d03a33c791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Collider\ソースファイル">
+      <UniqueIdentifier>{2f212664-198f-41fb-90f1-e78bbc82c3d2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\KamataEngine\base\DirectXCommon.cpp">
@@ -147,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="src\Controllers\TimedCall\TimedCall.cpp">
       <Filter>src\TimedCall\ソースファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Controllers\Collider\Collider.cpp">
+      <Filter>src\Collider\ソースファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +275,9 @@
     </ClInclude>
     <ClInclude Include="src\Models\TimedCall\TimedCall.h">
       <Filter>src\TimedCall\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>src\Collider\ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

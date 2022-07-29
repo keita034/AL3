@@ -7,12 +7,13 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "Collider.h"
 #include "MyMath.h"
 
 /// <summary>
 ///　自キャラの弾
 /// </summary>
-class PlayerBullet {
+class PlayerBullet : public Collider {
   public:
 	/// <summary>
 	/// 初期化
@@ -36,18 +37,18 @@ class PlayerBullet {
 	///デスフラグゲッター
 	bool IsDead() const;
 
-	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
-
-	/// <summary>
-	/// ワールド座標を所得
-	/// </summary>
-	Vector3 GetWorldPosition();
-
 	/// <summary>
 	/// 半径を所得
 	/// </summary>
 	float GetRadius();
+
+	//衝突時に呼ばれる関数
+	void OnCollision() override;
+
+	/// <summary>
+	/// ワールド座標を所得
+	/// </summary>
+	Vector3 GetWorldPosition() override;
 
   private:
 	//ワールド変換データ

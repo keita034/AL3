@@ -220,7 +220,8 @@ void Player::MouseReticle(const ViewProjection& viewProjection) {
 
 // 初期化
 void Player::Initialize(
-	std::shared_ptr<Model> model, uint32_t textureHandle, WorldTransform* parent, const Vector3& position) {
+  std::shared_ptr<Model> model, uint32_t textureHandle, WorldTransform* parent,
+  const Vector3& position) {
 	// NUULポインタ」チェック
 	assert(model);
 	assert(parent);

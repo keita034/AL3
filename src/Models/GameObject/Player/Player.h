@@ -7,16 +7,17 @@
 #include "Input.h"
 #include "Model.h"
 #include "ViewProjection.h"
-#include "WorldTransform.h"
 #include "WinApp.h"
+#include "WorldTransform.h"
 
+#include "Collider.h"
 #include "MyMath.h"
 #include "PlayerBullet.h"
 
 /// <summary>
 /// 自キャラ
 /// </summary>
-class Player {
+class Player : public Collider {
   public:
 	/// <summary>
 	/// 初期化
@@ -24,7 +25,8 @@ class Player {
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
 	void Initialize(
-		std::shared_ptr<Model> model, uint32_t textureHandle, WorldTransform* parent_, const Vector3& position);
+	  std::shared_ptr<Model> model, uint32_t textureHandle, WorldTransform* parent_,
+	  const Vector3& position);
 
 	/// <summary>
 	/// 更新
@@ -36,14 +38,6 @@ class Player {
 	/// </summary>
 	/// /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(ViewProjection& viewProjection);
-
-	/// <summary>
-	/// ワールド座標を所得
-	/// </summary>
-	Vector3 GetWorldPosition();
-
-	//衝突を検出したら呼び出されるコールバック関数
-	void OnCollision();
 
 	//弾リストを取得
 	const std::list<std::unique_ptr<PlayerBullet>>& GetBullet() { return bullets_; }
@@ -58,8 +52,18 @@ class Player {
 	/// </summary>
 	void DrawUI();
 
+	//衝突時に呼ばれる関数
+	void OnCollision() override;
+
+	/// <summary>
+	/// ワールド座標を所得
+	/// </summary>
+	Vector3 GetWorldPosition() override;
+
 	Player() = default;
 	~Player() = default;
+
+
 
   private:
 	//ワールド変換データ
@@ -83,10 +87,10 @@ class Player {
 	//半径
 	const float radius_ = 1.0f;
 
-	//3Dレティクル用ワールドトランスフォーム
+	// 3Dレティクル用ワールドトランスフォーム
 	WorldTransform worldTransform3DReticle_;
 
-	//2Dレティクル用スプライト
+	// 2Dレティクル用スプライト
 	std::unique_ptr<Sprite> sprite2DReticle_;
 
 	/// <summary>

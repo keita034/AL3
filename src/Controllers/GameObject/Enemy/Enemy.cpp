@@ -1,17 +1,18 @@
 #include "Enemy.h"
 #include "EnemyStateApproach.h"
 #include "GameScene.h"
+#include "Player.h"
 #include <cassert>
 
 Enemy::~Enemy() {}
 
 // 初期化
-void Enemy::Initialize(std::shared_ptr<Model> model, uint32_t textureHandle, const Vector3& position) {
+void Enemy::Initialize(
+  std::shared_ptr<Model> model, uint32_t textureHandle, const Vector3& position) {
 	// NUULポインタ」チェック
 
 	//引数として受け取ったデータをメンバ変数に記録する
 	texturehandle_ = textureHandle;
-
 	model_ = model;
 
 	//シングルインスタンスを取得する
@@ -69,7 +70,7 @@ void Enemy::Fire() {
 
 	// 弾を生成し、初期化
 	std::unique_ptr<EnemyBullet> newBullet = std::make_unique<EnemyBullet>();
-	newBullet->Initialize(model_,worldTransform_.translation_, velocity);
+	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 	newBullet->SetPlayer(player_);
 	//弾を登録する
 	gameScene_->AddEnemyBullet(newBullet);
@@ -77,8 +78,9 @@ void Enemy::Fire() {
 
 //接近フェーズ初期化
 void Enemy::approachPhaseInt() {
-
-	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), kFireInterval));
+	//発射タイムをリセットする
+	timedCalls_.push_back(
+	  std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), kFireInterval));
 }
 
 // ワールド座標を所得
@@ -100,5 +102,6 @@ float Enemy::GetRadius() { return radius_; }
 void Enemy::FireReset() {
 	Fire();
 	//発射タイムをリセットする
-	timedCalls_.push_back(std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), kFireInterval));
+	timedCalls_.push_back(
+	  std::make_unique<TimedCall>(std::bind(&Enemy::FireReset, this), kFireInterval));
 }
