@@ -122,7 +122,7 @@ class Enemy : public Collider {
 	DebugText* debugText_ = nullptr;
 
 	//‘¬“x
-	Vector3 approachVelocity_ = {0, 0, -0.003f};
+	Vector3 approachVelocity_ = {0, 0, -0.3f};
 	Vector3 leaveVelocity_ = {-0.1f, 0.1f, -0.1f};
 
 	//Ž©ƒLƒƒƒ‰
