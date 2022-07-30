@@ -1,6 +1,4 @@
 #include "Collider.h"
 #include <cstdint>
 
-void Collider::OnCollision()
-{
-}
+void Collider::OnCollision() {}

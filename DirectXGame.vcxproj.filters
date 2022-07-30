@@ -160,6 +160,9 @@
     <ClCompile Include="src\Controllers\Collider\Collider.cpp">
       <Filter>src\Collider\ソースファイル</Filter>
     </ClCompile>
+    <ClCompile Include="src\Controllers\Collider\CollisionManager.cpp">
+      <Filter>src\Collider\ソースファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\KamataEngine\3d\AxisIndicator.h">
@@ -276,11 +279,14 @@
     <ClInclude Include="src\Models\TimedCall\TimedCall.h">
       <Filter>src\TimedCall\ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
+    <ClInclude Include="src\Models\Collider\Collider.h">
       <Filter>src\Collider\ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionConfig.h">
-      <Filter>KamtaEngine\ヘッダー ファイル</Filter>
+    <ClInclude Include="src\Models\Collider\CollisionConfig.h">
+      <Filter>src\Collider\ヘッダーファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Models\Collider\CollisionManager.h">
+      <Filter>src\Collider\ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -55,7 +55,11 @@ void GameScene::Initialize() {
 	player_->Initialize(
 	  model_, textureHandle_, railCamera_->GetWorldTransformPtr(), Vector3(0.0f, 0.0f, 30.0f));
 
+	//敵キャラ読み込み
 	LoadEnemyPopData("prams/EnemyScript.csv");
+
+	//コライダーマネジャーの生成
+	collisionManager_ = std::make_unique<CollisionManager>();
 }
 
 void GameScene::Update() {
@@ -109,7 +113,8 @@ void GameScene::Update() {
 		bullet->Update();
 	}
 
-	CheckAllCollisions();
+	//衝突判定
+	Collision();
 }
 
 void GameScene::Draw() {
@@ -176,80 +181,6 @@ void GameScene::Draw() {
 	Sprite::PostDraw();
 
 #pragma endregion
-}
-
-void GameScene::CheckAllCollisions() {
-
-	//自弾リストの取得
-	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullet();
-
-	//コライダー
-	std::list<Collider*> colliders_;
-
-	//コライダーをリストに登録
-	//自キャラ
-	colliders_.push_back(player_.get());
-
-	//敵キャラのすべて
-	for (const std::unique_ptr<Enemy>& enemy : enemys_) {
-		colliders_.push_back(enemy.get());
-	}
-
-	//敵弾全てについて
-	for (const std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
-		colliders_.push_back(bullet.get());
-	}
-	//自弾全てについて
-	for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
-		colliders_.push_back(bullet.get());
-	}
-
-	//リスト内のペアを総当たり
-	std::list<Collider*>::iterator itrA = colliders_.begin();
-	for (; itrA != colliders_.end(); ++itrA) {
-		Collider* colliderA = *itrA;
-
-		//イテレータBイテレータAの次の要素から回す(重複判定を回避)
-		std::list<Collider*>::iterator itrB = itrA;
-		itrB++;
-
-		for (; itrB != colliders_.end(); ++itrB) {
-			Collider* colliderB = *itrB;
-
-			//ペアの当たり判定
-			CheckCollisionPair(colliderA, colliderB);
-		}
-	}
-}
-
-void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
-
-	//衝突フィルタリング
-	if (
-	  colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask() ||
-	  colliderB->GetCollisionAttribute() & colliderA->GetCollisionMask()) {
-
-	} else {
-		return;
-	}
-
-	//判定対象AとBの座標
-	Vector3 posA = colliderA->GetWorldPosition();
-	Vector3 posB = colliderB->GetWorldPosition();
-
-	//座標AとBの距離を求める
-	float distance = MyMath::Vector3Length(MyMath::Vector3Sub(posA, posB));
-
-	//自弾と敵弾の半径
-	float radius = colliderA->GetRadius() + colliderB->GetRadius();
-
-	//球と球の交差判定
-	if (distance <= radius) {
-		//コライダーAの衝突時コールバックを呼び出す
-		colliderA->OnCollision();
-		//コライダーBの衝突時コールバックを呼び出す
-		colliderB->OnCollision();
-	}
 }
 
 void GameScene::AddEnemyBullet(std::unique_ptr<EnemyBullet>& enemyBullet) {
@@ -341,4 +272,33 @@ void GameScene::UpdateEnemyPopCommands() {
 			break;
 		}
 	}
+}
+
+void GameScene::Collision() {
+	//コライダーリストをクリア
+	collisionManager_->ListClear();
+
+	//コライダーをリストに登録
+	//自キャラ
+	collisionManager_->ColliderSet(player_.get());
+
+	//自弾全てについて
+	//自弾リストの取得
+	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullet();
+	for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
+		collisionManager_->ColliderSet(bullet.get());
+	}
+
+	//敵キャラのすべて
+	for (const std::unique_ptr<Enemy>& enemy : enemys_) {
+		collisionManager_->ColliderSet(enemy.get());
+	}
+
+	//敵弾全てについて
+	for (const std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
+		collisionManager_->ColliderSet(bullet.get());
+	}
+
+	//衝突判定
+	collisionManager_->CheckCollisions();
 }

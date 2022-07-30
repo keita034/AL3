@@ -102,6 +102,7 @@
     <ClCompile Include="lib\KamataEngine\base\WinApp.cpp" />
     <ClCompile Include="lib\KamataEngine\math\MyMath.cpp" />
     <ClCompile Include="src\Controllers\Collider\Collider.cpp" />
+    <ClCompile Include="src\Controllers\Collider\CollisionManager.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Enemy\Enemy.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyBullet.cpp" />
     <ClCompile Include="src\Controllers\GameObject\Enemy\EnemyStateApproach.cpp" />
@@ -115,8 +116,6 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="CollisionConfig.h" />
     <ClInclude Include="lib\KamataEngine\2d\DebugText.h" />
     <ClInclude Include="lib\KamataEngine\2d\Sprite.h" />
     <ClInclude Include="lib\KamataEngine\3d\AxisIndicator.h" />
@@ -144,6 +143,9 @@
     <ClInclude Include="lib\KamataEngine\math\Vector2.h" />
     <ClInclude Include="lib\KamataEngine\math\Vector3.h" />
     <ClInclude Include="lib\KamataEngine\math\Vector4.h" />
+    <ClInclude Include="src\Models\Collider\Collider.h" />
+    <ClInclude Include="src\Models\Collider\CollisionConfig.h" />
+    <ClInclude Include="src\Models\Collider\CollisionManager.h" />
     <ClInclude Include="src\Models\GameObject\Enemy\BaseEnemyState.h" />
     <ClInclude Include="src\Models\GameObject\Enemy\Enemy.h" />
     <ClInclude Include="src\Models\GameObject\Enemy\EnemyBullet.h" />

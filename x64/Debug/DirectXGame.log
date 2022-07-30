@@ -1,2 +1,38 @@
-﻿  GameScene.cpp
+﻿  CollisionManager.cpp
+  Collider.cpp
+  Enemy.cpp
+  EnemyBullet.cpp
+  EnemyStateApproach.cpp
+  EnemyStateLeave.cpp
+  Player.cpp
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(204,68): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(204,46): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(205,67): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(205,45): warning C4244: '引数': 'LONG' から 'float' への変換です。データが失われる可能性があります。
+  PlayerBullet.cpp
+  GameScene.cpp
+  main.cpp
+  コードを生成中...
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\PlayerBullet.cpp(73): warning C4717: 'PlayerBullet::GetRadius': すべてのコントロールのパス、関数を回帰するとランタイム スタック オーバーフローが発生します。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Player\Player.cpp(3): warning C4717: 'Player::GetRadius': すべてのコントロールのパス、関数を回帰するとランタイム スタック オーバーフローが発生します。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Enemy\EnemyBullet.cpp(91): warning C4717: 'EnemyBullet::GetRadius': すべてのコントロールのパス、関数を回帰するとランタイム スタック オーバーフローが発生します。
+C:\課題用\KamataEngine\DirectXGame\src\Controllers\GameObject\Enemy\Enemy.cpp(105): warning C4717: 'Enemy::GetRadius': すべてのコントロールのパス、関数を回帰するとランタイム スタック オーバーフローが発生します。
+KamataEngineLib.lib(Vector3.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector3.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Matrix4.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Matrix4.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(MathUtility.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(MathUtility.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(WorldTransform.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(WorldTransform.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Vector4.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector4.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(DebugText.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(DebugText.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Model.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Model.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Input.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Input.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Vector2.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Vector2.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Sprite.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Sprite.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(ViewProjection.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(ViewProjection.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Audio.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Audio.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(DebugCamera.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(DebugCamera.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(AxisIndicator.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(AxisIndicator.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(PrimitiveDrawer.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(PrimitiveDrawer.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Material.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Material.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(Mesh.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(Mesh.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
+KamataEngineLib.lib(LightGroup.obj) : warning LNK4099: PDB 'KamataEngineLib.pdb' が 'KamataEngineLib.lib(LightGroup.obj)' で、または 'C:\課題用\KamataEngine\DirectXGame\x64\Debug\KamataEngineLib.pdb' に見つかりません。デバッグ情報がないものとして、オブジェクトにリンクします。
   DirectXGame.vcxproj -> C:\課題用\KamataEngine\DirectXGame\x64\Debug\DirectXGame.exe

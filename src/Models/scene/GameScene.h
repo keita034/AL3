@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include <memory>
-#include<sstream>
+#include <sstream>
 
 #include "Audio.h"
 #include "DebugCamera.h"
@@ -13,11 +13,12 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
+#include "CollisionManager.h"
+#include "Enemy.h "
+#include "EnemyBullet.h"
 #include "Player.h"
 #include "RailCamera.h"
 #include "Skydome.h"
-#include"EnemyBullet.h"
-#include <Enemy.h>
 
 /// <summary>
 /// ゲームシーン
@@ -66,7 +67,6 @@ class GameScene {
 	/// </summary>
 	void UpdateEnemyPopCommands();
 
-
   private:
 	// メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -90,7 +90,7 @@ class GameScene {
 
 	//自キャラ
 	std::shared_ptr<Player> player_;
-	
+
 	//敵キャラ
 	std::list<std::unique_ptr<Enemy>> enemys_;
 
@@ -105,7 +105,7 @@ class GameScene {
 
 	//レールカメラ
 	std::unique_ptr<RailCamera> railCamera_;
-	
+
 	//敵発生コマンド
 	std::stringstream enemyPopCommands;
 
@@ -115,19 +115,14 @@ class GameScene {
 	//待機タイマー
 	int StandTime_ = 0;
 
+	std::unique_ptr<CollisionManager> collisionManager_;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary
 
 	/// <summary>
-	/// 衝突判定と応答
-	/// </summary
-	void CheckAllCollisions();
-
-	/// <summary>
-	/// コライダー2つの衝突判定と応答
+	/// 衝突判定
 	/// </summary>
-	/// <param name="colliderA">コライダーA</param>
-	/// <param name="colliderB">コライダーB</param>
-	void CheckCollisionPair(Collider* colliderA, Collider* colliderB);
+	void Collision();
 };
