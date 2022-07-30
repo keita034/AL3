@@ -276,11 +276,11 @@
     <ClInclude Include="src\Models\TimedCall\TimedCall.h">
       <Filter>src\TimedCall\ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
+    <ClInclude Include="src\Models\Collider\Collider.h">
       <Filter>src\Collider\ヘッダーファイル</Filter>
     </ClInclude>
-    <ClInclude Include="CollisionConfig.h">
-      <Filter>KamtaEngine\ヘッダー ファイル</Filter>
+    <ClInclude Include="src\Models\Collider\CollisionConfig.h">
+      <Filter>src\Collider\ヘッダーファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
