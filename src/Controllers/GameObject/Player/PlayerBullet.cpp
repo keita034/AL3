@@ -20,6 +20,11 @@ void PlayerBullet::Initialize(std::shared_ptr<Model> model, const Vector3& posit
 	//引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
 	worldTransform_.Initialize();
+
+	//衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributePlayer);
+	//衝突対象を自分以外に設定
+	SetCollisionMask(~kCollisionAttributePlayer);
 }
 
 /// <summary>
@@ -65,4 +70,4 @@ Vector3 PlayerBullet::GetWorldPosition() {
 	return worldPos;
 }
 
-float PlayerBullet::GetRadius() { return radius_; }
+float PlayerBullet::GetRadius() { return GetRadius(); }

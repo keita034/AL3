@@ -1,6 +1,6 @@
 #include "Player.h"
 
-float Player::GetRadius() { return radius_; }
+float Player::GetRadius() { return GetRadius(); }
 
 void Player::DrawUI() { sprite2DReticle_->Draw(); }
 
@@ -250,6 +250,12 @@ void Player::Initialize(
 	  {static_cast<float>(WinApp::GetInstance()->kWindowWidth / 2),
 	   static_cast<float>(WinApp::GetInstance()->kWindowHeight / 2)},
 	  {1.0f, 1.0f, 1.0f, 1.0f}, {0.5f, 0.5f}));
+
+	//Õ“Ë‘®«‚ğİ’è
+	SetCollisionAttribute(kCollisionAttributePlayer);
+	//Õ“Ë‘ÎÛ‚ğ©•ªˆÈŠO‚Éİ’è
+	SetCollisionMask(~kCollisionAttributePlayer);
+
 }
 
 //XVˆ—

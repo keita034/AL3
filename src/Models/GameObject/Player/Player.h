@@ -84,9 +84,6 @@ class Player : public Collider {
 	//弾
 	std::list<std::unique_ptr<PlayerBullet>> bullets_;
 
-	//半径
-	const float radius_ = 1.0f;
-
 	// 3Dレティクル用ワールドトランスフォーム
 	WorldTransform worldTransform3DReticle_;
 

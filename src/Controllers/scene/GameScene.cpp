@@ -62,7 +62,7 @@ void GameScene::Update() {
 
 	//レールカメラの更新
 	Vector3 move(0.0f, 0.0f, -0.00f);
-	Vector3 rot(0.0f, 0.0001f, 0.0f);
+	Vector3 rot(0.0f, 0.0000f, 0.0f);
 	railCamera_->Update(move, rot);
 	viewProjection_ = railCamera_->GetViewProjection();
 
@@ -183,37 +183,56 @@ void GameScene::CheckAllCollisions() {
 	//自弾リストの取得
 	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullet();
 
-#pragma region 自キャラと敵弾の当たり判定
+	//コライダー
+	std::list<Collider*> colliders_;
 
-	//自キャラと敵弾全ての当たり判定
-	for (const std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
-		CheckCollisionPair(player_.get(), bullet.get());
-	}
-#pragma endregion
+	//コライダーをリストに登録
+	//自キャラ
+	colliders_.push_back(player_.get());
 
-#pragma region 自弾と敵キャラの当たり判定
-
-	//敵キャラと自弾全ての当たり判定
+	//敵キャラのすべて
 	for (const std::unique_ptr<Enemy>& enemy : enemys_) {
-		for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
-			CheckCollisionPair(enemy.get(), bullet.get());
+		colliders_.push_back(enemy.get());
+	}
+
+	//敵弾全てについて
+	for (const std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
+		colliders_.push_back(bullet.get());
+	}
+	//自弾全てについて
+	for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
+		colliders_.push_back(bullet.get());
+	}
+
+	//リスト内のペアを総当たり
+	std::list<Collider*>::iterator itrA = colliders_.begin();
+	for (; itrA != colliders_.end(); ++itrA) {
+		Collider* colliderA = *itrA;
+
+		//イテレータBイテレータAの次の要素から回す(重複判定を回避)
+		std::list<Collider*>::iterator itrB = itrA;
+		itrB++;
+
+		for (; itrB != colliders_.end(); ++itrB) {
+			Collider* colliderB = *itrB;
+
+			//ペアの当たり判定
+			CheckCollisionPair(colliderA, colliderB);
 		}
 	}
-#pragma endregion
-
-#pragma region 自弾と敵弾の当たり判定
-
-	//自弾と敵弾全ての当たり判定
-	for (const std::unique_ptr<PlayerBullet>& bulletA : playerBullets) {
-		for (const std::unique_ptr<EnemyBullet>& bulletB : enemyBullets_) {
-
-			CheckCollisionPair(bulletA.get(), bulletB.get());
-		}
-	}
-#pragma endregion
 }
 
 void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {
+
+	//衝突フィルタリング
+	if (
+	  colliderA->GetCollisionAttribute() & colliderB->GetCollisionMask() ||
+	  colliderB->GetCollisionAttribute() & colliderA->GetCollisionMask()) {
+
+	} else {
+		return;
+	}
+
 	//判定対象AとBの座標
 	Vector3 posA = colliderA->GetWorldPosition();
 	Vector3 posB = colliderB->GetWorldPosition();

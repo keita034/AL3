@@ -122,14 +122,11 @@ class Enemy : public Collider {
 	DebugText* debugText_ = nullptr;
 
 	//速度
-	Vector3 approachVelocity_ = {0, 0, -0.3f};
+	Vector3 approachVelocity_ = {0, 0, -0.003f};
 	Vector3 leaveVelocity_ = {-0.1f, 0.1f, -0.1f};
 
 	//自キャラ
 	std::shared_ptr<Player> player_;
-
-	//半径
-	const float radius_ = 1.0f;
 
 	//ゲームシーン
 	GameScene* gameScene_ = nullptr;

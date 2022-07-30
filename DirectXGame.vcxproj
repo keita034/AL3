@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Collider.h" />
+    <ClInclude Include="CollisionConfig.h" />
     <ClInclude Include="lib\KamataEngine\2d\DebugText.h" />
     <ClInclude Include="lib\KamataEngine\2d\Sprite.h" />
     <ClInclude Include="lib\KamataEngine\3d\AxisIndicator.h" />

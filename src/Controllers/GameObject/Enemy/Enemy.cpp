@@ -28,6 +28,11 @@ void Enemy::Initialize(
 
 	//接近フェーズ初期化
 	approachPhaseInt();
+
+	//衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	//衝突対象を自分以外に設定
+	SetCollisionMask(~kCollisionAttributeEnemy);
 }
 
 // 更新処理
@@ -97,7 +102,7 @@ Vector3 Enemy::GetWorldPosition() {
 
 void Enemy::OnCollision() { isDead_ = true; }
 
-float Enemy::GetRadius() { return radius_; }
+float Enemy::GetRadius() { return GetRadius(); }
 
 void Enemy::FireReset() {
 	Fire();

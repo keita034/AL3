@@ -78,8 +78,6 @@ class EnemyBullet : public Collider {
 	//デスフラグ
 	bool isDead_ = false;
 
-	const float radius_ = 1.0f;
-
 	std::shared_ptr<Player> player_;
 };
 

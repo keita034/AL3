@@ -71,8 +71,6 @@ class PlayerBullet : public Collider {
 	//デスフラグ
 	bool isDead_ = false;
 
-	//半径
-	const float radius_ = 1.0f;
 };
 
 inline bool PlayerBullet::IsDead() const { return isDead_; }

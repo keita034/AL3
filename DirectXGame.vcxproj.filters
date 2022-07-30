@@ -279,6 +279,9 @@
     <ClInclude Include="Collider.h">
       <Filter>src\Collider\ヘッダーファイル</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionConfig.h">
+      <Filter>KamtaEngine\ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\shaders\SpritePS.hlsl">

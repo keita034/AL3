@@ -29,6 +29,11 @@ void EnemyBullet::Initialize(std::shared_ptr<Model> model, const Vector3& positi
 	worldTransform_.rotation_.x = std::atan2(-velocity.y, MyMath::Vector3Length(temp));
 	//ワールド変換の初期化
 	worldTransform_.Initialize();
+
+	//衝突属性を設定
+	SetCollisionAttribute(kCollisionAttributeEnemy);
+	//衝突対象を自分以外に設定
+	SetCollisionMask(~kCollisionAttributeEnemy);
 }
 
 // 更新
@@ -83,4 +88,4 @@ Vector3 EnemyBullet::GetWorldPosition() {
 	return worldPos;
 }
 
-float EnemyBullet::GetRadius() { return radius_; }
+float EnemyBullet::GetRadius() { return GetRadius(); }
