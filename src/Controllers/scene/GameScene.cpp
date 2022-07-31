@@ -39,15 +39,6 @@ void GameScene::Initialize() {
 	// 3Dモデルの生成
 	model_ = Model::Create();
 
-	//スケーリング行列を宣言
-	Matrix4 matScale;
-	//合成用回転行列を宣言
-	Matrix4 matRot;
-	//各軸用回転行列を宣言
-	Matrix4 matRotX, matRotY, matRotZ;
-	//平行移動行列宣言
-	Matrix4 matTrans = MathUtility::Matrix4Identity();
-
 	//キャラクター大元
 	worldTransforms_[PartID::kRoot].Initialize();
 	//脊椎
@@ -172,18 +163,16 @@ void GameScene::Update() {
 		move = {moveSpeed, 0.0f, 0.0f};
 	}
 
-	worldTransforms_[PartID::kRoot].translation_ += move;
-	MyMath::AffineTransformation(worldTransforms_[PartID::kRoot]);
-	//上半身回転処理
-	//回転の早さ
-	const float rotSpeed = 0.05f;
+	if (jumpFlag_ == false && input_->TriggerKey(DIK_SPACE)) {
+		jumpFlag_ = true;
+		gravity_ = -0.45f;
+	}
 
-	if (worldTransforms_[PartID::kArmL].rotation_.x < -0.8f) {
-		rotFlag = true;
-	}
-	if (worldTransforms_[PartID::kArmL].rotation_.x > 0.8f) {
-		rotFlag = false;
-	}
+	gravity_ += 0.02f;
+	move.y -= gravity_;
+
+	//回転の早さ
+	float rotSpeed = 0.05f;
 
 	//押した方向で移動ベクトルを変更
 	if (input_->PushKey(DIK_A)) {
@@ -193,8 +182,31 @@ void GameScene::Update() {
 		worldTransforms_[PartID::kRoot].rotation_.y += rotSpeed;
 	}
 
+	worldTransforms_[PartID::kRoot].translation_ += move;
+
+	if (worldTransforms_[PartID::kRoot].translation_.y <= 0.0f) {
+		worldTransforms_[PartID::kRoot].translation_.y = 0.0f;
+		jumpFlag_ = false;
+	}
+
+	MyMath::AffineTransformation(worldTransforms_[PartID::kRoot]);
+	//上半身回転処理
+
+	if (worldTransforms_[PartID::kArmL].rotation_.x < -0.8f) {
+		rotFlag_ = true;
+	}
+	if (worldTransforms_[PartID::kArmL].rotation_.x > 0.8f) {
+		rotFlag_ = false;
+	}
+
+	//押した方向で移動ベクトルを変更
 	if (input_->PushKey(DIK_W)) {
-		if (rotFlag == false) {
+		if (input_->PushKey(DIK_LSHIFT)) {
+			rotSpeed = 2 * rotSpeed;
+		} else {
+			rotSpeed = 0.05f;
+		}
+		if (rotFlag_ == false) {
 			worldTransforms_[PartID::kArmL].rotation_.x -= rotSpeed;
 			worldTransforms_[PartID::kArmR].rotation_.x += rotSpeed;
 			worldTransforms_[PartID::kLegL].rotation_.x += rotSpeed;
@@ -206,6 +218,11 @@ void GameScene::Update() {
 			worldTransforms_[PartID::kLegR].rotation_.x += rotSpeed;
 		}
 	} else {
+		if (input_->PushKey(DIK_LSHIFT)) {
+			rotSpeed = 2 * rotSpeed;
+		} else {
+			rotSpeed = 0.05f;
+		}
 		if (worldTransforms_[PartID::kArmL].rotation_.x <= 0.0f) {
 			worldTransforms_[PartID::kArmL].rotation_.x += rotSpeed;
 			worldTransforms_[PartID::kArmR].rotation_.x -= rotSpeed;
@@ -248,10 +265,6 @@ void GameScene::Update() {
 	  "Root:(%f,%f,%f)", worldTransforms_[PartID::kRoot].translation_.x,
 	  worldTransforms_[PartID::kRoot].translation_.y,
 	  worldTransforms_[PartID::kRoot].translation_.z);
-	debugText_->SetPos(50, 170);
-	debugText_->Printf("Root:(%f)", worldTransforms_[PartID::kArmL].rotation_.x);
-	debugText_->SetPos(50, 190);
-	debugText_->Printf("rotFlag:%d", rotFlag);
 }
 
 void GameScene::Draw() {

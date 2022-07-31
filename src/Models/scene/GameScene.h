@@ -82,7 +82,9 @@ class GameScene {
 	// 3dモデル
 	Model* model_ = nullptr;
 
-	bool rotFlag = false;
+	bool rotFlag_ = false;
+	bool jumpFlag_ = false;
+	float gravity_ = 0.0f;
 
 	//ワールドトランスフォーム
 	WorldTransform worldTransforms_[100];
