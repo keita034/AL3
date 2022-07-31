@@ -6,12 +6,11 @@
 #include "DirectXCommon.h"
 #include "Input.h"
 #include "Model.h"
+#include "MyMath.h"
 #include "SafeDelete.h"
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
-
-#include "MyMath.h"
 
 /// <summary>
 /// ゲームシーン
@@ -19,9 +18,23 @@
 class GameScene {
 
   public: // メンバ関数
-	      /// <summary>
-	      /// コンストクラタ
-	      /// </summary>
+	      //パーツID
+	enum PartID {
+		kRoot,  //大元
+		kSpine, //脊髄
+		kChest, //胸
+		kHead,  //頭
+		kArmL,  //左腕
+		kArmR,  //右腕
+		kHip,   //尻
+		kLegL,  //左足
+		kLegR,  //右足
+
+		kNumPartID
+	};
+	/// <summary>
+	/// コンストクラタ
+	/// </summary>
 	GameScene();
 
 	/// <summary>
@@ -49,31 +62,24 @@ class GameScene {
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	DebugText* debugText_ = nullptr;
-	Sprite* sprite_ = nullptr;
-	Sprite* sprite2_ = nullptr;
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
 
 	//デバッグカメラ有効
 	bool isDebugCameraActive_ = false;
-	//ズーム/アウト切り替え
-	bool zoomFlag = false;
-	bool scopeFlag = false;
 
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
-	uint32_t textureHandleSprite_ = 0;
-	uint32_t textureHandleSprite2_ = 0;
 
 	// 3dモデル
 	Model* model_ = nullptr;
 
 	//ワールドトランスフォーム
-	WorldTransform worldTransform_[9][9];
+	WorldTransform worldTransforms_[100];
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 };
