@@ -5,6 +5,8 @@
 #include <cassert>
 #include <random>
 
+using namespace MathUtility;
+
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
@@ -36,6 +38,15 @@ void GameScene::Initialize() {
 	textureHandle_ = TextureManager::Load("images/mario.jpg");
 	// 3Dモデルの生成
 	model_ = Model::Create();
+
+	//スケーリング行列を宣言
+	Matrix4 matScale;
+	//合成用回転行列を宣言
+	Matrix4 matRot;
+	//各軸用回転行列を宣言
+	Matrix4 matRotX, matRotY, matRotZ;
+	//平行移動行列宣言
+	Matrix4 matTrans = MathUtility::Matrix4Identity();
 
 	//キャラクター大元
 	worldTransforms_[PartID::kRoot].Initialize();
@@ -97,6 +108,14 @@ void GameScene::Initialize() {
 
 	//デバッグカメラ生成
 	debugCamera_ = new DebugCamera(1280, 720);
+
+	////軸方向表示の表示を有効にする
+	// AxisIndicator::GetInstance()->SetVisible(true);
+	////軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
+	// AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
+
+	////ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
+	// PrimitiveDrawer::GetInstance()->SetViewProjection(&debugCamera_->GetViewProjection());
 }
 
 void GameScene::Update() {
@@ -138,10 +157,24 @@ void GameScene::Update() {
 	//回転の早さ
 	const float rotSpeed = 0.05f;
 
-	worldTransforms_[PartID::kArmL].rotation_.x -= 2 * rotSpeed;
-	worldTransforms_[PartID::kArmR].rotation_.x += 2 * rotSpeed;
-	worldTransforms_[PartID::kLegL].rotation_.x += 2 * rotSpeed;
-	worldTransforms_[PartID::kLegR].rotation_.x -= 2 * rotSpeed;
+	if (rotFlag == false) {
+		worldTransforms_[PartID::kArmL].rotation_.x -= rotSpeed;
+		worldTransforms_[PartID::kArmR].rotation_.x += rotSpeed;
+		worldTransforms_[PartID::kLegL].rotation_.x += rotSpeed;
+		worldTransforms_[PartID::kLegR].rotation_.x -= rotSpeed;
+	} else {
+		worldTransforms_[PartID::kArmL].rotation_.x += rotSpeed;
+		worldTransforms_[PartID::kArmR].rotation_.x -= rotSpeed;
+		worldTransforms_[PartID::kLegL].rotation_.x -= rotSpeed;
+		worldTransforms_[PartID::kLegR].rotation_.x += rotSpeed;
+	}
+
+	if (worldTransforms_[PartID::kArmL].rotation_.x < -0.8f) {
+		rotFlag = true;
+	}
+	if (worldTransforms_[PartID::kArmL].rotation_.x > 0.8f) {
+		rotFlag = false;
+	}
 
 	//押した方向で移動ベクトルを変更
 	if (input_->PushKey(DIK_A)) {
