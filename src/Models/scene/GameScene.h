@@ -117,6 +117,8 @@ class GameScene {
 
 	std::unique_ptr<CollisionManager> collisionManager_;
 
+	std::vector<Vector3> controlPoints_;
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary

@@ -335,6 +335,77 @@ namespace MyMath
 		return termOne + termTwo;
 	}
 
+	Vector3 HermiteGetPoint(Vector3 p0, Vector3 p1, Vector3 v0, Vector3 v1, float t)
+	{
+		Vector3 c0 = 2.0f * p0 + -2.0f * p1 + v0 + v1;
+		Vector3 c1 = -3.0f * p0 + 3.0f * p1 + -2.0f * v0 - v1;
+		Vector3 c2 = v0;
+		Vector3 c3 = p0;
+
+		float t2 = t * t;
+		float t3 = t2 * t;
+		return c0 * t3 + c1 * t2 + c2 * t + c3;
+	}
+
+	Vector3 CatmullRomSpline(std::vector<Vector3>& points, float t)
+	{
+
+		float length = points.size();
+		float progress = (length - 1) * t;
+		float index = std::floor(progress);
+		float weight = progress - index;
+
+		if (Approximately(weight, 0.0f) && index >= length - 1)
+		{
+			index = length - 2;
+			weight = 1;
+		}
+
+		Vector3 p0 = points[index];
+		Vector3 p1 = points[index + 1];
+		Vector3 p2;
+		Vector3 p3;
+
+		if (index > 0)
+		{
+			p2 = 0.5f * (points[index + 1] - points[index - 1]);
+		}
+		else
+		{
+			p2 = points[index + 1] - points[index];
+		}
+
+		if (index < length - 2)
+		{
+			p3 = 0.5f * (points[index + 2] - points[index]);
+		}
+		else
+		{
+			p3 = points[index + 1] - points[index];
+		}
+
+		return HermiteGetPoint(p0, p1, p2, p3, weight);
+	}
+
+	bool Approximately(float a, float b)
+	{
+		float tmp = 1e-06f * Max(std::fabs(a), std::fabs(b));
+
+		float tmp2 = MyMath::EPSILON * 8.0f;
+
+		if (std::fabs(b - a) < Max(tmp, tmp2))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	float Max(float a, float b)
+	{
+		return (a > b) ? a : b;
+	}
+
 } // namespace MyMath
 
 Matrix4 operator*(const Matrix4& m1, const Matrix4& m2)

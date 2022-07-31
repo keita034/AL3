@@ -35,7 +35,7 @@ void GameScene::Initialize() {
 
 	//軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
-
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&viewProjection_);
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1200, 720);
 
@@ -60,6 +60,15 @@ void GameScene::Initialize() {
 
 	//コライダーマネジャーの生成
 	collisionManager_ = std::make_unique<CollisionManager>();
+
+	controlPoints_ = {
+	  {0,  0,  0},
+      {10, 10, 0},
+      {10, 15, 0},
+      {20, 15, 0},
+      {20, 0,  0},
+      {30, 0,  0},
+	};
 }
 
 void GameScene::Update() {
@@ -144,6 +153,16 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+	std::vector<Vector3> pointDrawing;
+
+	const size_t segmentCount = 100;
+
+	for (size_t i = 0; i < segmentCount + 1; i++) {
+		float t = 1.0f / segmentCount * i;
+		Vector3 pos = MyMath::CatmullRomSpline(controlPoints_, t);
+		pointDrawing.push_back(pos);
+	}
+
 	//天球の表示
 	modelSkydome_->Draw(viewProjection_);
 
@@ -158,6 +177,12 @@ void GameScene::Draw() {
 	//敵キャラの弾表示
 	for (std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
 		bullet->Draw(viewProjection_);
+	}
+
+	for (size_t i = 0; i < pointDrawing.size() - 2; i++) {
+		Vector4 col = {1, 0, 0, 1};
+
+		PrimitiveDrawer::GetInstance()->DrawLine3d(pointDrawing[i], pointDrawing[i + 1], col);
 	}
 
 	// 3Dオブジェクト描画後処理

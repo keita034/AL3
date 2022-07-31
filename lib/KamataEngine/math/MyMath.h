@@ -5,7 +5,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 #include <cmath>
-
+#include <vector>
 namespace MyMath
 {
 
@@ -13,6 +13,8 @@ namespace MyMath
 	const float PI = 3.1415926535f;
 
 	const float PI2 = PI * 2;
+
+	const double EPSILON = 2.2204460492503131E-16f;
 
 	/// <summary>
 	/// 度数法から弧度法へ
@@ -192,6 +194,33 @@ namespace MyMath
 	/// </summary>
 	Vector3 Slerp(Vector3& v1, Vector3& v2, float t);
 
+	/// <summary>
+	/// エルミート曲線
+	/// </summary>
+	/// <param name="p0">制御点</param>
+	/// <param name="p1">制御点</param>
+	/// <param name="v0">制御点</param>
+	/// <param name="v1">制御点</param>
+	/// <param name="t">時間(0.0～1.0)</param>
+	/// <returns></returns>
+	Vector3 HermiteGetPoint(Vector3 p0, Vector3 p1, Vector3 v0, Vector3 v1, float t);
+
+	/// <summary>
+	/// キャットムルーロムスプライン 
+	/// </summary>
+	/// <param name="points">制御点</param>
+	/// <param name="t">時間(0.0～1.0)</param>
+	Vector3 CatmullRomSpline(std::vector<Vector3>& points, float t);
+
+	/// <summary>
+	/// 二つの値がほぼ等しいか
+	/// </summary>
+	bool Approximately(float a, float b);
+
+	/// <summary>
+	/// 値が大きい方を返す
+	/// </summary>
+	float Max(float a, float b);
 } // namespace MyMath
 
 Matrix4 operator*(const Matrix4& m1, const Matrix4& m2);
