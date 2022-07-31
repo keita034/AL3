@@ -7,8 +7,8 @@
 #include "Input.h"
 #include "Model.h"
 #include "ViewProjection.h"
-#include "WorldTransform.h"
 #include "WinApp.h"
+#include "WorldTransform.h"
 
 #include "MyMath.h"
 #include "PlayerBullet.h"
@@ -24,7 +24,8 @@ class Player {
 	/// <param name="model">モデル</param>
 	/// <param name="textureHandle">テクスチャハンドル</param>
 	void Initialize(
-	  Model* model, uint32_t textureHandle, WorldTransform* parent_, const Vector3& position);
+	  std::shared_ptr<Model> model, uint32_t textureHandle, WorldTransform* parent_,
+	  const Vector3& position);
 
 	/// <summary>
 	/// 更新
@@ -66,7 +67,7 @@ class Player {
 	WorldTransform worldTransform_;
 
 	//モデル
-	Model* model_ = nullptr;
+	std::shared_ptr<Model> model_;
 
 	//テクスチャハンドル
 	uint32_t texturehandle_ = 0u;
@@ -83,10 +84,10 @@ class Player {
 	//半径
 	const float radius_ = 1.0f;
 
-	//3Dレティクル用ワールドトランスフォーム
+	// 3Dレティクル用ワールドトランスフォーム
 	WorldTransform worldTransform3DReticle_;
 
-	//2Dレティクル用スプライト
+	// 2Dレティクル用スプライト
 	std::unique_ptr<Sprite> sprite2DReticle_;
 
 	/// <summary>
