@@ -13,7 +13,6 @@ GameScene::GameScene() {}
 
 GameScene::~GameScene() {
 	delete debugCamera_;
-	delete model_;
 }
 
 void GameScene::Initialize() {
@@ -29,7 +28,7 @@ void GameScene::Initialize() {
 	//レティクルのテクスチャ
 	TextureManager::Load("images/reticle.png");
 	// 3Dモデル生成
-	model_ = Model::Create();
+	model_.reset(Model::Create());
 
 	//ビュープロジェクションの初期化
 	viewProjection_.Initialize();

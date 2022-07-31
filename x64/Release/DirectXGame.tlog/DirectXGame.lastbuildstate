@@ -1,2 +1,2 @@
-PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.32.31326:TargetPlatformVersion=10.0.22000.0:VcpkgTriplet=x64-windows:
+PlatformToolSet=v143:VCToolArchitecture=Native64Bit:VCToolsVersion=14.32.31326:TargetPlatformVersion=10.0.22000.0:VcpkgTriplet=x64-windows-static:
 Release|x64|C:\課題用\KamataEngine\DirectXGame\|
