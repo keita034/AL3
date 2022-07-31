@@ -2,17 +2,16 @@
 #include "AxisIndicator.h"
 #include "PrimitiveDrawer.h"
 #include "TextureManager.h"
-
 #include <cassert>
-#include <fstream>
 #include <random>
-
-#include "Player.h"
 
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
+	delete model_;
 	delete debugCamera_;
+	delete sprite_;
+	delete sprite2_;
 }
 
 void GameScene::Initialize() {
@@ -24,51 +23,71 @@ void GameScene::Initialize() {
 
 	//ファイル名を指定してテクスチャを読み込む
 	textureHandle_ = TextureManager::Load("images/mario.jpg");
-	enemyTextureHandle_ = TextureManager::Load("images/enemy.jpg");
-	//レティクルのテクスチャ
-	TextureManager::Load("images/reticle.png");
-	// 3Dモデル生成
-	model_.reset(Model::Create());
+	textureHandleSprite_ = TextureManager::Load("images/reticle.png");
+	textureHandleSprite2_ = TextureManager::Load("images/scope.png");
 
-	//ビュープロジェクションの初期化
+	//スプライトの生成
+	sprite_ = Sprite::Create(textureHandleSprite_, {576, 296});
+	sprite2_ = Sprite::Create(textureHandleSprite2_, {0, 0});
+
+	// 3Dモデルの生成
+	model_ = Model::Create();
+
+	//乱数シード生成器
+	std::random_device seed_gen;
+	//メルセンヌ・ツイスターの乱数エンジン
+	std::mt19937_64 engine(seed_gen());
+	//回転角用の乱数範囲を設定
+	std::uniform_real_distribution<float> radian(0, 3.141592654);
+	//乱数エンジンを渡し、指定範囲からランダムな数値を得る
+	float matRotation = radian(engine);
+	//座標用の乱数範囲を設定
+	std::uniform_real_distribution<float> coordinate(-10, 10);
+	//乱数エンジンを渡し、指定範囲からランダムな数値を得る
+	float matTranslation = coordinate(engine);
+
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+
+			//ワールドトランスフォーム初期化
+			worldTransform_[i][j].Initialize();
+
+			// X,Y,Z方向のスケーリングを設定
+			worldTransform_[i][j].scale_ = {1.0f, 1.0f, 1.0f};
+			// X,Y,Z軸周りの回転角を設定
+			worldTransform_[i][j].rotation_ = {radian(engine), radian(engine), radian(engine)};
+			// X,Y,Z軸周りの平行移動(座標)を設定
+			worldTransform_[i][j].translation_ = {
+			  coordinate(engine), coordinate(engine), coordinate(engine)};
+
+			MyMath::AffineTransformation(worldTransform_[i][j]);
+		}
+	}
+
+	//ビュープロジェクション初期化
 	viewProjection_.Initialize();
 
-	//軸方向の表示を有効にする
+	//カメラ視点座標を設定
+	viewProjection_.eye = {0.0f, 0.0f, -50.0f};
+
+	//カメラ注視点座標を設定
+	viewProjection_.target = {0.0f, 0.0f, 0.0f};
+
+	//上方向ベクトルを指定
+	viewProjection_.up = {0.0f, 1.0f, 0.0f};
+
+	viewProjection_.fovAngleY = 3.141592654f / 2;
+
+	//デバッグカメラ生成
+	debugCamera_ = new DebugCamera(1280, 720);
+
+	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
-
-	//軸方向表示が参照するビュープロジェクションを指定する（アドレス渡し）
-	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
-
-	//デバッグカメラの生成
-	debugCamera_ = new DebugCamera(1200, 720);
-
-	//天球の生成
-	modelSkydome_ = std::make_unique<Skydome>();
-	//天球の初期化
-	modelSkydome_->Initialize();
-
-	//レールカメラの生成
-	railCamera_ = std::make_unique<RailCamera>();
-	//レールカメラの初期化
-	railCamera_->Initialize(Vector3(0.0f, 0.0f, -50.0f), Vector3(0.0f, 0.0f, 0.0f));
-
-	//自キャラの生成
-	player_ = std::make_unique<Player>();
-	//自キャラの初期化
-	player_->Initialize(
-	  model_, textureHandle_, railCamera_->GetWorldTransformPtr(), Vector3(0.0f, 0.0f, 30.0f));
-
-	LoadEnemyPopData("prams/EnemyScript.csv");
+	//軸方向表示が参照するビュープロジェクションを指定する(アドレス渡し)
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&debugCamera_->GetViewProjection());
 }
 
 void GameScene::Update() {
-
-	//レールカメラの更新
-	Vector3 move(0.0f, 0.0f, -0.00f);
-	Vector3 rot(0.0f, 0.0001f, 0.0f);
-	railCamera_->Update(move, rot);
-	viewProjection_ = railCamera_->GetViewProjection();
-
 	//デバッグ時のみ有効
 #ifdef _DEBUG
 	if (input_->TriggerKey(DIK_B)) {
@@ -78,7 +97,7 @@ void GameScene::Update() {
 			isDebugCameraActive_ = true;
 		}
 	}
-#endif // !_DEBUG
+#endif
 	if (isDebugCameraActive_) {
 		//デバッグカメラの更新
 		debugCamera_->Update();
@@ -90,29 +109,76 @@ void GameScene::Update() {
 		viewProjection_.TransferMatrix();
 	}
 
-	//自キャラの更新
-	player_->Update(viewProjection_);
-
-	//敵発生コマンド
-	UpdateEnemyPopCommands();
-
-	//デスフラグの立った弾を削除
-	enemys_.remove_if([](std::unique_ptr<Enemy>& enemy) { return enemy->IsDead(); });
-
-	//敵キャラの更新
-	for (const std::unique_ptr<Enemy>& enemy : enemys_) {
-		enemy->Update();
+	//注視点移動
+	if (input_->PushKey(DIK_LEFT)) {
+		viewProjection_.target.x -= 0.2f;
+	}
+	if (input_->PushKey(DIK_RIGHT)) {
+		viewProjection_.target.x += 0.2f;
+	}
+	if (input_->PushKey(DIK_UP)) {
+		viewProjection_.target.y += 0.2f;
+	}
+	if (input_->PushKey(DIK_DOWN)) {
+		viewProjection_.target.y -= 0.2f;
 	}
 
-	//デスフラグの立った弾を削除
-	enemyBullets_.remove_if([](std::unique_ptr<EnemyBullet>& bullet) { return bullet->IsDead(); });
-
-	//弾更新
-	for (std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
-		bullet->Update();
+	if (input_->TriggerKey(DIK_SPACE)) {
+		if (scopeFlag == true) {
+			scopeFlag = false;
+		} else {
+			scopeFlag = true;
+		}
 	}
 
-	CheckAllCollisions();
+	if (scopeFlag == true) {
+		if (input_->TriggerKey(DIK_W)) {
+			zoomFlag = true;
+		}
+		if (input_->TriggerKey(DIK_S)) {
+			zoomFlag = false;
+		}
+
+		if (zoomFlag == true) {
+			viewProjection_.fovAngleY -= 0.05f;
+		} else {
+			viewProjection_.fovAngleY += 0.05f;
+		}
+		if (viewProjection_.fovAngleY < 3.141592654f / 10.6f) {
+			viewProjection_.fovAngleY = 3.141592654f / 10.6f;
+		}
+		if (viewProjection_.fovAngleY > 3.141592654f / 5.398f) {
+			viewProjection_.fovAngleY = 3.141592654f / 5.398f;
+		}
+	} else {
+		viewProjection_.fovAngleY = 3.141592654f / 2; //初期値
+		zoomFlag = false;
+	}
+
+	//デバック表示
+	debugText_->SetPos(50, 50);
+	debugText_->Printf(
+	  "eye:(%f,%f,%f)", viewProjection_.eye.x, viewProjection_.eye.y, viewProjection_.eye.z);
+	debugText_->SetPos(50, 70);
+	debugText_->Printf(
+	  "target:(%f,%f,%f)", viewProjection_.target.x, viewProjection_.target.y,
+	  viewProjection_.target.z);
+	debugText_->SetPos(50, 90);
+	debugText_->Printf(
+	  "up:(%f,%f,%f)", viewProjection_.up.x, viewProjection_.up.y, viewProjection_.up.z);
+	debugText_->SetPos(50, 110);
+	debugText_->Printf("fovAngleY(Degree):%f", MyMath::ChangeRadi(viewProjection_.fovAngleY));
+	debugText_->SetPos(50, 130);
+	debugText_->Printf("nearZ:%f", viewProjection_.nearZ);
+	debugText_->SetPos(1000, 90);
+	if (scopeFlag == true) {
+		if (zoomFlag == false) {
+			debugText_->Printf("x4");
+		}
+		if (zoomFlag == true) {
+			debugText_->Printf("x8");
+		}
+	}
 }
 
 void GameScene::Draw() {
@@ -141,21 +207,11 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-
-	//天球の表示
-	modelSkydome_->Draw(viewProjection_);
-
-	//自キャラの表示
-	player_->Draw(viewProjection_);
-
-	//敵キャラの表示
-	for (const std::unique_ptr<Enemy>& enemy : enemys_) {
-		enemy->Draw(viewProjection_);
-	}
-
-	//敵キャラの弾表示
-	for (std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
-		bullet->Draw(viewProjection_);
+	// 3Dモデル描画
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			model_->Draw(worldTransform_[i][j], viewProjection_, textureHandle_);
+		}
 	}
 
 	// 3Dオブジェクト描画後処理
@@ -169,194 +225,16 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-	
-	player_->DrawUI();
+	if (scopeFlag == true) {
+		sprite_->Draw();
+		sprite2_->Draw();
+	}
 
 	// デバッグテキストの描画
 	debugText_->DrawAll(commandList);
-
+	//
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
 #pragma endregion
-}
-
-void GameScene::CheckAllCollisions() {
-	//判定対象AとBの座標
-	Vector3 posA, posB;
-
-	//自弾リストの取得
-	const std::list<std::unique_ptr<PlayerBullet>>& playerBullets = player_->GetBullet();
-
-#pragma region 自キャラと敵弾の当たり判定
-
-	//自キャラの座標
-	posA = player_->GetWorldPosition();
-
-	//自キャラと敵弾全ての当たり判定
-	for (const std::unique_ptr<EnemyBullet>& bullet : enemyBullets_) {
-		//敵弾の座標
-		posB = bullet->GetWorldPosition();
-
-		//座標AとBの距離を求める
-		float distance = MyMath::Vector3Length(MyMath::Vector3Sub(posA, posB));
-
-		//自キャラと敵弾の半径
-		float radius = player_->GetRadius() + bullet->GetRadius();
-
-		//自キャラと敵弾の交差判定
-		if (distance <= radius) {
-			//自キャラの衝突時コールバックを呼び出す
-			player_->OnCollision();
-			//敵弾の衝突時コールバックを呼び出す
-			bullet->OnCollision();
-		}
-	}
-
-#pragma endregion
-
-#pragma region 自弾と敵キャラの当たり判定
-
-	//敵キャラと自弾全ての当たり判定
-	for (const std::unique_ptr<Enemy>& enemy : enemys_) {
-		for (const std::unique_ptr<PlayerBullet>& bullet : playerBullets) {
-			//自弾の座標
-			posB = bullet->GetWorldPosition();
-			//敵のキャラの座標
-			posA = enemy->GetWorldPosition();
-
-			//座標AとBの距離を求める
-			float distance = MyMath::Vector3Length(MyMath::Vector3Sub(posA, posB));
-
-			//敵キャラと自弾の半径
-			float radius = enemy->GetRadius() + bullet->GetRadius();
-
-			//敵キャラと自弾の交差判定
-			if (distance <= radius) {
-				//敵キャラの衝突時コールバックを呼び出す
-				enemy->OnCollision();
-				//自弾の衝突時コールバックを呼び出す
-				bullet->OnCollision();
-			}
-		}
-	}
-#pragma endregion
-
-#pragma region 自弾と敵弾の当たり判定
-
-	//自弾と敵弾全ての当たり判定
-	for (const std::unique_ptr<PlayerBullet>& bulletA : playerBullets) {
-		for (const std::unique_ptr<EnemyBullet>& bulletB : enemyBullets_) {
-
-			//自弾の座標
-			posB = bulletA->GetWorldPosition();
-			//敵弾の座標
-			posA = bulletB->GetWorldPosition();
-
-			//座標AとBの距離を求める
-			float distance = MyMath::Vector3Length(MyMath::Vector3Sub(posA, posB));
-
-			//自弾と敵弾の半径
-			float radius = bulletB->GetRadius() + bulletA->GetRadius();
-
-			//自弾と敵弾の交差判定
-			if (distance <= radius) {
-				bulletB->OnCollision();
-				bulletA->OnCollision();
-			}
-		}
-	}
-#pragma endregion
-}
-
-void GameScene::AddEnemyBullet(std::unique_ptr<EnemyBullet>& enemyBullet) {
-	//リストに登録する
-	enemyBullets_.push_back(std::move(enemyBullet));
-}
-
-void GameScene::LoadEnemyPopData(const char* filepath) {
-	//ファイルを開く
-	std::ifstream file;
-	file.open(filepath);
-	assert(file.is_open());
-
-	//ファイルの内容を文字列ストリームにコピー
-	enemyPopCommands << file.rdbuf();
-
-	//ファイルを閉じる
-	file.close();
-}
-
-void GameScene::UpdateEnemyPopCommands() {
-
-	//待機処理
-	if (isStand_) {
-		StandTime_--;
-		if (StandTime_ <= 0) {
-			//待機完了
-			isStand_ = false;
-		}
-
-		return;
-	}
-
-	// 1行分の文字列を入れる変数
-	std::string line;
-
-	//コマンド実行ループ
-	while (std::getline(enemyPopCommands, line)) {
-		// 1行分の文字列をストリームに変換して解析しやすくなる
-		std::istringstream line_stream(line);
-
-		std::string word;
-		//半角スペース区切りで行の先頭文字列を取得
-		std::getline(line_stream, word, ',');
-
-		//"//"から始まる行コメント
-		if (word.find("//") == 0) {
-			//コメント行を飛ばす　
-			continue;
-		}
-
-		// POPコマンド
-		if (word.find("POP") == 0) {
-			// X座標
-			std::getline(line_stream, word, ',');
-			float x = static_cast<float>(std::atof(word.c_str()));
-
-			// Y座標
-			std::getline(line_stream, word, ',');
-			float y = static_cast<float>(std::atof(word.c_str()));
-
-			// Z座標
-			std::getline(line_stream, word, ',');
-			float z = static_cast<float>(std::atof(word.c_str()));
-
-			//敵キャラの生成
-			std::unique_ptr<Enemy> newEnemy = std::make_unique<Enemy>();
-			//敵キャラの初期化
-			newEnemy->Initialize(model_, enemyTextureHandle_, Vector3(x, y, z));
-
-			//敵キャラにアドレスを渡す
-			newEnemy->SetPlayer(player_.get());
-			newEnemy->SetGameScene(this);
-
-			//リストに登録する
-			enemys_.push_back(std::move(newEnemy));
-		}
-		// WAITコマンド
-		else if (word.find("WAIT") == 0) {
-			std::getline(line_stream, word, ',');
-
-			//待ち時間
-			int32_t waitTime = std::atoi(word.c_str());
-
-			//待機開始
-			isStand_ = true;
-			StandTime_ = waitTime;
-
-			//ループを抜ける
-			break;
-		}
-	}
 }
